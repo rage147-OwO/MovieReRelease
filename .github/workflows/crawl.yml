@@ -3,6 +3,7 @@ name: crawl
 on:
   schedule:
     - cron: "0 21 * * *" # 매일 06:00 KST
+    - cron: "*/20 * * * *" # 임시: cron 트리거 동작 테스트용 — 확인 후 제거할 것
   workflow_dispatch:
   push:
     branches: [main]
