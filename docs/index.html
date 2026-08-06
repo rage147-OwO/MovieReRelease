@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>재개봉 레이더</title>
+<meta name="description" content="지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 모아 보여줍니다.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <h1><span class="logo">🎬</span> 재개봉 레이더</h1>
+    <p class="tagline">지금 극장에서 다시 만나는 영화들</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="controls">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="now" role="tab" aria-selected="true">상영 중</button>
+      <button class="tab" data-tab="upcoming" role="tab" aria-selected="false">개봉 예정</button>
+    </div>
+    <label class="toggle">
+      <input type="checkbox" id="only-rerelease" checked>
+      <span class="track" aria-hidden="true"></span>
+      <span>재개봉만 보기</span>
+    </label>
+  </nav>
+
+  <p id="stats" class="stats"></p>
+  <section id="grid" class="grid" aria-live="polite"></section>
+  <p id="empty" class="empty" hidden>표시할 영화가 없어요.</p>
+  <p id="error" class="empty" hidden>데이터를 불러오지 못했어요. 잠시 후 다시 시도해 주세요.</p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span id="updated"></span>
+    <span>데이터: 네이버 영화 검색 · KOBIS 영화진흥위원회</span>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
