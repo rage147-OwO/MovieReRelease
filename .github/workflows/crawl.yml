@@ -45,15 +45,20 @@ jobs:
           git diff --cached --quiet || git commit -m "data: update movies ($(date +%F))"
           git push
 
+      # 아래 3단계는 저장소가 public(또는 유료 플랜)이어야 성공한다.
+      # 그 전까지는 실패해도 크롤 자체는 성공으로 유지 (continue-on-error)
       - name: Configure Pages
+        continue-on-error: true
         uses: actions/configure-pages@v4
         with:
           enablement: true
 
-      - uses: actions/upload-pages-artifact@v3
+      - continue-on-error: true
+        uses: actions/upload-pages-artifact@v3
         with:
           path: docs
 
       - name: Deploy to GitHub Pages
+        continue-on-error: true
         id: deployment
         uses: actions/deploy-pages@v4
