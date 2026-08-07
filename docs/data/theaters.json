@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-08T06:29:28+09:00",
+  "generated_at": "2026-08-08T07:06:03+09:00",
   "theaters": [
     {
       "id": "12272750",
@@ -1164,6 +1164,22 @@
     {
       "id": "31833827",
       "name": "롯데시네마 가산디지털",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37064380",
+      "name": "롯데시네마 광교",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "11622504",
+      "name": "아리랑시네센터",
       "address": null,
       "lat": null,
       "lon": null,
