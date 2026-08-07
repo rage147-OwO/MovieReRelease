@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- GitHub Pages는 커스텀 HTTP 캐시 헤더를 설정할 방법이 없다 — HTML 자체가
+     오래 캐싱되면 app.js/style.css 캐시버스팅(?v=...)도 무용지물이라(예전
+     HTML이 여전히 예전 쿼리를 가리킴), meta 태그로나마 캐싱을 최대한 막는다. -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>재개봉 알리미</title>
 <meta name="description" content="지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 모아 보여주고, 새 재개봉작을 알려줍니다.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
