@@ -19,11 +19,13 @@ from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import kobis, naver, notify, theaters
+from . import feed, kobis, naver, notify, theaters
 
 ROOT = Path(__file__).resolve().parent.parent
 MOVIES_OUTPUT = ROOT / "docs" / "data" / "movies.json"
 THEATERS_OUTPUT = ROOT / "docs" / "data" / "theaters.json"
+RERELEASE_LOG_OUTPUT = ROOT / "docs" / "data" / "rerelease_log.json"
+FEED_OUTPUT = ROOT / "docs" / "feed.xml"
 KST = timezone(timedelta(hours=9))
 
 
@@ -179,6 +181,9 @@ def main() -> None:
         notify.notify_new_rereleases(new_rereleases)
     else:
         print("신규 재개봉작 없음")
+
+    now = datetime.now(KST)
+    feed.update_log_and_feed(RERELEASE_LOG_OUTPUT, FEED_OUTPUT, new_rereleases, now)
 
     movies_payload = {
         "generated_at": datetime.now(KST).isoformat(timespec="seconds"),

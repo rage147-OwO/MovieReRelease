@@ -39,21 +39,24 @@ jobs:
         run: python -m crawler.main
 
       - name: Commit updated data
-        # docs/data/*.json은 매번 전량 재생성되는 산출물이라 병합 대상이 아니다.
+        # docs/data/*.json, docs/feed.xml은 매번 전량 재생성되는 산출물이라 병합 대상이 아니다.
         # (workflow re-run은 최신 main이 아닌 원래 트리거 커밋을 체크아웃하므로
         #  rebase/merge 시도는 실제 내용 충돌을 일으킬 수 있다 — 항상 최신 main 위에 덮어쓴다.)
-        # docs/data/ 디렉토리 전체를 백업/복원해야 한다 — movies.json만 복원하면
-        # reset --hard로 되돌아간 theaters.json이 영영 갱신되지 않는 채로 남는다.
+        # 전부 백업/복원해야 한다 — 일부만 복원하면 reset --hard로 되돌아간
+        # 나머지가 영영 갱신되지 않는 채로 남는다. 새 산출물이 생기면 여기도 추가할 것.
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           rm -rf /tmp/data-backup
-          cp -r docs/data /tmp/data-backup
+          mkdir -p /tmp/data-backup
+          cp -r docs/data /tmp/data-backup/data
+          cp docs/feed.xml /tmp/data-backup/feed.xml
           git fetch origin main
           git reset --hard origin/main
           rm -rf docs/data
-          cp -r /tmp/data-backup docs/data
-          git add docs/data
+          cp -r /tmp/data-backup/data docs/data
+          cp /tmp/data-backup/feed.xml docs/feed.xml
+          git add docs/data docs/feed.xml
           git diff --cached --quiet || git commit -m "data: update movies ($(date +%F))"
           git push origin HEAD:main
 

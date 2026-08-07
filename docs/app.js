@@ -67,6 +67,18 @@ async function init() {
     if (e.target === $notifyBackdrop) closeNotifyModal();
   });
 
+  document.getElementById("copy-feed-url").addEventListener("click", async (e) => {
+    const text = document.getElementById("feed-url-text").textContent;
+    const btn = e.currentTarget;
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = "복사됨!";
+    } catch {
+      btn.textContent = "복사 실패";
+    }
+    setTimeout(() => (btn.textContent = "복사"), 1500);
+  });
+
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
     if (!$modalBackdrop.hidden) closeModal();
