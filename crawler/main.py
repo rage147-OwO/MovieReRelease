@@ -2,7 +2,8 @@
 """크롤 실행 진입점.
 
 네이버 상영작/개봉예정 수집 → 재개봉작만 KOBIS로 원개봉일 보강 →
-지역 극장 상영작과 교차매칭 → docs/data/movies.json, theaters.json 생성.
+지역 극장 상영작과 교차매칭 → 신규 재개봉작 Discord 알림 →
+docs/data/movies.json, theaters.json 생성.
 KOBIS 키가 없거나 조회에 실패하면 이전 크롤 결과의 보강값을 승계한다.
 
 사용법:
@@ -18,7 +19,7 @@ from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import kobis, naver, theaters
+from . import kobis, naver, notify, theaters
 
 ROOT = Path(__file__).resolve().parent.parent
 MOVIES_OUTPUT = ROOT / "docs" / "data" / "movies.json"
@@ -96,6 +97,23 @@ def _load_previous_enrichment(path: Path) -> dict[str, dict]:
     return result
 
 
+def _load_previous_rerelease_ids(path: Path) -> set[str]:
+    """이전 movies.json 에서 재개봉으로 표시됐던 영화의 naver_os 집합.
+    새 movies.json 을 쓰기 전에 반드시 먼저 호출해야 한다."""
+    if not path.exists():
+        return set()
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return set()
+    ids: set[str] = set()
+    for section in ("now_playing", "upcoming"):
+        for m in data.get(section, []):
+            if m.get("is_rerelease") and m.get("naver_os"):
+                ids.add(m["naver_os"])
+    return ids
+
+
 def _enrich(rereleases: list[naver.Movie]) -> None:
     previous = _load_previous_enrichment(MOVIES_OUTPUT)
     has_key = bool(os.getenv("KOBIS_API_KEY"))
@@ -128,6 +146,7 @@ def main() -> None:
     except Exception:
         pass
     _load_dotenv(ROOT / ".env")
+    previous_rerelease_ids = _load_previous_rerelease_ids(MOVIES_OUTPUT)  # 덮어쓰기 전에 미리 읽어둔다
 
     print("네이버에서 영화 목록 수집 중...")
     now_playing = naver.get_now_playing()
@@ -151,6 +170,13 @@ def main() -> None:
     extra_matches, new_theater_count = _enrich_rerelease_theaters(now_rereleases, theater_by_id)
     print(f"  추가 매칭 {extra_matches}건 / 지역 시딩에 없던 극장 {new_theater_count}곳 신규 등록")
     theater_list = list(theater_by_id.values())
+
+    new_rereleases = [m for m in rereleases if m.naver_os and m.naver_os not in previous_rerelease_ids]
+    if new_rereleases:
+        print(f"신규 재개봉작 {len(new_rereleases)}편 감지: {', '.join(m.title for m in new_rereleases)}")
+        notify.notify_new_rereleases(new_rereleases)
+    else:
+        print("신규 재개봉작 없음")
 
     movies_payload = {
         "generated_at": datetime.now(KST).isoformat(timespec="seconds"),

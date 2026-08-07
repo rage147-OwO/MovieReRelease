@@ -35,6 +35,7 @@ jobs:
       - name: Crawl movies
         env:
           KOBIS_API_KEY: ${{ secrets.KOBIS_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python -m crawler.main
 
       - name: Commit updated data
