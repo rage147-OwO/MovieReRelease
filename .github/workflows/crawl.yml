@@ -3,7 +3,6 @@ name: crawl
 on:
   schedule:
     - cron: "0 21 * * *" # 매일 06:00 KST
-    - cron: "*/20 * * * *" # 임시: cron 트리거 동작 테스트용 — 확인 후 제거할 것
   workflow_dispatch:
   push:
     branches: [main]
@@ -39,12 +38,18 @@ jobs:
         run: python -m crawler.main
 
       - name: Commit updated data
+        # movies.json은 매번 전량 재생성되는 산출물이라 병합 대상이 아니다.
+        # (workflow re-run은 최신 main이 아닌 원래 트리거 커밋을 체크아웃하므로
+        #  rebase/merge 시도는 실제 내용 충돌을 일으킬 수 있다 — 항상 최신 main 위에 덮어쓴다.)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp docs/data/movies.json /tmp/movies.json
+          git fetch origin main
+          git reset --hard origin/main
+          cp /tmp/movies.json docs/data/movies.json
           git add docs/data/movies.json
           git diff --cached --quiet || git commit -m "data: update movies ($(date +%F))"
-          git pull --rebase origin main
           git push origin HEAD:main
 
       # 아래 3단계는 저장소가 public(또는 유료 플랜)이어야 성공한다.
