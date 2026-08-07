@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
-"""네이버 검색의 Place 위젯에서 극장 위치와 당일 상영작을 파싱.
+"""네이버 검색의 Place/영화 위젯에서 극장 위치와 상영작을 파싱.
 
-두 가지 위젯을 쓴다:
+세 가지 소스를 쓴다:
   - "{지역} 영화관" 검색 → PlaceListBusinessesItem 목록 (이름·주소·좌표)
   - "{극장명} 영화시간표" 검색 → movieTimes(...) 배열 (당일 상영작 이름)
+    → CGV는 잘 잡히지만 롯데시네마·메가박스 상당수 지점은 이 위젯 자체가 없다.
+  - "영화 {제목} 상영일정" 검색 → movieCode 추출 → MovieAPIforScheduleListKB API
+    → 영화 하나가 전국 어느 극장에서 상영 중인지 정확히 알려준다(체인 무관).
+    지역 시딩 없이도 동작해 재개봉작처럼 소수 상영관에서만 트는 영화에 특히 유용.
+    단, 극장 좌표는 안 준다 — 지역 시딩 극장(위 첫 번째 소스)과 이름이 겹치면
+    좌표를 재사용하고, 안 겹치면 좌표 없이 이름만 등록한다.
 
-둘 다 페이지에 <script>로 내장된 JSON을 정규식+괄호매칭으로 뽑아낸다.
-공식 API가 아니라 페이지 구조가 바뀌면 깨질 수 있다 — 항목이 0개면 조용히 건너뛴다.
+전부 페이지에 <script>로 내장된 JSON을 정규식+괄호매칭으로 뽑아낸다.
+공식 문서화된 API가 아니라 페이지 구조가 바뀌면 깨질 수 있다 — 항목이 0개면 조용히 건너뛴다.
 """
 from __future__ import annotations
 
@@ -17,10 +23,12 @@ import time
 from dataclasses import dataclass, field
 
 import requests
+from bs4 import BeautifulSoup
 
 from .naver import HEADERS
 
 SEARCH_URL = "https://search.naver.com/search.naver"
+SCHEDULE_API_URL = "https://ts-proxy.naver.com/dcontent/nqapirender.nhn"
 
 # 검색 시딩 지역 — 서울 주요 상권 + 재개봉이 잦은 예술영화관 밀집 지역.
 # 새 지역을 늘리려면 "{지역명} 영화관" 형태로 추가하면 된다.
@@ -120,6 +128,53 @@ def get_now_showing(theater_name: str) -> list[str]:
             seen.add(name)
             names.append(name)
     return names
+
+
+def get_schedule_theaters(title: str) -> list[tuple[str, str]]:
+    """영화 제목으로 전국 상영관 (place_id, 극장명) 목록을 얻는다.
+
+    "영화 {title} 상영일정" 검색 페이지에 내장된 movieCode(u2)를 먼저 뽑고,
+    그 코드로 네이버 자체 스케줄 API(MovieAPIforScheduleListKB)를 호출한다.
+    지역/체인에 상관없이 그 영화가 실제로 걸린 극장만 정확히 나온다.
+    """
+    text = _fetch(f"영화 {title} 상영일정")
+    code_match = re.search(r'"u9":\s*"[^"]*",\s*"u2":\s*"(\d+)"', text)
+    if not code_match:
+        return []
+    movie_code = code_match.group(1)
+
+    try:
+        res = requests.get(
+            SCHEDULE_API_URL,
+            params={
+                "where": "nexearch",
+                "pkid": "68",
+                "key": "MovieAPIforScheduleListKB",
+                "u2": movie_code,
+                "u9": f"영화 {title}",
+            },
+            headers=HEADERS,
+            timeout=15,
+        )
+        res.raise_for_status()
+        data = res.json()
+    except (requests.RequestException, ValueError):
+        return []
+
+    results: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    for item in data.get("items", []):
+        soup = BeautifulSoup(item.get("html", ""), "html.parser")
+        for a in soup.select("a.this_link_place"):
+            place_match = re.search(r"place/(\d+)", a.get("href") or "")
+            if not place_match:
+                continue
+            pid = place_match.group(1)
+            if pid in seen:
+                continue
+            seen.add(pid)
+            results.append((pid, a.get_text(strip=True)))
+    return results
 
 
 def _fetch(query: str, retries: int = 2) -> str:

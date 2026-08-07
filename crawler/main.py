@@ -52,6 +52,30 @@ def _match_theaters(now_playing: list[naver.Movie], theater_list: list[theaters.
     return matches
 
 
+def _enrich_rerelease_theaters(
+    rereleases: list[naver.Movie], theater_by_id: dict[str, theaters.Theater]
+) -> tuple[int, int]:
+    """재개봉작만 영화 중심 스케줄 API(get_schedule_theaters)로 전국 상영관을 보강한다.
+
+    지역 시딩(_match_theaters)은 CGV 위주로만 잡히므로, 재개봉작처럼 상영관이
+    적고 정확도가 중요한 영화에 한해 체인·지역 무관하게 정밀 조회한다.
+    시딩에 없던 극장은 좌표 없이 이름만 등록(목록엔 나오되 지도 마커는 생략).
+    반환값: (추가 매칭 건수, 새로 등록된 극장 수)
+    """
+    extra_matches = 0
+    new_theaters = 0
+    for movie in rereleases:
+        for pid, name in theaters.get_schedule_theaters(movie.title):
+            if pid not in theater_by_id:
+                theater_by_id[pid] = theaters.Theater(id=pid, name=name, address=None, lat=None, lon=None)
+                new_theaters += 1
+            if pid not in movie.theaters:
+                movie.theaters.append(pid)
+                extra_matches += 1
+        theaters._throttle()
+    return extra_matches, new_theaters
+
+
 def _load_previous_enrichment(path: Path) -> dict[str, dict]:
     """이전 movies.json 에서 title → KOBIS 보강값 맵을 만든다."""
     if not path.exists():
@@ -117,9 +141,16 @@ def main() -> None:
 
     print("지역 극장 상영정보 수집 중 (시간이 좀 걸립니다)...")
     theater_list = theaters.build_theater_directory()
+    theater_by_id = {t.id: t for t in theater_list}
     matches = _match_theaters(now_playing, theater_list)
     with_showtime = sum(1 for t in theater_list if t.now_showing)
     print(f"  극장 {len(theater_list)}곳 (상영정보 확인됨 {with_showtime}곳) / 영화-극장 매칭 {matches}건")
+
+    now_rereleases = [m for m in now_playing if m.is_rerelease]
+    print(f"재개봉작 {len(now_rereleases)}편 — 전국 상영관 정밀 조회 중...")
+    extra_matches, new_theater_count = _enrich_rerelease_theaters(now_rereleases, theater_by_id)
+    print(f"  추가 매칭 {extra_matches}건 / 지역 시딩에 없던 극장 {new_theater_count}곳 신규 등록")
+    theater_list = list(theater_by_id.values())
 
     movies_payload = {
         "generated_at": datetime.now(KST).isoformat(timespec="seconds"),
@@ -131,6 +162,8 @@ def main() -> None:
 
     theaters_payload = {
         "generated_at": datetime.now(KST).isoformat(timespec="seconds"),
+        # 좌표 없는 극장도 포함한다 — 지도 마커는 못 찍어도 "이 극장에서 상영 중"이라는
+        # 사실 자체는 유효한 정보라 목록에는 표시한다 (프론트에서 lat/lon null 처리).
         "theaters": [
             {
                 "id": t.id,
@@ -141,7 +174,6 @@ def main() -> None:
                 "phone": t.phone,
             }
             for t in theater_list
-            if t.lat and t.lon
         ],
     }
     THEATERS_OUTPUT.write_text(json.dumps(theaters_payload, ensure_ascii=False, indent=2), encoding="utf-8")

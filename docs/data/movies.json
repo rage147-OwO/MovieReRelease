@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-08T01:54:40+09:00",
+  "generated_at": "2026-08-08T02:14:22+09:00",
   "now_playing": [
     {
       "title": "오디세이",
@@ -17,12 +17,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "12272750",
-        "35657603",
-        "12125217",
-        "30927164"
-      ]
+      "theaters": []
     },
     {
       "title": "사랑의 하츄핑: 고래보석의 전설",
@@ -40,9 +35,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "30927164"
-      ]
+      "theaters": []
     },
     {
       "title": "스파이더맨: 브랜드 뉴 데이",
@@ -60,12 +53,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "12272750",
-        "35657603",
-        "12125217",
-        "30927164"
-      ]
+      "theaters": []
     },
     {
       "title": "호프",
@@ -75,7 +63,7 @@
       "release_raw": "2026.07.15.",
       "release_date": "2026-07-15",
       "is_rerelease": false,
-      "rating": "7.37",
+      "rating": "7.36",
       "cast": "황정민, 조인성, 정호연, 테일러 러셀, 카메론 브리튼, 알리시아 비칸데르",
       "dday": null,
       "naver_os": "37333029",
@@ -83,12 +71,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "12272750",
-        "35657603",
-        "12125217",
-        "30927164"
-      ]
+      "theaters": []
     },
     {
       "title": "미니언즈 & 몬스터즈",
@@ -160,9 +143,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "12272750"
-      ]
+      "theaters": []
     },
     {
       "title": "어떻게 해야 했을까?",
@@ -180,10 +161,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "30927164",
-        "1124975960"
-      ]
+      "theaters": []
     },
     {
       "title": "지느러미",
@@ -201,10 +179,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "30927164",
-        "1124975960"
-      ]
+      "theaters": []
     },
     {
       "title": "산양들",
@@ -222,9 +197,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "1124975960"
-      ]
+      "theaters": []
     },
     {
       "title": "눈동자",
@@ -260,10 +233,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "30927164",
-        "1124975960"
-      ]
+      "theaters": []
     },
     {
       "title": "지구 최후의 여자",
@@ -281,9 +251,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "1124975960"
-      ]
+      "theaters": []
     },
     {
       "title": "마티 슈프림",
@@ -301,9 +269,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "30927164"
-      ]
+      "theaters": []
     },
     {
       "title": "지난 여름",
@@ -375,9 +341,7 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": [
-        "30927164"
-      ]
+      "theaters": []
     },
     {
       "title": "소영의 노력",
@@ -414,7 +378,17 @@
       "original_open_date": null,
       "prdt_year": null,
       "theaters": [
-        "30927164"
+        "12125218",
+        "1396259461",
+        "1156408497",
+        "12035642",
+        "35069862",
+        "1232809531",
+        "12124678",
+        "32692398",
+        "1216708384",
+        "1783383862",
+        "12298207"
       ]
     },
     {
@@ -538,11 +512,17 @@
       "dday": null,
       "naver_os": "1764528",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1764528&qvt=0&query=%ED%81%90%EC%96%B4",
-      "kobis_code": "19978805",
-      "original_open_date": "2022-07-06",
-      "prdt_year": "1997",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
       "theaters": [
-        "30927164"
+        "12125218",
+        "12298207",
+        "32692398",
+        "12165843",
+        "12124678",
+        "1216708384",
+        "12129411"
       ]
     },
     {
@@ -612,11 +592,13 @@
       "dday": null,
       "naver_os": "3183156",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=3183156&qvt=0&query=%EC%8B%B1%20%EC%8A%A4%ED%8A%B8%EB%A6%AC%ED%8A%B8",
-      "kobis_code": "20163018",
-      "original_open_date": "2016-05-19",
-      "prdt_year": "2016",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
       "theaters": [
-        "30927164"
+        "1361168366",
+        "34635294",
+        "1156408497"
       ]
     },
     {
@@ -686,11 +668,13 @@
       "dday": null,
       "naver_os": "35103364",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=35103364&qvt=0&query=%EC%98%81%ED%99%94%20%ED%95%B4%ED%94%BC%EC%97%94%EB%93%9C",
-      "kobis_code": "20246318",
-      "original_open_date": "2025-04-30",
-      "prdt_year": "2024",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
       "theaters": [
-        "30927164"
+        "1023765419",
+        "34635294",
+        "12035642"
       ]
     },
     {
@@ -724,10 +708,14 @@
       "dday": null,
       "naver_os": "1797198",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1797198&qvt=0&query=%ED%9B%8C%EB%9D%BC%20%EA%B1%B8%EC%8A%A4",
-      "kobis_code": "20070035",
-      "original_open_date": "2007-03-01",
-      "prdt_year": "2006",
-      "theaters": []
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": [
+        "35966761",
+        "12035642",
+        "37842043"
+      ]
     },
     {
       "title": "현재를 위하여",
@@ -778,10 +766,14 @@
       "dday": null,
       "naver_os": "1751303",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1751303&qvt=0&query=%EC%98%81%ED%99%94%20%ED%94%BC%EC%95%84%EB%85%B8",
-      "kobis_code": "19930225",
-      "original_open_date": "1993-09-25",
-      "prdt_year": "1993",
-      "theaters": []
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": [
+        "13182210",
+        "13112714",
+        "12035642"
+      ]
     },
     {
       "title": "비긴 어게인",
@@ -796,10 +788,13 @@
       "dday": null,
       "naver_os": "1829626",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1829626&qvt=0&query=%EC%98%81%ED%99%94%20%EB%B9%84%EA%B8%B4%20%EC%96%B4%EA%B2%8C%EC%9D%B8",
-      "kobis_code": "20149629",
-      "original_open_date": "2014-08-13",
-      "prdt_year": "2013",
-      "theaters": []
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": [
+        "32970590",
+        "34635294"
+      ]
     },
     {
       "title": "가능주의자",
@@ -856,24 +851,6 @@
       "theaters": []
     },
     {
-      "title": "극장판 도라에몽: 신 진구의 해저비밀성",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260701_60%2F1782880689685LGkLk_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "애니메이션",
-      "runtime": "101분",
-      "release_raw": "2026.07.01.",
-      "release_date": "2026-07-01",
-      "is_rerelease": false,
-      "rating": "8.27",
-      "cast": "윤아영, 김정아, 조현정, 이현주, 최낙윤",
-      "dday": null,
-      "naver_os": "41333368",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41333368&qvt=0&query=%EA%B7%B9%EC%9E%A5%ED%8C%90%20%EB%8F%84%EB%9D%BC%EC%97%90%EB%AA%BD%20%EC%8B%A0%20%EC%A7%84%EA%B5%AC%EC%9D%98%20%ED%95%B4%EC%A0%80%EB%B9%84%EB%B0%80%EC%84%B1",
-      "kobis_code": null,
-      "original_open_date": null,
-      "prdt_year": null,
-      "theaters": []
-    },
-    {
       "title": "퍼시픽션",
       "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260616_160%2F1781587812363e9lVL_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
       "genre": "드라마",
@@ -886,6 +863,24 @@
       "dday": null,
       "naver_os": "26305016",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=26305016&qvt=0&query=%ED%8D%BC%EC%8B%9C%ED%94%BD%EC%85%98",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": []
+    },
+    {
+      "title": "극장판 도라에몽: 신 진구의 해저비밀성",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260701_60%2F1782880689685LGkLk_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "애니메이션",
+      "runtime": "101분",
+      "release_raw": "2026.07.01.",
+      "release_date": "2026-07-01",
+      "is_rerelease": false,
+      "rating": "8.27",
+      "cast": "윤아영, 김정아, 조현정, 이현주, 최낙윤",
+      "dday": null,
+      "naver_os": "41333368",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41333368&qvt=0&query=%EA%B7%B9%EC%9E%A5%ED%8C%90%20%EB%8F%84%EB%9D%BC%EC%97%90%EB%AA%BD%20%EC%8B%A0%20%EC%A7%84%EA%B5%AC%EC%9D%98%20%ED%95%B4%EC%A0%80%EB%B9%84%EB%B0%80%EC%84%B1",
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
@@ -925,7 +920,9 @@
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
-      "theaters": []
+      "theaters": [
+        "37842043"
+      ]
     },
     {
       "title": "투모로우바이투게더 브이알 콘서트 : 엔드리스 라이드",
@@ -1086,9 +1083,9 @@
       "dday": "D-4",
       "naver_os": "1757504",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1757504&qvt=0&query=%EC%95%A0%EC%A0%95%EB%A7%8C%EC%84%B8",
-      "kobis_code": "20110734",
-      "original_open_date": "2011-06-09",
-      "prdt_year": "2011",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
       "theaters": []
     },
     {
@@ -1122,9 +1119,9 @@
       "dday": "D-4",
       "naver_os": "1775451",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1775451&qvt=0&query=%EB%AA%BD%EC%83%81%EA%B0%80%EB%93%A4",
-      "kobis_code": "20050009",
-      "original_open_date": "2005-03-25",
-      "prdt_year": "2003",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
       "theaters": []
     },
     {
@@ -1230,9 +1227,9 @@
       "dday": "D-11",
       "naver_os": "1806951",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1806951&qvt=0&query=%EC%98%81%ED%99%94%20%EB%A7%88%EB%A3%A8%20%EB%B0%91%20%EC%95%84%EB%A6%AC%EC%97%90%ED%8B%B0",
-      "kobis_code": "20100810",
-      "original_open_date": "2010-09-09",
-      "prdt_year": "2010",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
       "theaters": []
     },
     {
@@ -1248,6 +1245,42 @@
       "dday": "D-11",
       "naver_os": "1750994",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1750994&qvt=0&query=%EC%9C%84%EC%BB%A4%20%EB%A7%A8%20%ED%8C%8C%EC%9D%B4%EB%84%90%20%EC%BB%B7",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": []
+    },
+    {
+      "title": "리틀 드리머즈",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260721_267%2F1784616375155CwVqI_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "드라마",
+      "runtime": "96분",
+      "release_raw": "2026.08.19.",
+      "release_date": "2026-08-19",
+      "is_rerelease": false,
+      "rating": null,
+      "cast": "유희제, 김세원, 김예은, 지수연, 방태원, 이하랑",
+      "dday": "D-11",
+      "naver_os": "41657591",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41657591&qvt=0&query=%EB%A6%AC%ED%8B%80%20%EB%93%9C%EB%A6%AC%EB%A8%B8%EC%A6%88",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": []
+    },
+    {
+      "title": "길 위의 뭉치",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260730_174%2F1785398598815x8phU_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "애니메이션",
+      "runtime": "94분",
+      "release_raw": "2026.08.19.",
+      "release_date": "2026-08-19",
+      "is_rerelease": false,
+      "rating": null,
+      "cast": "도경수, 박소담, 박철민, 강석, 이준혁",
+      "dday": "D-11",
+      "naver_os": "37070978",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=37070978&qvt=0&query=%EA%B8%B8%20%EC%9C%84%EC%9D%98%20%EB%AD%89%EC%B9%98",
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
@@ -1284,42 +1317,6 @@
       "dday": "D-11",
       "naver_os": "36219257",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=36219257&qvt=0&query=%EC%98%81%ED%99%94%20%EC%88%98%EB%A0%A8",
-      "kobis_code": null,
-      "original_open_date": null,
-      "prdt_year": null,
-      "theaters": []
-    },
-    {
-      "title": "길 위의 뭉치",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260730_174%2F1785398598815x8phU_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "애니메이션",
-      "runtime": "94분",
-      "release_raw": "2026.08.19.",
-      "release_date": "2026-08-19",
-      "is_rerelease": false,
-      "rating": null,
-      "cast": "도경수, 박소담, 박철민, 강석, 이준혁",
-      "dday": "D-11",
-      "naver_os": "37070978",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=37070978&qvt=0&query=%EA%B8%B8%20%EC%9C%84%EC%9D%98%20%EB%AD%89%EC%B9%98",
-      "kobis_code": null,
-      "original_open_date": null,
-      "prdt_year": null,
-      "theaters": []
-    },
-    {
-      "title": "리틀 드리머즈",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260721_267%2F1784616375155CwVqI_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "드라마",
-      "runtime": "96분",
-      "release_raw": "2026.08.19.",
-      "release_date": "2026-08-19",
-      "is_rerelease": false,
-      "rating": null,
-      "cast": "유희제, 김세원, 김예은, 지수연, 방태원, 이하랑",
-      "dday": "D-11",
-      "naver_os": "41657591",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41657591&qvt=0&query=%EB%A6%AC%ED%8B%80%20%EB%93%9C%EB%A6%AC%EB%A8%B8%EC%A6%88",
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
@@ -1434,24 +1431,6 @@
       "theaters": []
     },
     {
-      "title": "극장판 귀멸의 칼날: 무한성편",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20250822_188%2F1755830748444J7mqt_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "애니메이션",
-      "runtime": "155분",
-      "release_raw": "2026.08.26.",
-      "release_date": "2026-08-26",
-      "is_rerelease": true,
-      "rating": "8.90",
-      "cast": "하나에 나츠키, 키토 아카리, 시모노 히로, 마츠오카 요시츠구, 우에다 레이나, 오카모토 노부히코",
-      "dday": "D-18",
-      "naver_os": "36591226",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=36591226&qvt=0&query=%EA%B7%B9%EC%9E%A5%ED%8C%90%20%EA%B7%80%EB%A9%B8%EC%9D%98%20%EC%B9%BC%EB%82%A0%20%EB%AC%B4%ED%95%9C%EC%84%B1%ED%8E%B8",
-      "kobis_code": "20253289",
-      "original_open_date": "2025-08-22",
-      "prdt_year": "2025",
-      "theaters": []
-    },
-    {
       "title": "터치드 콘서트 [하이라이트 포] : 더 무비",
       "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260731_216%2F1785481703694oHlrg_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
       "genre": "공연실황",
@@ -1482,9 +1461,27 @@
       "dday": "D-18",
       "naver_os": "6214989",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=6214989&qvt=0&query=%EC%98%81%ED%99%94%20%EB%8D%B8%EB%A7%88",
-      "kobis_code": "20187660",
-      "original_open_date": "2018-08-15",
-      "prdt_year": "2017",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": []
+    },
+    {
+      "title": "극장판 귀멸의 칼날: 무한성편",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20250822_188%2F1755830748444J7mqt_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "애니메이션",
+      "runtime": "155분",
+      "release_raw": "2026.08.26.",
+      "release_date": "2026-08-26",
+      "is_rerelease": true,
+      "rating": "8.90",
+      "cast": "하나에 나츠키, 키토 아카리, 시모노 히로, 마츠오카 요시츠구, 우에다 레이나, 오카모토 노부히코",
+      "dday": "D-18",
+      "naver_os": "36591226",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=36591226&qvt=0&query=%EA%B7%B9%EC%9E%A5%ED%8C%90%20%EA%B7%80%EB%A9%B8%EC%9D%98%20%EC%B9%BC%EB%82%A0%20%EB%AC%B4%ED%95%9C%EC%84%B1%ED%8E%B8",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
       "theaters": []
     },
     {
@@ -1518,9 +1515,9 @@
       "dday": "D-18",
       "naver_os": "1820848",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1820848&qvt=0&query=%ED%8C%8C%EB%9D%BC%EB%85%B8%EB%A7%8C",
-      "kobis_code": "20113917",
-      "original_open_date": "2013-02-07",
-      "prdt_year": "2012",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
       "theaters": []
     },
     {
@@ -1650,42 +1647,6 @@
       "theaters": []
     },
     {
-      "title": "인 더 그레이",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260804_4%2F1785824716470UST78_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "액션",
-      "runtime": "97분",
-      "release_raw": "2026.09.02.",
-      "release_date": "2026-09-02",
-      "is_rerelease": false,
-      "rating": null,
-      "cast": "헨리 카빌, 제이크 질렌할, 에이사 곤잘레스, 로자먼드 파이크",
-      "dday": "D-25",
-      "naver_os": "41538933",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41538933&qvt=0&query=%EC%98%81%ED%99%94%20%EC%9D%B8%20%EB%8D%94%20%EA%B7%B8%EB%A0%88%EC%9D%B4",
-      "kobis_code": null,
-      "original_open_date": null,
-      "prdt_year": null,
-      "theaters": []
-    },
-    {
-      "title": "싱 어게인",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260731_182%2F1785488476350zQvaF_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "드라마",
-      "runtime": "98분",
-      "release_raw": "2026.09.02.",
-      "release_date": "2026-09-02",
-      "is_rerelease": false,
-      "rating": null,
-      "cast": "폴 러드, 닉 조나스",
-      "dday": "D-25",
-      "naver_os": "41716822",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41716822&qvt=0&query=%EC%98%81%ED%99%94%20%EC%8B%B1%20%EC%96%B4%EA%B2%8C%EC%9D%B8",
-      "kobis_code": null,
-      "original_open_date": null,
-      "prdt_year": null,
-      "theaters": []
-    },
-    {
       "title": "캐리어를 끄는 소녀",
       "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260804_165%2F1785823177125uz6Hy_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
       "genre": "드라마",
@@ -1722,18 +1683,36 @@
       "theaters": []
     },
     {
-      "title": "사진의 얼굴",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260729_63%2F1785305534393GG0GH_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "다큐멘터리",
+      "title": "인 더 그레이",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260804_4%2F1785824716470UST78_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "액션",
+      "runtime": "97분",
+      "release_raw": "2026.09.02.",
+      "release_date": "2026-09-02",
+      "is_rerelease": false,
+      "rating": null,
+      "cast": "헨리 카빌, 제이크 질렌할, 에이사 곤잘레스, 로자먼드 파이크",
+      "dday": "D-25",
+      "naver_os": "41538933",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41538933&qvt=0&query=%EC%98%81%ED%99%94%20%EC%9D%B8%20%EB%8D%94%20%EA%B7%B8%EB%A0%88%EC%9D%B4",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": []
+    },
+    {
+      "title": "싱 어게인",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260731_182%2F1785488476350zQvaF_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "드라마",
       "runtime": "98분",
       "release_raw": "2026.09.02.",
       "release_date": "2026-09-02",
       "is_rerelease": false,
       "rating": null,
-      "cast": null,
+      "cast": "폴 러드, 닉 조나스",
       "dday": "D-25",
-      "naver_os": "37542366",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=37542366&qvt=0&query=%EC%82%AC%EC%A7%84%EC%9D%98%20%EC%96%BC%EA%B5%B4",
+      "naver_os": "41716822",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41716822&qvt=0&query=%EC%98%81%ED%99%94%20%EC%8B%B1%20%EC%96%B4%EA%B2%8C%EC%9D%B8",
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
@@ -1752,9 +1731,9 @@
       "dday": "D-25",
       "naver_os": "2954017",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=2954017&qvt=0&query=%ED%95%B5%EC%86%8C%20%EA%B3%A0%EC%A7%80",
-      "kobis_code": "20167922",
-      "original_open_date": "2017-02-22",
-      "prdt_year": "2016",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
       "theaters": []
     },
     {
@@ -1788,6 +1767,24 @@
       "dday": "D-25",
       "naver_os": "11848005",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=11848005&qvt=0&query=%EC%98%81%ED%99%94%20%EB%B9%84%EA%B4%91",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": []
+    },
+    {
+      "title": "사진의 얼굴",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260729_63%2F1785305534393GG0GH_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "다큐멘터리",
+      "runtime": "98분",
+      "release_raw": "2026.09.02.",
+      "release_date": "2026-09-02",
+      "is_rerelease": false,
+      "rating": null,
+      "cast": null,
+      "dday": "D-25",
+      "naver_os": "37542366",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=37542366&qvt=0&query=%EC%82%AC%EC%A7%84%EC%9D%98%20%EC%96%BC%EA%B5%B4",
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
@@ -1830,24 +1827,6 @@
       "theaters": []
     },
     {
-      "title": "연옥: 살인마들의 자치구역",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260728_188%2F1785215702493xLPCn_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "액션",
-      "runtime": "101분",
-      "release_raw": "2026.09.09.",
-      "release_date": "2026-09-09",
-      "is_rerelease": false,
-      "rating": null,
-      "cast": "브루스 칸, 이채영, 김재현, 조성하, 박철민, 조재윤",
-      "dday": null,
-      "naver_os": "41667862",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41667862&qvt=0&query=%EC%97%B0%EC%98%A5%20%EC%82%B4%EC%9D%B8%EB%A7%88%EB%93%A4%EC%9D%98%20%EC%9E%90%EC%B9%98%EA%B5%AC%EC%97%AD",
-      "kobis_code": null,
-      "original_open_date": null,
-      "prdt_year": null,
-      "theaters": []
-    },
-    {
       "title": "더 드라마",
       "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260728_104%2F1785214877840O9mtT_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
       "genre": "드라마",
@@ -1860,6 +1839,42 @@
       "dday": null,
       "naver_os": "41757501",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41757501&qvt=0&query=%EB%8D%94%20%EB%93%9C%EB%9D%BC%EB%A7%88",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": []
+    },
+    {
+      "title": "담요를 입은 사람",
+      "poster": "https://search.pstatic.net/common?type=ofullfill&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20240404_254%2F1712215808884myBK2_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "다큐멘터리",
+      "runtime": "116분",
+      "release_raw": "2026.09.09.",
+      "release_date": "2026-09-09",
+      "is_rerelease": false,
+      "rating": null,
+      "cast": "박정미",
+      "dday": null,
+      "naver_os": "33858110",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=33858110&qvt=0&query=%EB%8B%B4%EC%9A%94%EB%A5%BC%20%EC%9E%85%EC%9D%80%20%EC%82%AC%EB%9E%8C",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": []
+    },
+    {
+      "title": "카를로비바리",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260604_223%2F1780541081919z86gu_PNG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "코미디",
+      "runtime": "119분",
+      "release_raw": "2026.09.09.",
+      "release_date": "2026-09-09",
+      "is_rerelease": false,
+      "rating": null,
+      "cast": "이제연, 오지호, 조현, 강희만, 이명훈, 박시연",
+      "dday": null,
+      "naver_os": "37371794",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=37371794&qvt=0&query=%EC%98%81%ED%99%94%20%EC%B9%B4%EB%A5%BC%EB%A1%9C%EB%B9%84%EB%B0%94%EB%A6%AC",
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
@@ -1884,18 +1899,18 @@
       "theaters": []
     },
     {
-      "title": "담요를 입은 사람",
-      "poster": "https://search.pstatic.net/common?type=ofullfill&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20240404_254%2F1712215808884myBK2_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "다큐멘터리",
-      "runtime": "116분",
+      "title": "연옥: 살인마들의 자치구역",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260728_188%2F1785215702493xLPCn_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "액션",
+      "runtime": "101분",
       "release_raw": "2026.09.09.",
       "release_date": "2026-09-09",
       "is_rerelease": false,
       "rating": null,
-      "cast": "박정미",
+      "cast": "브루스 칸, 이채영, 김재현, 조성하, 박철민, 조재윤",
       "dday": null,
-      "naver_os": "33858110",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=33858110&qvt=0&query=%EB%8B%B4%EC%9A%94%EB%A5%BC%20%EC%9E%85%EC%9D%80%20%EC%82%AC%EB%9E%8C",
+      "naver_os": "41667862",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41667862&qvt=0&query=%EC%97%B0%EC%98%A5%20%EC%82%B4%EC%9D%B8%EB%A7%88%EB%93%A4%EC%9D%98%20%EC%9E%90%EC%B9%98%EA%B5%AC%EC%97%AD",
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
@@ -1938,24 +1953,6 @@
       "theaters": []
     },
     {
-      "title": "카를로비바리",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260604_223%2F1780541081919z86gu_PNG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "코미디",
-      "runtime": "119분",
-      "release_raw": "2026.09.09.",
-      "release_date": "2026-09-09",
-      "is_rerelease": false,
-      "rating": null,
-      "cast": "이제연, 오지호, 조현, 강희만, 이명훈, 박시연",
-      "dday": null,
-      "naver_os": "37371794",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=37371794&qvt=0&query=%EC%98%81%ED%99%94%20%EC%B9%B4%EB%A5%BC%EB%A1%9C%EB%B9%84%EB%B0%94%EB%A6%AC",
-      "kobis_code": null,
-      "original_open_date": null,
-      "prdt_year": null,
-      "theaters": []
-    },
-    {
       "title": "청년 조용기",
       "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260708_187%2F1783476890842vzaM7_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
       "genre": "다큐멘터리",
@@ -1986,9 +1983,9 @@
       "dday": null,
       "naver_os": "1797228",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1797228&qvt=0&query=%EC%98%81%ED%99%94%20%EC%8B%9C%EA%B0%84%EC%9D%84%20%EB%8B%AC%EB%A6%AC%EB%8A%94%20%EC%86%8C%EB%85%80",
-      "kobis_code": "20119851",
-      "original_open_date": "2011-03-24",
-      "prdt_year": "2010",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
       "theaters": []
     },
     {
@@ -2064,24 +2061,6 @@
       "theaters": []
     },
     {
-      "title": "암살자(들)",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260630_95%2F1782791247369SYBd8_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "범죄",
-      "runtime": null,
-      "release_raw": "2026.09.",
-      "release_date": "2026-09",
-      "is_rerelease": false,
-      "rating": null,
-      "cast": "유해진, 박해일, 이민호",
-      "dday": null,
-      "naver_os": "39933919",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=39933919&qvt=0&query=%EC%95%94%EC%82%B4%EC%9E%90%EB%93%A4",
-      "kobis_code": null,
-      "original_open_date": null,
-      "prdt_year": null,
-      "theaters": []
-    },
-    {
       "title": "와이프",
       "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260731_171%2F1785487042899Jgvbb_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
       "genre": "스릴러",
@@ -2118,18 +2097,18 @@
       "theaters": []
     },
     {
-      "title": "부활남: 더 레드",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260728_287%2F1785211561326DAyYE_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "액션",
-      "runtime": "101분",
+      "title": "암살자(들)",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260630_95%2F1782791247369SYBd8_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "범죄",
+      "runtime": null,
       "release_raw": "2026.09.",
       "release_date": "2026-09",
       "is_rerelease": false,
       "rating": null,
-      "cast": "구교환, 신승호, 강기영, 김시아, 김성령",
+      "cast": "유해진, 박해일, 이민호",
       "dday": null,
-      "naver_os": "26071909",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=26071909&qvt=0&query=%EB%B6%80%ED%99%9C%EB%82%A8%20%EB%8D%94%20%EB%A0%88%EB%93%9C",
+      "naver_os": "39933919",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=39933919&qvt=0&query=%EC%95%94%EC%82%B4%EC%9E%90%EB%93%A4",
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
@@ -2202,6 +2181,24 @@
       "dday": null,
       "naver_os": "41756648",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41756648&qvt=0&query=%EC%8A%A4%ED%8B%B8%EB%A0%88%EC%9D%B4",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": []
+    },
+    {
+      "title": "부활남: 더 레드",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260728_287%2F1785211561326DAyYE_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "액션",
+      "runtime": "101분",
+      "release_raw": "2026.09.",
+      "release_date": "2026-09",
+      "is_rerelease": false,
+      "rating": null,
+      "cast": "구교환, 신승호, 강기영, 김시아, 김성령",
+      "dday": null,
+      "naver_os": "26071909",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=26071909&qvt=0&query=%EB%B6%80%ED%99%9C%EB%82%A8%20%EB%8D%94%20%EB%A0%88%EB%93%9C",
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
@@ -2298,6 +2295,24 @@
       "theaters": []
     },
     {
+      "title": "웨일폴: 고래에 먹힌 남자",
+      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260615_245%2F1781490108521Hptgu_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+      "genre": "모험",
+      "runtime": null,
+      "release_raw": "2026.10.",
+      "release_date": "2026-10",
+      "is_rerelease": false,
+      "rating": null,
+      "cast": "조슈 브롤린, 엘리자베스 슈, 오스틴 에이브람스, 존 오티즈",
+      "dday": null,
+      "naver_os": "41463679",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41463679&qvt=0&query=%EC%9B%A8%EC%9D%BC%ED%8F%B4%20%EA%B3%A0%EB%9E%98%EC%97%90%20%EB%A8%B9%ED%9E%8C%20%EB%82%A8%EC%9E%90",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": []
+    },
+    {
       "title": "실낙원",
       "poster": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
       "genre": "스릴러",
@@ -2388,24 +2403,6 @@
       "theaters": []
     },
     {
-      "title": "웨일폴: 고래에 먹힌 남자",
-      "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260615_245%2F1781490108521Hptgu_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
-      "genre": "모험",
-      "runtime": null,
-      "release_raw": "2026.10.",
-      "release_date": "2026-10",
-      "is_rerelease": false,
-      "rating": null,
-      "cast": "조슈 브롤린, 엘리자베스 슈, 오스틴 에이브람스, 존 오티즈",
-      "dday": null,
-      "naver_os": "41463679",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41463679&qvt=0&query=%EC%9B%A8%EC%9D%BC%ED%8F%B4%20%EA%B3%A0%EB%9E%98%EC%97%90%20%EB%A8%B9%ED%9E%8C%20%EB%82%A8%EC%9E%90",
-      "kobis_code": null,
-      "original_open_date": null,
-      "prdt_year": null,
-      "theaters": []
-    },
-    {
       "title": "미트 페어런츠 4",
       "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260420_291%2F1776650122961EzkqT_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
       "genre": "코미디",
@@ -2418,24 +2415,6 @@
       "dday": null,
       "naver_os": "41098241",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41098241&qvt=0&query=%EB%AF%B8%ED%8A%B8%20%ED%8E%98%EC%96%B4%EB%9F%B0%EC%B8%A0%204",
-      "kobis_code": null,
-      "original_open_date": null,
-      "prdt_year": null,
-      "theaters": []
-    },
-    {
-      "title": "모자 쓴 고양이",
-      "poster": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
-      "genre": "애니메이션",
-      "runtime": null,
-      "release_raw": "2026.11.",
-      "release_date": "2026-11",
-      "is_rerelease": false,
-      "rating": null,
-      "cast": null,
-      "dday": null,
-      "naver_os": "41464329",
-      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41464329&qvt=0&query=%EC%98%81%ED%99%94%20%EB%AA%A8%EC%9E%90%20%EC%93%B4%20%EA%B3%A0%EC%96%91%EC%9D%B4",
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,
@@ -2472,6 +2451,24 @@
       "dday": null,
       "naver_os": "41757009",
       "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41757009&qvt=0&query=%EC%8A%A4%ED%81%AC%EB%A3%A8%EC%A7%80%20%ED%81%AC%EB%A6%AC%EC%8A%A4%EB%A7%88%EC%8A%A4%20%EC%BA%90%EB%9F%B4",
+      "kobis_code": null,
+      "original_open_date": null,
+      "prdt_year": null,
+      "theaters": []
+    },
+    {
+      "title": "모자 쓴 고양이",
+      "poster": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "genre": "애니메이션",
+      "runtime": null,
+      "release_raw": "2026.11.",
+      "release_date": "2026-11",
+      "is_rerelease": false,
+      "rating": null,
+      "cast": null,
+      "dday": null,
+      "naver_os": "41464329",
+      "naver_link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=41464329&qvt=0&query=%EC%98%81%ED%99%94%20%EB%AA%A8%EC%9E%90%20%EC%93%B4%20%EA%B3%A0%EC%96%91%EC%9D%B4",
       "kobis_code": null,
       "original_open_date": null,
       "prdt_year": null,

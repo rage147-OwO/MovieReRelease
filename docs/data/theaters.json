@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-08T01:54:40+09:00",
+  "generated_at": "2026-08-08T02:14:22+09:00",
   "theaters": [
     {
       "id": "12272750",
@@ -320,6 +320,150 @@
       "lat": "37.4846507",
       "lon": "126.9816473",
       "phone": "070-7017-4524"
+    },
+    {
+      "id": "12125218",
+      "name": "CGV 서면",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1396259461",
+      "name": "메가박스 군자",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1156408497",
+      "name": "라이카시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12035642",
+      "name": "영화공간주안",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "35069862",
+      "name": "CGV 광주상무",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1232809531",
+      "name": "시네마엠엠",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12124678",
+      "name": "CGV 강변",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1216708384",
+      "name": "CGV 오리",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1783383862",
+      "name": "CGV 대구",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12298207",
+      "name": "CGV 용산아이파크몰",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12165843",
+      "name": "CGV 대학로",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12129411",
+      "name": "CGV 소풍",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "34635294",
+      "name": "안동 중앙시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1023765419",
+      "name": "모퉁이극장",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "35966761",
+      "name": "오오극장",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37842043",
+      "name": "에무시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "13182210",
+      "name": "씨네큐브 광화문",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "13112714",
+      "name": "전주디지털독립영화관",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
     }
   ]
 }
