@@ -22,6 +22,7 @@ import random
 import re
 import time
 from dataclasses import dataclass, field
+from datetime import datetime, timedelta, timezone
 
 import requests
 from bs4 import BeautifulSoup
@@ -30,6 +31,8 @@ from .naver import HEADERS
 
 SEARCH_URL = "https://search.naver.com/search.naver"
 SCHEDULE_API_URL = "https://ts-proxy.naver.com/dcontent/nqapirender.nhn"
+KST = timezone(timedelta(hours=9))
+SCHEDULE_DAYS = 7  # 오늘 포함 며칠치 상영시간을 가져올지 — 네이버 UI도 보통 이만큼 보여준다
 
 # 검색 시딩 지역 — 서울 주요 상권 + 예술영화관 밀집 지역 + 광역시 주요 상권.
 # 새 지역을 늘리려면 "{지역명} 영화관" 형태로 추가하면 된다.
@@ -143,59 +146,78 @@ def get_now_showing(theater_name: str) -> list[str]:
     return names
 
 
-def get_schedule_theaters(title: str) -> list[tuple[str, str, list[str]]]:
-    """영화 제목으로 전국 상영관 (place_id, 극장명, 오늘 상영시간 목록)을 얻는다.
+def get_schedule_theaters(title: str, days: int = SCHEDULE_DAYS) -> dict[str, dict]:
+    """영화 제목으로 전국 상영관별 여러 날짜의 상영시간을 얻는다.
 
     "영화 {title} 상영일정" 검색 페이지에 내장된 movieCode(u2)를 먼저 뽑고,
-    그 코드로 네이버 자체 스케줄 API(MovieAPIforScheduleListKB)를 호출한다.
-    지역/체인에 상관없이 그 영화가 실제로 걸린 극장만 정확히 나온다.
+    그 코드로 네이버 자체 스케줄 API(MovieAPIforScheduleListKB)를 날짜별로
+    호출한다. 지역/체인에 상관없이 그 영화가 실제로 걸린 극장만 정확히 나온다.
 
-    시간은 오늘 것만 준다 — 날짜 파라미터(u3) 없이 호출하면 오늘 데이터만
-    오고, 극장들도 "언제까지 상영"인지는 미리 공개하지 않아(주간 성적에
-    따라 매주 다시 정해짐) 애초에 얻을 수 있는 정보가 아니다.
+    날짜(u3) 파라미터는 검색 페이지 방문으로 얻은 세션 쿠키 + Referer가
+    같이 있어야 응답이 채워진다 — 없이 보내면(또는 district만 따로 보내면)
+    조용히 빈 결과를 준다. 극장들이 "언제까지 상영"인지는 미리 공개하지
+    않으므로(주간 성적에 따라 매주 재배정) SCHEDULE_DAYS 너머는 아예
+    조회 대상이 아니다 — 네이버 UI도 동일하게 근시일 며칠만 보여준다.
+
+    반환: {place_id: {"name": str, "schedule": {"YYYY-MM-DD": ["10:00", ...]}}}
     """
-    text = _fetch(f"영화 {title} 상영일정")
-    code_match = re.search(r'"u9":\s*"[^"]*",\s*"u2":\s*"(\d+)"', text)
-    if not code_match:
-        return []
-    movie_code = code_match.group(1)
+    session = requests.Session()
+    session.headers.update(HEADERS)
 
     try:
-        res = requests.get(
-            SCHEDULE_API_URL,
-            params={
-                "where": "nexearch",
-                "pkid": "68",
-                "key": "MovieAPIforScheduleListKB",
-                "u2": movie_code,
-                "u9": f"영화 {title}",
-            },
-            headers=HEADERS,
-            timeout=15,
-        )
+        res = session.get(SEARCH_URL, params={"query": f"영화 {title} 상영일정"}, timeout=15)
         res.raise_for_status()
-        data = res.json()
-    except (requests.RequestException, ValueError):
-        return []
+    except requests.RequestException:
+        return {}
 
-    results: list[tuple[str, str, list[str]]] = []
-    seen: set[str] = set()
-    for item in data.get("items", []):
-        soup = BeautifulSoup(item.get("html", ""), "html.parser")
-        for wrapper in soup.select("li._scrolling_wrapper"):
-            a = wrapper.select_one("a.this_link_place")
-            if not a:
-                continue
-            place_match = re.search(r"place/(\d+)", a.get("href") or "")
-            if not place_match:
-                continue
-            pid = place_match.group(1)
-            if pid in seen:
-                continue
-            seen.add(pid)
-            times = [t.get_text(strip=True) for t in wrapper.select("span.this_point_big")]
-            results.append((pid, a.get_text(strip=True), times))
-    return results
+    code_match = re.search(r'"u9":\s*"[^"]*",\s*"u2":\s*"(\d+)"', res.text)
+    if not code_match:
+        return {}
+    movie_code = code_match.group(1)
+    referer = res.url
+
+    theaters_out: dict[str, dict] = {}
+    today = datetime.now(KST).date()
+    for offset in range(days):
+        date_str = (today + timedelta(days=offset)).isoformat()
+        try:
+            res = session.get(
+                SCHEDULE_API_URL,
+                params={
+                    "where": "nexearch",
+                    "pkid": "68",
+                    "key": "MovieAPIforScheduleListKB",
+                    "u2": movie_code,
+                    "u9": f"영화 {title}",
+                    "u3": date_str,
+                },
+                headers={"Referer": referer},
+                timeout=15,
+            )
+            res.raise_for_status()
+            data = res.json()
+        except (requests.RequestException, ValueError):
+            time.sleep(random.uniform(1.0, 2.0))
+            continue
+
+        for item in data.get("items", []):
+            soup = BeautifulSoup(item.get("html", ""), "html.parser")
+            for wrapper in soup.select("li._scrolling_wrapper"):
+                a = wrapper.select_one("a.this_link_place")
+                if not a:
+                    continue
+                place_match = re.search(r"place/(\d+)", a.get("href") or "")
+                if not place_match:
+                    continue
+                pid = place_match.group(1)
+                times = [t.get_text(strip=True) for t in wrapper.select("span.this_point_big")]
+                if not times:
+                    continue
+                entry = theaters_out.setdefault(pid, {"name": a.get_text(strip=True), "schedule": {}})
+                entry["schedule"][date_str] = times
+        time.sleep(random.uniform(1.0, 2.0))
+
+    return theaters_out
 
 
 def _fetch(query: str, retries: int = 2) -> str:

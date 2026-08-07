@@ -30,9 +30,12 @@ const $modalBackdrop = document.getElementById("theater-modal");
 const $modalTitle = document.getElementById("modal-title");
 const $modalSub = document.getElementById("modal-sub");
 const $modalMap = document.getElementById("modal-map");
+const $modalDateTabs = document.getElementById("modal-date-tabs");
 const $modalList = document.getElementById("modal-theater-list");
 const $modalEmpty = document.getElementById("modal-empty");
 const $modalFallbackLink = document.getElementById("modal-fallback-link");
+
+const WEEKDAY_KO = ["일", "월", "화", "수", "목", "금", "토"];
 
 const $notifyBackdrop = document.getElementById("notify-modal");
 
@@ -82,6 +85,14 @@ async function init() {
   document.getElementById("modal-close").addEventListener("click", closeModal);
   $modalBackdrop.addEventListener("click", (e) => {
     if (e.target === $modalBackdrop) closeModal();
+  });
+
+  $modalDateTabs.addEventListener("click", (e) => {
+    const btn = e.target.closest(".date-tab");
+    if (!btn || !modalState) return;
+    modalState.selectedDate = btn.dataset.date;
+    $modalDateTabs.querySelectorAll(".date-tab").forEach((b) => b.classList.toggle("active", b === btn));
+    renderTheaterList();
   });
 
   document.getElementById("notify-info-btn").addEventListener("click", () => {
@@ -205,6 +216,8 @@ function cardHtml(m, idx) {
 </div>`;
 }
 
+let modalState = null; // { theaterList, times, dates, selectedDate, regionKeywords }
+
 function openModal(movie) {
   if (!movie) return;
 
@@ -233,37 +246,72 @@ function openModal(movie) {
   document.getElementById("modal-close").focus();
 
   if (theaterList.length === 0) {
+    modalState = null;
     $modalMap.hidden = true;
+    $modalDateTabs.hidden = true;
     $modalList.hidden = true;
     $modalEmpty.hidden = false;
+    return;
+  }
+
+  $modalList.hidden = false;
+  $modalEmpty.hidden = true;
+
+  const times = movie.theater_times || {};
+  const dateSet = new Set();
+  theaterList.forEach((t) => Object.keys(times[t.id] || {}).forEach((d) => dateSet.add(d)));
+  const dates = [...dateSet].sort();
+
+  modalState = { theaterList, times, dates, selectedDate: dates[0] || null, regionKeywords };
+
+  if (dates.length > 0) {
+    $modalDateTabs.hidden = false;
+    $modalDateTabs.innerHTML = dates
+      .map((d, i) => {
+        const dt = new Date(d + "T00:00:00+09:00");
+        const label = i === 0 ? "오늘" : WEEKDAY_KO[dt.getDay()];
+        return `<button class="date-tab${i === 0 ? " active" : ""}" data-date="${d}">
+          <span class="date-tab-num">${dt.getDate()}</span><span class="date-tab-day">${label}</span>
+        </button>`;
+      })
+      .join("");
   } else {
-    $modalList.hidden = false;
-    $modalEmpty.hidden = true;
-    const times = movie.theater_times || {};
-    $modalList.innerHTML = theaterList
-      .map((t) => {
-        const todayTimes = times[t.id];
-        const timesHtml = todayTimes && todayTimes.length
-          ? `<span class="theater-times"><span class="times-label">오늘</span>${todayTimes
-              .map((time) => `<span class="time-chip">${escapeHtml(time)}</span>`)
-              .join("")}</span>`
-          : "";
-        const nearBadge = regionKeywords.length && matchesRegion(t, regionKeywords)
-          ? `<span class="badge-near">내 지역</span>`
-          : "";
-        return `
+    $modalDateTabs.hidden = true;
+  }
+
+  renderTheaterList();
+
+  // 매칭된 극장 전부 좌표가 없으면(지역 시딩 밖 극장) 빈 지도 박스 대신 리스트만 보여준다.
+  const hasCoords = theaterList.some((t) => t.lat && t.lon);
+  $modalMap.hidden = !hasCoords;
+  if (hasCoords) renderMap(theaterList);
+}
+
+function renderTheaterList() {
+  if (!modalState) return;
+  const { theaterList, times, selectedDate, regionKeywords } = modalState;
+
+  $modalList.innerHTML = theaterList
+    .map((t) => {
+      const dayTimes = selectedDate ? times[t.id]?.[selectedDate] : null;
+      const timesHtml = dayTimes && dayTimes.length
+        ? `<span class="theater-times">${dayTimes
+            .map((time) => `<span class="time-chip">${escapeHtml(time)}</span>`)
+            .join("")}</span>`
+        : selectedDate
+        ? `<span class="theater-times no-show">이 날짜엔 상영 정보가 없어요</span>`
+        : "";
+      const nearBadge = regionKeywords.length && matchesRegion(t, regionKeywords)
+        ? `<span class="badge-near">내 지역</span>`
+        : "";
+      return `
       <li>
         <span class="theater-name">${escapeHtml(t.name)}${nearBadge}</span>
         <span class="theater-addr">${escapeHtml(t.address || (t.lat ? "" : "주소·좌표 미확인"))}</span>
         ${timesHtml}
       </li>`;
-      })
-      .join("");
-    // 매칭된 극장 전부 좌표가 없으면(지역 시딩 밖 극장) 빈 지도 박스 대신 리스트만 보여준다.
-    const hasCoords = theaterList.some((t) => t.lat && t.lon);
-    $modalMap.hidden = !hasCoords;
-    if (hasCoords) renderMap(theaterList);
-  }
+    })
+    .join("");
 }
 
 function closeModal() {

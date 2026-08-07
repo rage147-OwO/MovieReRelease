@@ -353,6 +353,37 @@ body {
   margin-bottom: 16px;
   background: var(--surface-2);
 }
+
+.date-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+}
+.date-tab {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 44px;
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-sub);
+  border-radius: 8px;
+  padding: 6px 4px;
+  cursor: pointer;
+  font: inherit;
+}
+.date-tab-num { font-size: 0.88rem; font-weight: 700; }
+.date-tab-day { font-size: 0.68rem; }
+.date-tab.active {
+  background: rgba(246, 178, 60, 0.14);
+  border-color: var(--accent);
+  color: var(--accent);
+}
 /* Leaflet 팝업을 다크 테마에 맞춤 */
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
   background: var(--surface-2);
@@ -392,10 +423,10 @@ body {
   gap: 6px;
   margin-top: 4px;
 }
-.times-label {
-  font-size: 0.72rem;
+.theater-times.no-show {
   color: var(--text-sub);
-  margin-right: 2px;
+  font-size: 0.76rem;
+  font-style: italic;
 }
 .time-chip {
   font-size: 0.76rem;
