@@ -61,6 +61,21 @@ DEFAULT_REGION_QUERIES = [
 
 _MARK_TAGS = re.compile(r"</?mark>")
 
+# 네이버 place 데이터가 광주광역시를 "전남광주통합특별시"라는 존재하지 않는
+# 행정구역명으로 준다(경기도 광주시와 구분하려는 내부 표기로 추정) — 실제
+# 공식 명칭으로 정규화한다. 화면에 그대로 노출되면 오타처럼 보인다.
+_ADDRESS_FIXUPS = [
+    (re.compile(r"^전남광주통합특별시"), "광주광역시"),
+]
+
+
+def _normalize_address(address: str | None) -> str | None:
+    if not address:
+        return address
+    for pattern, replacement in _ADDRESS_FIXUPS:
+        address = pattern.sub(replacement, address)
+    return address
+
 
 @dataclass
 class Theater:
@@ -115,7 +130,7 @@ def search_theaters(query: str) -> list[Theater]:
                 name=_MARK_TAGS.sub("", obj.get("name") or ""),
                 # fullAddress를 우선한다 — roadAddress는 시/도가 생략된 축약형이라
                 # ("강남대로 438" 처럼) 프론트에서 지역(서울/경기 등) 판별이 안 된다.
-                address=obj.get("fullAddress") or obj.get("roadAddress"),
+                address=_normalize_address(obj.get("fullAddress") or obj.get("roadAddress")),
                 lat=obj.get("y"),
                 lon=obj.get("x"),
                 phone=obj.get("phone"),
