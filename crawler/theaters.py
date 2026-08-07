@@ -83,7 +83,8 @@ def search_theaters(query: str) -> list[Theater]:
         if obj.get("category") != "영화관":
             continue
         tid = obj.get("id")
-        if not tid or tid in seen:
+        lat, lon = obj.get("y"), obj.get("x")
+        if not tid or tid in seen or not lat or not lon:
             continue
         seen.add(tid)
         results.append(
