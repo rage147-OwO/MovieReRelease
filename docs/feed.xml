@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>재개봉 알리미 — 새 재개봉작</title>
+<link>https://rage147-owo.github.io/MovieReRelease/</link>
+<description>지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 자동으로 찾아 알려드려요.</description>
+<language>ko</language>
+<atom:link href="https://rage147-owo.github.io/MovieReRelease/feed.xml" rel="self" type="application/rss+xml"/>
+<lastBuildDate>Sat, 08 Aug 2026 03:09:51 +0900</lastBuildDate>
+
+</channel>
+</rss>
