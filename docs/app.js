@@ -1,6 +1,22 @@
 "use strict";
 
-const state = { tab: "now", onlyRerelease: true, data: null, theaters: new Map(), movies: [] };
+const REGION_KEYWORDS = {
+  seoul: ["서울"],
+  gyeonggi: ["경기", "인천", "수원", "부천", "고양", "성남", "용인"],
+  gangwon: ["강원"],
+  chungcheong: ["대전", "충남", "충북", "충청", "세종"],
+  jeolla: ["광주", "전남", "전북", "전라", "제주"],
+  gyeongsang: ["부산", "대구", "울산", "경남", "경북", "경상"],
+};
+
+const state = {
+  tab: "now",
+  onlyRerelease: true,
+  data: null,
+  theaters: new Map(),
+  movies: [],
+  myRegion: localStorage.getItem("myRegion") || "",
+};
 let leafletMap = null;
 let markerLayer = null;
 
@@ -38,6 +54,17 @@ async function init() {
   document.getElementById("only-rerelease").addEventListener("change", (e) => {
     state.onlyRerelease = e.target.checked;
     render();
+  });
+
+  const $regionSelect = document.getElementById("region-select");
+  $regionSelect.value = state.myRegion;
+  $regionSelect.addEventListener("change", (e) => {
+    state.myRegion = e.target.value;
+    if (state.myRegion) {
+      localStorage.setItem("myRegion", state.myRegion);
+    } else {
+      localStorage.removeItem("myRegion");
+    }
   });
 
   $grid.addEventListener("click", (e) => {
@@ -190,6 +217,13 @@ function openModal(movie) {
     .map((id) => state.theaters.get(id))
     .filter(Boolean);
 
+  // 내 지역으로 설정한 게 있으면 그 지역 극장을 목록 위로 올린다 (필터링은 아님 —
+  // 다른 지역 상영관도 여전히 보여준다, 다만 순서만 우선).
+  const regionKeywords = REGION_KEYWORDS[state.myRegion] || [];
+  if (regionKeywords.length) {
+    theaterList.sort((a, b) => matchesRegion(b, regionKeywords) - matchesRegion(a, regionKeywords));
+  }
+
   $modalFallbackLink.href = movie.naver_link || "#";
 
   // 지도 컨테이너가 실제로 보이는 상태여야 Leaflet이 크기를 올바르게 계산한다 —
@@ -214,9 +248,12 @@ function openModal(movie) {
               .map((time) => `<span class="time-chip">${escapeHtml(time)}</span>`)
               .join("")}</span>`
           : "";
+        const nearBadge = regionKeywords.length && matchesRegion(t, regionKeywords)
+          ? `<span class="badge-near">내 지역</span>`
+          : "";
         return `
       <li>
-        <span class="theater-name">${escapeHtml(t.name)}</span>
+        <span class="theater-name">${escapeHtml(t.name)}${nearBadge}</span>
         <span class="theater-addr">${escapeHtml(t.address || (t.lat ? "" : "주소·좌표 미확인"))}</span>
         ${timesHtml}
       </li>`;
@@ -237,6 +274,13 @@ function closeModal() {
 function closeNotifyModal() {
   $notifyBackdrop.hidden = true;
   document.body.style.overflow = "";
+}
+
+function matchesRegion(theater, keywords) {
+  // address(시/도 포함 전체 주소)를 우선 보고, 없으면(좌표 미확인 극장) 이름에서라도 찾는다
+  // — "안동 중앙시네마"처럼 지명이 이름에 박혀 있는 경우를 잡기 위함.
+  const text = `${theater.address || ""} ${theater.name || ""}`;
+  return keywords.some((k) => text.includes(k)) ? 1 : 0;
 }
 
 function renderMap(theaterList) {

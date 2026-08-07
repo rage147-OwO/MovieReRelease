@@ -24,11 +24,25 @@
       <button class="tab active" data-tab="now" role="tab" aria-selected="true">상영 중</button>
       <button class="tab" data-tab="upcoming" role="tab" aria-selected="false">개봉 예정</button>
     </div>
-    <label class="toggle">
-      <input type="checkbox" id="only-rerelease" checked>
-      <span class="track" aria-hidden="true"></span>
-      <span>재개봉만 보기</span>
-    </label>
+    <div class="controls-right">
+      <label class="region-select">
+        <span>내 지역</span>
+        <select id="region-select">
+          <option value="">전체</option>
+          <option value="seoul">서울</option>
+          <option value="gyeonggi">경기·인천</option>
+          <option value="gangwon">강원</option>
+          <option value="chungcheong">대전·충청·세종</option>
+          <option value="jeolla">광주·전라·제주</option>
+          <option value="gyeongsang">부산·대구·울산·경상</option>
+        </select>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="only-rerelease" checked>
+        <span class="track" aria-hidden="true"></span>
+        <span>재개봉만 보기</span>
+      </label>
+    </div>
   </nav>
 
   <p id="stats" class="stats"></p>

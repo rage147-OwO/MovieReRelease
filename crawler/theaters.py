@@ -3,6 +3,7 @@
 
 세 가지 소스를 쓴다:
   - "{지역} 영화관" 검색 → PlaceListBusinessesItem 목록 (이름·주소·좌표)
+    → 시딩 지역은 DEFAULT_REGION_QUERIES 참고, 서울 위주 + 광역시 주요 상권 일부
   - "{극장명} 영화시간표" 검색 → movieTimes(...) 배열 (당일 상영작 이름)
     → CGV는 잘 잡히지만 롯데시네마·메가박스 상당수 지점은 이 위젯 자체가 없다.
   - "영화 {제목} 상영일정" 검색 → movieCode 추출 → MovieAPIforScheduleListKB API
@@ -30,9 +31,10 @@ from .naver import HEADERS
 SEARCH_URL = "https://search.naver.com/search.naver"
 SCHEDULE_API_URL = "https://ts-proxy.naver.com/dcontent/nqapirender.nhn"
 
-# 검색 시딩 지역 — 서울 주요 상권 + 재개봉이 잦은 예술영화관 밀집 지역.
+# 검색 시딩 지역 — 서울 주요 상권 + 예술영화관 밀집 지역 + 광역시 주요 상권.
 # 새 지역을 늘리려면 "{지역명} 영화관" 형태로 추가하면 된다.
 DEFAULT_REGION_QUERIES = [
+    # 서울
     "강남역 영화관",
     "홍대 영화관",
     "종로 영화관",
@@ -43,6 +45,15 @@ DEFAULT_REGION_QUERIES = [
     "합정 영화관",
     "이수 영화관",
     "서울아트시네마 영화관",  # 예술영화관 밀집 검색 (서울아트시네마·필름포럼 등)
+    # 그 외 광역시·수도권
+    "수원역 영화관",
+    "부천 영화관",
+    "부산 서면 영화관",
+    "대구 동성로 영화관",
+    "인천 부평 영화관",
+    "광주 충장로 영화관",
+    "대전 둔산 영화관",
+    "울산 삼산 영화관",
 ]
 
 _MARK_TAGS = re.compile(r"</?mark>")
@@ -99,7 +110,9 @@ def search_theaters(query: str) -> list[Theater]:
             Theater(
                 id=tid,
                 name=_MARK_TAGS.sub("", obj.get("name") or ""),
-                address=obj.get("roadAddress") or obj.get("fullAddress"),
+                # fullAddress를 우선한다 — roadAddress는 시/도가 생략된 축약형이라
+                # ("강남대로 438" 처럼) 프론트에서 지역(서울/경기 등) 판별이 안 된다.
+                address=obj.get("fullAddress") or obj.get("roadAddress"),
                 lat=obj.get("y"),
                 lon=obj.get("x"),
                 phone=obj.get("phone"),

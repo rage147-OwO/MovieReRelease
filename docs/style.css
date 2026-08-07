@@ -81,6 +81,32 @@ body {
   color: #17130a;
 }
 
+.controls-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.region-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-sub);
+  font-size: 0.85rem;
+}
+.region-select select {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.region-select select:hover { border-color: var(--accent-deep); }
+
 .toggle {
   display: inline-flex;
   align-items: center;
@@ -346,6 +372,18 @@ body {
 .theater-list li:last-child { border-bottom: none; }
 .theater-name { font-weight: 700; font-size: 0.92rem; }
 .theater-addr { color: var(--text-sub); font-size: 0.8rem; }
+.badge-near {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(246, 178, 60, 0.14);
+  border: 1px solid rgba(246, 178, 60, 0.35);
+  border-radius: 4px;
+  padding: 1px 5px;
+  vertical-align: middle;
+}
 
 .theater-times {
   display: flex;
