@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """크롤 실행 진입점.
 
-네이버 상영작/개봉예정 수집 → 재개봉작만 KOBIS로 원개봉일 보강 → docs/data/movies.json 생성.
+네이버 상영작/개봉예정 수집 → 재개봉작만 KOBIS로 원개봉일 보강 →
+지역 극장 상영작과 교차매칭 → docs/data/movies.json, theaters.json 생성.
 KOBIS 키가 없거나 조회에 실패하면 이전 크롤 결과의 보강값을 승계한다.
 
 사용법:
@@ -17,10 +18,11 @@ from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import kobis, naver
+from . import kobis, naver, theaters
 
 ROOT = Path(__file__).resolve().parent.parent
-OUTPUT = ROOT / "docs" / "data" / "movies.json"
+MOVIES_OUTPUT = ROOT / "docs" / "data" / "movies.json"
+THEATERS_OUTPUT = ROOT / "docs" / "data" / "theaters.json"
 KST = timezone(timedelta(hours=9))
 
 
@@ -34,6 +36,20 @@ def _load_dotenv(path: Path) -> None:
             continue
         key, value = line.split("=", 1)
         os.environ.setdefault(key.strip(), value.strip())
+
+
+def _match_theaters(now_playing: list[naver.Movie], theater_list: list[theaters.Theater]) -> int:
+    """극장별 당일 상영작(now_showing)을 now_playing 영화 제목과 정규화 매칭해
+    각 Movie.theaters 에 극장 id를 채운다. 매칭된 (영화, 극장) 쌍 개수를 반환."""
+    by_title = {kobis._norm_title(m.title): m for m in now_playing}
+    matches = 0
+    for theater in theater_list:
+        for shown_title in theater.now_showing:
+            movie = by_title.get(kobis._norm_title(shown_title))
+            if movie:
+                movie.theaters.append(theater.id)
+                matches += 1
+    return matches
 
 
 def _load_previous_enrichment(path: Path) -> dict[str, dict]:
@@ -57,7 +73,7 @@ def _load_previous_enrichment(path: Path) -> dict[str, dict]:
 
 
 def _enrich(rereleases: list[naver.Movie]) -> None:
-    previous = _load_previous_enrichment(OUTPUT)
+    previous = _load_previous_enrichment(MOVIES_OUTPUT)
     has_key = bool(os.getenv("KOBIS_API_KEY"))
     if not has_key:
         print("  KOBIS_API_KEY 미설정 — 신규 조회 없이 이전 결과만 승계합니다.")
@@ -99,17 +115,40 @@ def main() -> None:
     print(f"재개봉작 {len(rereleases)}편 감지 — 원개봉일 보강...")
     _enrich(rereleases)
 
-    payload = {
+    print("지역 극장 상영정보 수집 중 (시간이 좀 걸립니다)...")
+    theater_list = theaters.build_theater_directory()
+    matches = _match_theaters(now_playing, theater_list)
+    with_showtime = sum(1 for t in theater_list if t.now_showing)
+    print(f"  극장 {len(theater_list)}곳 (상영정보 확인됨 {with_showtime}곳) / 영화-극장 매칭 {matches}건")
+
+    movies_payload = {
         "generated_at": datetime.now(KST).isoformat(timespec="seconds"),
         "now_playing": [asdict(m) for m in now_playing],
         "upcoming": [asdict(m) for m in upcoming],
     }
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    MOVIES_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    MOVIES_OUTPUT.write_text(json.dumps(movies_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    theaters_payload = {
+        "generated_at": datetime.now(KST).isoformat(timespec="seconds"),
+        "theaters": [
+            {
+                "id": t.id,
+                "name": t.name,
+                "address": t.address,
+                "lat": t.lat,
+                "lon": t.lon,
+                "phone": t.phone,
+            }
+            for t in theater_list
+            if t.lat and t.lon
+        ],
+    }
+    THEATERS_OUTPUT.write_text(json.dumps(theaters_payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     now_re = sum(1 for m in now_playing if m.is_rerelease)
     up_re = sum(1 for m in upcoming if m.is_rerelease)
-    print(f"완료: {OUTPUT.relative_to(ROOT)}")
+    print(f"완료: {MOVIES_OUTPUT.relative_to(ROOT)}, {THEATERS_OUTPUT.relative_to(ROOT)}")
     print(f"  상영 중 {len(now_playing)}편 (재개봉 {now_re}) / 개봉 예정 {len(upcoming)}편 (재개봉 {up_re})")
 
 

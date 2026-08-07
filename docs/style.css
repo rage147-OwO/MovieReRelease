@@ -144,12 +144,14 @@ body {
   overflow: hidden;
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
   transition: transform 0.15s, border-color 0.15s;
 }
-.card:hover {
+.card:hover, .card:focus-visible {
   transform: translateY(-4px);
   border-color: var(--accent-deep);
 }
+.card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .poster {
   position: relative;
@@ -230,6 +232,18 @@ body {
   margin-top: 2px;
 }
 
+.badge-theater {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 7px;
+}
+
 .empty {
   text-align: center;
   color: var(--text-sub);
@@ -250,8 +264,96 @@ body {
   font-size: 0.8rem;
 }
 
+/* ---------- theater modal ---------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 7, 10, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+.modal-backdrop[hidden] { display: none; }
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: min(680px, 90vh);
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.modal-close:hover { border-color: var(--accent-deep); color: var(--accent); }
+
+.modal-head { padding-right: 40px; margin-bottom: 16px; }
+.modal-head h2 { margin: 0 0 4px; font-size: 1.25rem; letter-spacing: -0.01em; }
+.modal-sub a { color: var(--accent); font-size: 0.85rem; text-decoration: none; }
+.modal-sub a:hover { text-decoration: underline; }
+
+.modal-map {
+  height: 240px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  background: var(--surface-2);
+}
+/* Leaflet 팝업을 다크 테마에 맞춤 */
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: var(--surface-2);
+  color: var(--text);
+}
+.leaflet-popup-content { font-size: 0.85rem; font-weight: 600; }
+.leaflet-container a.leaflet-popup-close-button { color: var(--text-sub); }
+
+.theater-list { list-style: none; margin: 0; padding: 0; }
+.theater-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.theater-list li:last-child { border-bottom: none; }
+.theater-name { font-weight: 700; font-size: 0.92rem; }
+.theater-addr { color: var(--text-sub); font-size: 0.8rem; }
+
+.modal-empty {
+  text-align: center;
+  color: var(--text-sub);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  padding: 24px 8px;
+}
+.modal-empty a {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--accent);
+  text-decoration: none;
+}
+.modal-empty a:hover { text-decoration: underline; }
+
 @media (max-width: 480px) {
   .grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
   .site-header { padding-top: 32px; }
   .site-header h1 { font-size: 1.5rem; }
+  .modal { padding: 20px; max-height: 92vh; }
 }

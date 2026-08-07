@@ -1,12 +1,22 @@
 "use strict";
 
-const state = { tab: "now", onlyRerelease: true, data: null };
+const state = { tab: "now", onlyRerelease: true, data: null, theaters: new Map(), movies: [] };
+let leafletMap = null;
+let markerLayer = null;
 
 const $grid = document.getElementById("grid");
 const $stats = document.getElementById("stats");
 const $empty = document.getElementById("empty");
 const $error = document.getElementById("error");
 const $updated = document.getElementById("updated");
+
+const $modalBackdrop = document.getElementById("theater-modal");
+const $modalTitle = document.getElementById("modal-title");
+const $modalSub = document.getElementById("modal-sub");
+const $modalMap = document.getElementById("modal-map");
+const $modalList = document.getElementById("modal-theater-list");
+const $modalEmpty = document.getElementById("modal-empty");
+const $modalFallbackLink = document.getElementById("modal-fallback-link");
 
 init();
 
@@ -28,10 +38,37 @@ async function init() {
     render();
   });
 
+  $grid.addEventListener("click", (e) => {
+    const card = e.target.closest(".card");
+    if (card) openModal(state.movies[Number(card.dataset.idx)]);
+  });
+  $grid.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const card = e.target.closest(".card");
+    if (!card) return;
+    e.preventDefault();
+    openModal(state.movies[Number(card.dataset.idx)]);
+  });
+
+  document.getElementById("modal-close").addEventListener("click", closeModal);
+  $modalBackdrop.addEventListener("click", (e) => {
+    if (e.target === $modalBackdrop) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !$modalBackdrop.hidden) closeModal();
+  });
+
   try {
-    const res = await fetch("data/movies.json", { cache: "no-cache" });
-    if (!res.ok) throw new Error(res.status);
-    state.data = await res.json();
+    const [moviesRes, theatersRes] = await Promise.all([
+      fetch("data/movies.json", { cache: "no-cache" }),
+      fetch("data/theaters.json", { cache: "no-cache" }),
+    ]);
+    if (!moviesRes.ok) throw new Error(moviesRes.status);
+    state.data = await moviesRes.json();
+    if (theatersRes.ok) {
+      const theatersData = await theatersRes.json();
+      state.theaters = new Map((theatersData.theaters || []).map((t) => [t.id, t]));
+    }
   } catch (err) {
     $error.hidden = false;
     return;
@@ -63,11 +100,12 @@ function render() {
   const label = isNow ? "상영 중" : "개봉 예정";
   $stats.innerHTML = `${label} <strong>${list.length}</strong>편 중 재개봉 <strong>${rereleaseCount}</strong>편`;
 
-  $grid.innerHTML = movies.map(cardHtml).join("");
+  state.movies = movies;
+  $grid.innerHTML = movies.map((m, idx) => cardHtml(m, idx)).join("");
   $empty.hidden = movies.length > 0;
 }
 
-function cardHtml(m) {
+function cardHtml(m, idx) {
   const poster = m.poster
     ? `<img src="${escapeAttr(m.poster)}" alt="${escapeAttr(m.title)} 포스터" loading="lazy"
          onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'no-img',textContent:'🎞️'}))">`
@@ -93,8 +131,12 @@ function cardHtml(m) {
     origLine = `<span class="orig">${escapeHtml(m.prdt_year)}년 작품</span>`;
   }
 
+  const theaterCount = (m.theaters || []).length;
+  const theaterBadge = theaterCount > 0 ? `<span class="badge-theater">🎦 ${theaterCount}개관</span>` : "";
+
   return `
-<a class="card" href="${escapeAttr(m.naver_link || "#")}" target="_blank" rel="noopener">
+<div class="card" data-idx="${idx}" tabindex="0" role="button" aria-haspopup="dialog"
+     aria-label="${escapeAttr(m.title)} — 상영관 보기">
   <div class="poster">
     ${poster}
     ${m.is_rerelease ? `<span class="badge-re">재개봉</span>` : ""}
@@ -104,8 +146,89 @@ function cardHtml(m) {
     <h3 class="title">${escapeHtml(m.title)}</h3>
     <p class="meta">${meta}</p>
     <p class="dates">${dateLine}${origLine}</p>
+    ${theaterBadge}
   </div>
-</a>`;
+</div>`;
+}
+
+function openModal(movie) {
+  if (!movie) return;
+
+  $modalTitle.textContent = movie.title;
+  $modalSub.innerHTML = movie.naver_link
+    ? `<a href="${escapeAttr(movie.naver_link)}" target="_blank" rel="noopener">네이버에서 보기 ↗</a>`
+    : "";
+
+  const theaterList = (movie.theaters || [])
+    .map((id) => state.theaters.get(id))
+    .filter(Boolean);
+
+  $modalFallbackLink.href = movie.naver_link || "#";
+
+  // 지도 컨테이너가 실제로 보이는 상태여야 Leaflet이 크기를 올바르게 계산한다 —
+  // hidden 해제를 먼저 하고 나서 지도를 그린다.
+  $modalBackdrop.hidden = false;
+  document.body.style.overflow = "hidden";
+  document.getElementById("modal-close").focus();
+
+  if (theaterList.length === 0) {
+    $modalMap.hidden = true;
+    $modalList.hidden = true;
+    $modalEmpty.hidden = false;
+  } else {
+    $modalMap.hidden = false;
+    $modalList.hidden = false;
+    $modalEmpty.hidden = true;
+    $modalList.innerHTML = theaterList
+      .map(
+        (t) => `
+      <li>
+        <span class="theater-name">${escapeHtml(t.name)}</span>
+        <span class="theater-addr">${escapeHtml(t.address || "")}</span>
+      </li>`
+      )
+      .join("");
+    renderMap(theaterList);
+  }
+}
+
+function closeModal() {
+  $modalBackdrop.hidden = true;
+  document.body.style.overflow = "";
+}
+
+function renderMap(theaterList) {
+  if (typeof L === "undefined") return; // Leaflet CDN 로드 실패 시 지도만 조용히 생략
+
+  if (!leafletMap) {
+    // center/zoom 없이 만들면 setView 전까지 맵이 "로드"되지 않아 레이어가 그려지지 않는다 —
+    // 서울 중심으로 초기 뷰를 잡아 즉시 로드시킨다 (아래에서 실제 좌표로 다시 맞춘다).
+    leafletMap = L.map($modalMap, { scrollWheelZoom: false, center: [37.5665, 126.978], zoom: 11 });
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap",
+      maxZoom: 19,
+    }).addTo(leafletMap);
+    markerLayer = L.layerGroup().addTo(leafletMap);
+  }
+
+  markerLayer.clearLayers();
+  const points = [];
+  for (const t of theaterList) {
+    const lat = parseFloat(t.lat);
+    const lon = parseFloat(t.lon);
+    if (isNaN(lat) || isNaN(lon)) continue;
+    L.marker([lat, lon]).addTo(markerLayer).bindPopup(escapeHtml(t.name));
+    points.push([lat, lon]);
+  }
+
+  // 모달이 이미 보이는 상태에서 호출되므로(openModal 참고) 컨테이너 크기는 이미 확정돼 있다.
+  // requestAnimationFrame으로 미루면 background 탭에서 무기한 지연될 수 있어 바로 실행한다.
+  leafletMap.invalidateSize({ animate: false, pan: false });
+  if (points.length === 1) {
+    leafletMap.setView(points[0], 15, { animate: false });
+  } else if (points.length > 1) {
+    leafletMap.fitBounds(points, { padding: [24, 24], animate: false });
+  }
 }
 
 function yearGap(origIso, reIso) {

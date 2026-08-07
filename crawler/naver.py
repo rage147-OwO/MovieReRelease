@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from urllib.parse import parse_qs, quote, urlparse
 
 import requests
@@ -41,6 +41,8 @@ class Movie:
     kobis_code: str | None = None
     original_open_date: str | None = None
     prdt_year: str | None = None
+    # 지역 극장 보강 (theaters.py 크롤 결과와 교차매칭된 상영관 id 목록)
+    theaters: list[str] = field(default_factory=list)
 
 
 def get_now_playing() -> list[Movie]:
