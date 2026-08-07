@@ -401,6 +401,12 @@ body {
   gap: 2px;
 }
 .theater-list li:last-child { border-bottom: none; }
+.theater-list-empty {
+  color: var(--text-sub);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 20px 0 !important;
+}
 .theater-name { font-weight: 700; font-size: 0.92rem; }
 .theater-addr { color: var(--text-sub); font-size: 0.8rem; }
 .badge-near {

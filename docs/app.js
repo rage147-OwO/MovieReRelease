@@ -293,25 +293,31 @@ function renderTheaterList() {
     ? theaterList.filter((t) => (times[t.id]?.[selectedDate]?.length ?? 0) > 0)
     : theaterList;
 
-  $modalList.innerHTML = visibleTheaters
-    .map((t) => {
-      const dayTimes = selectedDate ? times[t.id]?.[selectedDate] : null;
-      const timesHtml = dayTimes && dayTimes.length
-        ? `<span class="theater-times">${dayTimes
-            .map((time) => `<span class="time-chip">${escapeHtml(time)}</span>`)
-            .join("")}</span>`
-        : "";
-      const nearBadge = regionKeywords.length && matchesRegion(t, regionKeywords)
-        ? `<span class="badge-near">내 지역</span>`
-        : "";
-      return `
+  // 선택한 날짜에 해당하는 극장이 하나도 없으면(이론상 dates는 극장별
+  // 스케줄의 합집합이라 발생하지 않아야 하지만, 데이터 이상치에 대비해
+  // 방어적으로) 빈 리스트 대신 안내 문구를 보여준다 — 지도·리스트·안내
+  // 전부 없는 완전히 빈 화면이 되는 걸 막는다.
+  $modalList.innerHTML = visibleTheaters.length
+    ? visibleTheaters
+        .map((t) => {
+          const dayTimes = selectedDate ? times[t.id]?.[selectedDate] : null;
+          const timesHtml = dayTimes && dayTimes.length
+            ? `<span class="theater-times">${dayTimes
+                .map((time) => `<span class="time-chip">${escapeHtml(time)}</span>`)
+                .join("")}</span>`
+            : "";
+          const nearBadge = regionKeywords.length && matchesRegion(t, regionKeywords)
+            ? `<span class="badge-near">내 지역</span>`
+            : "";
+          return `
       <li>
         <span class="theater-name">${escapeHtml(t.name)}${nearBadge}</span>
         <span class="theater-addr">${escapeHtml(t.address || (t.lat ? "" : "주소·좌표 미확인"))}</span>
         ${timesHtml}
       </li>`;
-    })
-    .join("");
+        })
+        .join("")
+    : `<li class="theater-list-empty">이 날짜엔 상영 정보가 있는 극장이 없어요</li>`;
 
   // 매칭된 극장 전부 좌표가 없으면(지역 시딩 밖 극장) 빈 지도 박스 대신 리스트만 보여준다.
   const hasCoords = visibleTheaters.some((t) => t.lat && t.lon);
