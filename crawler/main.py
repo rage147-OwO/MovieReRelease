@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 import time
 from dataclasses import asdict
@@ -27,7 +28,24 @@ MOVIES_OUTPUT = ROOT / "docs" / "data" / "movies.json"
 THEATERS_OUTPUT = ROOT / "docs" / "data" / "theaters.json"
 RERELEASE_LOG_OUTPUT = ROOT / "docs" / "data" / "rerelease_log.json"
 FEED_OUTPUT = ROOT / "docs" / "feed.xml"
+INDEX_HTML = ROOT / "docs" / "index.html"
 KST = timezone(timedelta(hours=9))
+_CACHE_BUST_RE = re.compile(r'(app\.js|style\.css)(\?v=\d+)?"')
+
+
+def _bump_cache_bust(index_path: Path, version: str) -> None:
+    """index.html의 app.js/style.css 링크에 캐시버스팅 쿼리(?v=타임스탬프)를 붙인다.
+
+    GitHub Pages/브라우저가 정적 파일을 오래 캐싱해서, 배포가 끝난 뒤에도
+    사용자가 예전 app.js를 계속 쓰는 채로 남는 경우가 실제로 여러 번
+    있었다(새로고침해도 안 바뀜) — 파일 URL 자체를 매 크롤마다 바꿔서
+    "새 배포 = 새 URL"이 되게 만들어 근본적으로 막는다.
+    """
+    if not index_path.exists():
+        return
+    text = index_path.read_text(encoding="utf-8")
+    text = _CACHE_BUST_RE.sub(rf'\1?v={version}"', text)
+    index_path.write_text(text, encoding="utf-8")
 
 
 def _load_dotenv(path: Path) -> None:
@@ -197,6 +215,7 @@ def main() -> None:
 
     now = datetime.now(KST)
     feed.update_log_and_feed(RERELEASE_LOG_OUTPUT, FEED_OUTPUT, new_rereleases, now)
+    _bump_cache_bust(INDEX_HTML, now.strftime("%Y%m%d%H%M%S"))
 
     movies_payload = {
         "generated_at": datetime.now(KST).isoformat(timespec="seconds"),
