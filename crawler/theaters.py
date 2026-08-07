@@ -130,12 +130,16 @@ def get_now_showing(theater_name: str) -> list[str]:
     return names
 
 
-def get_schedule_theaters(title: str) -> list[tuple[str, str]]:
-    """영화 제목으로 전국 상영관 (place_id, 극장명) 목록을 얻는다.
+def get_schedule_theaters(title: str) -> list[tuple[str, str, list[str]]]:
+    """영화 제목으로 전국 상영관 (place_id, 극장명, 오늘 상영시간 목록)을 얻는다.
 
     "영화 {title} 상영일정" 검색 페이지에 내장된 movieCode(u2)를 먼저 뽑고,
     그 코드로 네이버 자체 스케줄 API(MovieAPIforScheduleListKB)를 호출한다.
     지역/체인에 상관없이 그 영화가 실제로 걸린 극장만 정확히 나온다.
+
+    시간은 오늘 것만 준다 — 날짜 파라미터(u3) 없이 호출하면 오늘 데이터만
+    오고, 극장들도 "언제까지 상영"인지는 미리 공개하지 않아(주간 성적에
+    따라 매주 다시 정해짐) 애초에 얻을 수 있는 정보가 아니다.
     """
     text = _fetch(f"영화 {title} 상영일정")
     code_match = re.search(r'"u9":\s*"[^"]*",\s*"u2":\s*"(\d+)"', text)
@@ -161,11 +165,14 @@ def get_schedule_theaters(title: str) -> list[tuple[str, str]]:
     except (requests.RequestException, ValueError):
         return []
 
-    results: list[tuple[str, str]] = []
+    results: list[tuple[str, str, list[str]]] = []
     seen: set[str] = set()
     for item in data.get("items", []):
         soup = BeautifulSoup(item.get("html", ""), "html.parser")
-        for a in soup.select("a.this_link_place"):
+        for wrapper in soup.select("li._scrolling_wrapper"):
+            a = wrapper.select_one("a.this_link_place")
+            if not a:
+                continue
             place_match = re.search(r"place/(\d+)", a.get("href") or "")
             if not place_match:
                 continue
@@ -173,7 +180,8 @@ def get_schedule_theaters(title: str) -> list[tuple[str, str]]:
             if pid in seen:
                 continue
             seen.add(pid)
-            results.append((pid, a.get_text(strip=True)))
+            times = [t.get_text(strip=True) for t in wrapper.select("span.this_point_big")]
+            results.append((pid, a.get_text(strip=True), times))
     return results
 
 

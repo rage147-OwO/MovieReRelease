@@ -43,6 +43,8 @@ class Movie:
     prdt_year: str | None = None
     # 지역 극장 보강 (theaters.py 크롤 결과와 교차매칭된 상영관 id 목록)
     theaters: list[str] = field(default_factory=list)
+    # 극장 id → 오늘 상영시간 목록 (재개봉작 정밀 조회로만 채워짐, get_schedule_theaters)
+    theater_times: dict[str, list[str]] = field(default_factory=dict)
 
 
 def get_now_playing() -> list[Movie]:

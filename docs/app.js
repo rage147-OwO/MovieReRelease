@@ -193,14 +193,22 @@ function openModal(movie) {
   } else {
     $modalList.hidden = false;
     $modalEmpty.hidden = true;
+    const times = movie.theater_times || {};
     $modalList.innerHTML = theaterList
-      .map(
-        (t) => `
+      .map((t) => {
+        const todayTimes = times[t.id];
+        const timesHtml = todayTimes && todayTimes.length
+          ? `<span class="theater-times"><span class="times-label">오늘</span>${todayTimes
+              .map((time) => `<span class="time-chip">${escapeHtml(time)}</span>`)
+              .join("")}</span>`
+          : "";
+        return `
       <li>
         <span class="theater-name">${escapeHtml(t.name)}</span>
         <span class="theater-addr">${escapeHtml(t.address || (t.lat ? "" : "주소·좌표 미확인"))}</span>
-      </li>`
-      )
+        ${timesHtml}
+      </li>`;
+      })
       .join("");
     // 매칭된 극장 전부 좌표가 없으면(지역 시딩 밖 극장) 빈 지도 박스 대신 리스트만 보여준다.
     const hasCoords = theaterList.some((t) => t.lat && t.lon);

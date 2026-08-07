@@ -347,6 +347,28 @@ body {
 .theater-name { font-weight: 700; font-size: 0.92rem; }
 .theater-addr { color: var(--text-sub); font-size: 0.8rem; }
 
+.theater-times {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.times-label {
+  font-size: 0.72rem;
+  color: var(--text-sub);
+  margin-right: 2px;
+}
+.time-chip {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(246, 178, 60, 0.12);
+  border: 1px solid rgba(246, 178, 60, 0.3);
+  border-radius: 5px;
+  padding: 2px 7px;
+}
+
 .modal-empty {
   text-align: center;
   color: var(--text-sub);

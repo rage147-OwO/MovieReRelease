@@ -66,13 +66,15 @@ def _enrich_rerelease_theaters(
     extra_matches = 0
     new_theaters = 0
     for movie in rereleases:
-        for pid, name in theaters.get_schedule_theaters(movie.title):
+        for pid, name, times in theaters.get_schedule_theaters(movie.title):
             if pid not in theater_by_id:
                 theater_by_id[pid] = theaters.Theater(id=pid, name=name, address=None, lat=None, lon=None)
                 new_theaters += 1
             if pid not in movie.theaters:
                 movie.theaters.append(pid)
                 extra_matches += 1
+            if times:
+                movie.theater_times[pid] = times
         theaters._throttle()
     return extra_matches, new_theaters
 
