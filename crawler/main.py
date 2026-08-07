@@ -2,7 +2,8 @@
 """크롤 실행 진입점.
 
 네이버 상영작/개봉예정 수집 → 재개봉작만 KOBIS로 원개봉일 보강 →
-지역 극장 상영작과 교차매칭 → 신규 재개봉작 Discord 알림 →
+지역 극장 상영작과 교차매칭 → 재개봉작 + 지역매칭 실패작만 전국
+스케줄 API로 정밀 보강 → 신규 재개봉작 Discord 알림 →
 docs/data/movies.json, theaters.json 생성.
 KOBIS 키가 없거나 조회에 실패하면 이전 크롤 결과의 보강값을 승계한다.
 
@@ -55,19 +56,21 @@ def _match_theaters(now_playing: list[naver.Movie], theater_list: list[theaters.
     return matches
 
 
-def _enrich_rerelease_theaters(
-    rereleases: list[naver.Movie], theater_by_id: dict[str, theaters.Theater]
+def _enrich_via_schedule_api(
+    movies: list[naver.Movie], theater_by_id: dict[str, theaters.Theater]
 ) -> tuple[int, int]:
-    """재개봉작만 영화 중심 스케줄 API(get_schedule_theaters)로 전국 상영관을 보강한다.
+    """영화 중심 스케줄 API(get_schedule_theaters)로 전국 상영관을 정밀 보강한다.
 
-    지역 시딩(_match_theaters)은 CGV 위주로만 잡히므로, 재개봉작처럼 상영관이
-    적고 정확도가 중요한 영화에 한해 체인·지역 무관하게 정밀 조회한다.
+    지역 시딩(_match_theaters)은 CGV 위주 ~100개 극장에서만 잡히므로 커버리지가
+    낮다(일반 상영작의 절반 이상이 매칭 0건). 재개봉작은 항상, 그 외 상영작은
+    지역 시딩으로 하나도 못 잡은 것만 골라 이 정밀 조회로 보강한다 — 재개봉작이
+    아닌데 이미 CGV 매칭이 있는 영화까지 전부 돌리면 요청량이 과도해진다.
     시딩에 없던 극장은 좌표 없이 이름만 등록(목록엔 나오되 지도 마커는 생략).
     반환값: (추가 매칭 건수, 새로 등록된 극장 수)
     """
     extra_matches = 0
     new_theaters = 0
-    for movie in rereleases:
+    for movie in movies:
         schedule = theaters.get_schedule_theaters(movie.title)
         for pid, info in schedule.items():
             if pid not in theater_by_id:
@@ -171,8 +174,13 @@ def main() -> None:
     print(f"  극장 {len(theater_list)}곳 (상영정보 확인됨 {with_showtime}곳) / 영화-극장 매칭 {matches}건")
 
     now_rereleases = [m for m in now_playing if m.is_rerelease]
-    print(f"재개봉작 {len(now_rereleases)}편 — 전국 상영관 정밀 조회 중...")
-    extra_matches, new_theater_count = _enrich_rerelease_theaters(now_rereleases, theater_by_id)
+    unmatched_regular = [m for m in now_playing if not m.is_rerelease and not m.theaters]
+    precise_targets = now_rereleases + unmatched_regular
+    print(
+        f"전국 상영관 정밀 조회 중 (재개봉 {len(now_rereleases)}편 + "
+        f"지역 매칭 실패한 일반작 {len(unmatched_regular)}편, 시간이 좀 걸립니다)..."
+    )
+    extra_matches, new_theater_count = _enrich_via_schedule_api(precise_targets, theater_by_id)
     print(f"  추가 매칭 {extra_matches}건 / 지역 시딩에 없던 극장 {new_theater_count}곳 신규 등록")
     theater_list = list(theater_by_id.values())
 

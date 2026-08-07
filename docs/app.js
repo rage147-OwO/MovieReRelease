@@ -280,26 +280,26 @@ function openModal(movie) {
   }
 
   renderTheaterList();
-
-  // 매칭된 극장 전부 좌표가 없으면(지역 시딩 밖 극장) 빈 지도 박스 대신 리스트만 보여준다.
-  const hasCoords = theaterList.some((t) => t.lat && t.lon);
-  $modalMap.hidden = !hasCoords;
-  if (hasCoords) renderMap(theaterList);
 }
 
 function renderTheaterList() {
   if (!modalState) return;
   const { theaterList, times, selectedDate, regionKeywords } = modalState;
 
-  $modalList.innerHTML = theaterList
+  // 날짜 탭이 있는 영화는 선택한 날짜에 실제 상영 정보가 있는 극장만 보여준다
+  // (없는 걸 "상영 정보 없음"으로 나열하기보다 아예 안 보이는 게 더 명확하다).
+  // 날짜 정보 자체가 없는 영화(지역 매칭만 된 경우)는 항상 전체를 보여준다.
+  const visibleTheaters = selectedDate
+    ? theaterList.filter((t) => (times[t.id]?.[selectedDate]?.length ?? 0) > 0)
+    : theaterList;
+
+  $modalList.innerHTML = visibleTheaters
     .map((t) => {
       const dayTimes = selectedDate ? times[t.id]?.[selectedDate] : null;
       const timesHtml = dayTimes && dayTimes.length
         ? `<span class="theater-times">${dayTimes
             .map((time) => `<span class="time-chip">${escapeHtml(time)}</span>`)
             .join("")}</span>`
-        : selectedDate
-        ? `<span class="theater-times no-show">이 날짜엔 상영 정보가 없어요</span>`
         : "";
       const nearBadge = regionKeywords.length && matchesRegion(t, regionKeywords)
         ? `<span class="badge-near">내 지역</span>`
@@ -312,6 +312,11 @@ function renderTheaterList() {
       </li>`;
     })
     .join("");
+
+  // 매칭된 극장 전부 좌표가 없으면(지역 시딩 밖 극장) 빈 지도 박스 대신 리스트만 보여준다.
+  const hasCoords = visibleTheaters.some((t) => t.lat && t.lon);
+  $modalMap.hidden = !hasCoords;
+  if (hasCoords) renderMap(visibleTheaters);
 }
 
 function closeModal() {
