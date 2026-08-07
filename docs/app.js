@@ -18,6 +18,8 @@ const $modalList = document.getElementById("modal-theater-list");
 const $modalEmpty = document.getElementById("modal-empty");
 const $modalFallbackLink = document.getElementById("modal-fallback-link");
 
+const $notifyBackdrop = document.getElementById("notify-modal");
+
 init();
 
 async function init() {
@@ -54,8 +56,21 @@ async function init() {
   $modalBackdrop.addEventListener("click", (e) => {
     if (e.target === $modalBackdrop) closeModal();
   });
+
+  document.getElementById("notify-info-btn").addEventListener("click", () => {
+    $notifyBackdrop.hidden = false;
+    document.body.style.overflow = "hidden";
+    document.getElementById("notify-modal-close").focus();
+  });
+  document.getElementById("notify-modal-close").addEventListener("click", closeNotifyModal);
+  $notifyBackdrop.addEventListener("click", (e) => {
+    if (e.target === $notifyBackdrop) closeNotifyModal();
+  });
+
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !$modalBackdrop.hidden) closeModal();
+    if (e.key !== "Escape") return;
+    if (!$modalBackdrop.hidden) closeModal();
+    if (!$notifyBackdrop.hidden) closeNotifyModal();
   });
 
   try {
@@ -196,6 +211,11 @@ function openModal(movie) {
 
 function closeModal() {
   $modalBackdrop.hidden = true;
+  document.body.style.overflow = "";
+}
+
+function closeNotifyModal() {
+  $notifyBackdrop.hidden = true;
   document.body.style.overflow = "";
 }
 
