@@ -117,6 +117,7 @@ async function init() {
     } else {
       localStorage.removeItem("myRegion");
     }
+    render(); // 지역별 정렬·배지가 카드 목록에도 바로 반영되게
   });
 
   $grid.addEventListener("click", (e) => {
@@ -210,6 +211,11 @@ function render() {
     if (!kb) return -1;
     return isNow ? kb.localeCompare(ka) : ka.localeCompare(kb);
   });
+  // 내 지역을 골랐으면, 그 안에서 내 지역 상영관이 있는 영화를 앞으로 (안정 정렬이라
+  // 날짜 순서는 그룹 내에서 유지된다) — 지역 선택이 카드 목록에도 체감되게 한다.
+  if (state.myRegion) {
+    movies.sort((a, b) => (myRegionTheaterCount(b) > 0) - (myRegionTheaterCount(a) > 0));
+  }
 
   const label = isNow ? "상영 중" : "개봉 예정";
   $stats.innerHTML = `${label} <strong>${list.length}</strong>편 중 재개봉 <strong>${rereleaseCount}</strong>편`;
@@ -247,6 +253,8 @@ function cardHtml(m, idx) {
 
   const theaterCount = (m.theaters || []).length;
   const theaterBadge = theaterCount > 0 ? `<span class="badge-theater">🎦 ${theaterCount}개관</span>` : "";
+  const myRegionCount = myRegionTheaterCount(m);
+  const myRegionBadge = myRegionCount > 0 ? `<span class="badge-theater badge-myregion">📍 내 지역 ${myRegionCount}곳</span>` : "";
 
   return `
 <div class="card" data-idx="${idx}" tabindex="0" role="button" aria-haspopup="dialog"
@@ -260,7 +268,7 @@ function cardHtml(m, idx) {
     <h3 class="title">${escapeHtml(m.title)}</h3>
     <p class="meta">${meta}</p>
     <p class="dates">${dateLine}${origLine}</p>
-    ${theaterBadge}
+    ${myRegionBadge}${theaterBadge}
   </div>
 </div>`;
 }
@@ -430,6 +438,15 @@ function regionIdOf(theater) {
   if (override) return override;
   const group = REGION_GROUPS.find((g) => matchesRegion(theater, g.keywords));
   return group ? group.id : null;
+}
+
+// 이 영화가 내 지역(state.myRegion)에 상영관이 몇 곳 있는지. 지역 미선택 시 0.
+function myRegionTheaterCount(movie) {
+  if (!state.myRegion) return 0;
+  return (movie.theaters || []).reduce((n, id) => {
+    const t = state.theaters.get(id);
+    return t && regionIdOf(t) === state.myRegion ? n + 1 : n;
+  }, 0);
 }
 
 function renderMap(theaterList) {

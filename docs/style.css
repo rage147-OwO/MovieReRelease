@@ -261,6 +261,7 @@ body {
 .badge-theater {
   display: inline-block;
   margin-top: 8px;
+  margin-right: 4px;
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--text-sub);
@@ -268,6 +269,11 @@ body {
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 2px 7px;
+}
+.badge-myregion {
+  color: var(--accent);
+  background: rgba(246, 178, 60, 0.14);
+  border-color: rgba(246, 178, 60, 0.35);
 }
 
 .empty {
