@@ -407,6 +407,50 @@ body {
   text-align: center;
   padding: 20px 0 !important;
 }
+
+.theater-list li.region-group-header {
+  padding: 16px 0 6px;
+  border-bottom: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+.theater-list li.region-group-header:first-child { padding-top: 0; }
+.region-group-count {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  background: var(--surface-2);
+  border-radius: 999px;
+  padding: 1px 7px;
+}
+
+.theater-row-collapsible { padding: 0; }
+.theater-row-collapsible summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 10px 24px 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+}
+.theater-row-collapsible summary::-webkit-details-marker { display: none; }
+.theater-row-collapsible summary::after {
+  content: "▸";
+  position: absolute;
+  right: 2px;
+  top: 10px;
+  color: var(--text-sub);
+  transition: transform 0.15s;
+}
+.theater-row-collapsible details[open] summary::after { transform: rotate(90deg); }
+.theater-row-collapsible details[open] summary { padding-bottom: 2px; }
+.theater-row-collapsible .theater-times { display: flex; flex-wrap: wrap; gap: 6px; padding: 2px 0 10px; }
 .theater-name { font-weight: 700; font-size: 0.92rem; }
 .theater-addr { color: var(--text-sub); font-size: 0.8rem; }
 .badge-near {

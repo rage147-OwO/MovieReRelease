@@ -8,6 +8,17 @@ const REGION_KEYWORDS = {
   jeolla: ["광주", "전남", "전북", "전라", "제주"],
   gyeongsang: ["부산", "대구", "울산", "경남", "경북", "경상"],
 };
+const REGION_GROUPS = [
+  { id: "seoul", label: "서울", keywords: REGION_KEYWORDS.seoul },
+  { id: "gyeonggi", label: "경기·인천", keywords: REGION_KEYWORDS.gyeonggi },
+  { id: "gangwon", label: "강원", keywords: REGION_KEYWORDS.gangwon },
+  { id: "chungcheong", label: "대전·충청·세종", keywords: REGION_KEYWORDS.chungcheong },
+  { id: "jeolla", label: "광주·전라·제주", keywords: REGION_KEYWORDS.jeolla },
+  { id: "gyeongsang", label: "부산·대구·울산·경상", keywords: REGION_KEYWORDS.gyeongsang },
+];
+// 극장이 이보다 많으면 지역별로 묶고, 각 극장은 접어서(클릭 시 펼침) 보여준다 —
+// 재개봉작처럼 몇 곳 안 되면 굳이 묶을 필요 없이 다 펼쳐 보여주는 게 낫다.
+const COLLAPSE_THRESHOLD = 5;
 
 const state = {
   tab: "now",
@@ -297,27 +308,59 @@ function renderTheaterList() {
   // 스케줄의 합집합이라 발생하지 않아야 하지만, 데이터 이상치에 대비해
   // 방어적으로) 빈 리스트 대신 안내 문구를 보여준다 — 지도·리스트·안내
   // 전부 없는 완전히 빈 화면이 되는 걸 막는다.
-  $modalList.innerHTML = visibleTheaters.length
-    ? visibleTheaters
-        .map((t) => {
-          const dayTimes = selectedDate ? times[t.id]?.[selectedDate] : null;
-          const timesHtml = dayTimes && dayTimes.length
-            ? `<span class="theater-times">${dayTimes
-                .map((time) => `<span class="time-chip">${escapeHtml(time)}</span>`)
-                .join("")}</span>`
-            : "";
-          const nearBadge = regionKeywords.length && matchesRegion(t, regionKeywords)
-            ? `<span class="badge-near">내 지역</span>`
-            : "";
-          return `
-      <li>
-        <span class="theater-name">${escapeHtml(t.name)}${nearBadge}</span>
-        <span class="theater-addr">${escapeHtml(t.address || (t.lat ? "" : "주소·좌표 미확인"))}</span>
-        ${timesHtml}
-      </li>`;
-        })
-        .join("")
-    : `<li class="theater-list-empty">이 날짜엔 상영 정보가 있는 극장이 없어요</li>`;
+  if (!visibleTheaters.length) {
+    $modalList.innerHTML = `<li class="theater-list-empty">이 날짜엔 상영 정보가 있는 극장이 없어요</li>`;
+    $modalMap.hidden = true;
+    return;
+  }
+
+  const grouped = visibleTheaters.length >= COLLAPSE_THRESHOLD;
+
+  const rowHtml = (t) => {
+    const dayTimes = selectedDate ? times[t.id]?.[selectedDate] : null;
+    const timesHtml = dayTimes && dayTimes.length
+      ? `<span class="theater-times">${dayTimes
+          .map((time) => `<span class="time-chip">${escapeHtml(time)}</span>`)
+          .join("")}</span>`
+      : `<span class="theater-times no-show">상영시간 정보 없음</span>`;
+    // 묶어서 보여줄 땐 그룹 헤더가 지역을 이미 알려주니 배지는 생략한다.
+    const nearBadge = !grouped && regionKeywords.length && matchesRegion(t, regionKeywords)
+      ? `<span class="badge-near">내 지역</span>`
+      : "";
+    const nameAddr = `<span class="theater-name">${escapeHtml(t.name)}${nearBadge}</span>
+        <span class="theater-addr">${escapeHtml(t.address || (t.lat ? "" : "주소·좌표 미확인"))}</span>`;
+
+    // 극장이 많을 땐 <details>로 접어둔다 — 클릭(탭)하면 시간이 펼쳐진다.
+    // 네이티브 요소라 별도 JS 토글 코드 없이 접근성도 챙겨진다.
+    return grouped
+      ? `<li class="theater-row-collapsible"><details><summary>${nameAddr}</summary>${timesHtml}</details></li>`
+      : `<li>${nameAddr}${timesHtml}</li>`;
+  };
+
+  if (grouped) {
+    const groups = REGION_GROUPS.map((g) => ({ ...g, theaters: [] }));
+    const etc = { id: "etc", label: "기타", theaters: [] };
+    for (const t of visibleTheaters) {
+      const g = groups.find((g) => matchesRegion(t, g.keywords));
+      (g || etc).theaters.push(t);
+    }
+    const nonEmpty = [...groups, etc].filter((g) => g.theaters.length > 0);
+    // 내 지역만 맨 앞으로 빼고 나머지는 원래(지리적) 순서를 그대로 유지한다.
+    // (예전엔 sort+reverse를 같이 써서 전체 순서가 통째로 뒤집히는 버그가 있었다.)
+    if (state.myRegion) {
+      const myIdx = nonEmpty.findIndex((g) => g.id === state.myRegion);
+      if (myIdx > 0) nonEmpty.unshift(...nonEmpty.splice(myIdx, 1));
+    }
+    $modalList.innerHTML = nonEmpty
+      .map(
+        (g) => `
+      <li class="region-group-header">${escapeHtml(g.label)} <span class="region-group-count">${g.theaters.length}</span></li>
+      ${g.theaters.map(rowHtml).join("")}`
+      )
+      .join("");
+  } else {
+    $modalList.innerHTML = visibleTheaters.map(rowHtml).join("");
+  }
 
   // 매칭된 극장 전부 좌표가 없으면(지역 시딩 밖 극장) 빈 지도 박스 대신 리스트만 보여준다.
   const hasCoords = visibleTheaters.some((t) => t.lat && t.lon);
