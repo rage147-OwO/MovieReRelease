@@ -1,5 +1,16 @@
 [
   {
+    "naver_os": "1748535",
+    "title": "아비정전",
+    "detected_at": "2026-08-08T11:01:41+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1748535&qvt=0&query=%EC%95%84%EB%B9%84%EC%A0%95%EC%A0%84",
+    "genre": "멜로/로맨스",
+    "runtime": "95분",
+    "release_raw": "2026.09.12.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20170315_53%2F148955223217831bi6_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "1797228",
     "title": "시간을 달리는 소녀",
     "detected_at": "2026-09-16T09:00:00+09:00",

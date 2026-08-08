@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-08T07:06:03+09:00",
+  "generated_at": "2026-08-08T11:01:41+09:00",
   "theaters": [
     {
       "id": "12272750",
@@ -690,14 +690,6 @@
       "phone": null
     },
     {
-      "id": "1396259461",
-      "name": "메가박스 군자",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
       "id": "1156408497",
       "name": "라이카시네마",
       "address": null,
@@ -716,6 +708,14 @@
     {
       "id": "35069862",
       "name": "CGV 광주상무",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1396259461",
+      "name": "메가박스 군자",
       "address": null,
       "lat": null,
       "lon": null,
@@ -882,8 +882,1648 @@
       "phone": null
     },
     {
-      "id": "1498864983",
-      "name": "메가박스 청주성안길",
+      "id": "1424597158",
+      "name": "CGV 동탄그랑파사쥬",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1109550159",
+      "name": "메가박스 전주혁신",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "13502165",
+      "name": "메가박스 킨텍스",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1877005111",
+      "name": "CGV 광주첨단",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1266977390",
+      "name": "CGV 고덕강일",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "13082085",
+      "name": "CGV 센텀시티",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1523788478",
+      "name": "CGV 천안터미널",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "21530413",
+      "name": "CGV 의정부",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12036513",
+      "name": "메가박스 광주하남",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1545185376",
+      "name": "메가박스 대구세븐밸리(칠곡)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1400115582",
+      "name": "CGV 스타필드시티위례",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "2083329971",
+      "name": "제천시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12262385",
+      "name": "CGV 일산",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1731126714",
+      "name": "CGV 나주",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "16302872",
+      "name": "CGV 광주용봉",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1386635062",
+      "name": "롯데시네마 서귀포",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1007847102",
+      "name": "CGV 오산중앙",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1049384842",
+      "name": "롯데시네마 천안불당",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1383817586",
+      "name": "씨네Q 신도림",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12126205",
+      "name": "CGV 구로",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "20059795",
+      "name": "CGV 동백",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "36877562",
+      "name": "CGV 천호",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12088602",
+      "name": "CGV 계양",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1075359190",
+      "name": "횡성시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "179717770",
+      "name": "롯데시네마 인천아시아드",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1686959695",
+      "name": "롯데시네마 부산명지",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "13460937",
+      "name": "롯데시네마 대구율하",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1568506835",
+      "name": "메가박스 고양스타필드",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "36897998",
+      "name": "롯데시네마 안산고잔",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1593820786",
+      "name": "CGV 아산",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1323893145",
+      "name": "CGV 울산동구",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "391734485",
+      "name": "CGV 김해장유",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1625804322",
+      "name": "메가박스 마곡",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "2063600068",
+      "name": "롯데시네마 파주야당",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "35687878",
+      "name": "CGV 안동",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "20506205",
+      "name": "CGV 대구스타디움",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1817465096",
+      "name": "롯데시네마 인천터미널",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "13186461",
+      "name": "CGV 북포항",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1684690030",
+      "name": "CGV 고양행신",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1028076357",
+      "name": "CGV 논산",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1676359357",
+      "name": "CGV 순천신대",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "31812198",
+      "name": "CGV 대전가오",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "65375611",
+      "name": "CGV 산본",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "36170586",
+      "name": "메가박스 별내",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1203675186",
+      "name": "롯데시네마 영주",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "13204674",
+      "name": "메가박스 상봉",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1921867944",
+      "name": "1939시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1168497207",
+      "name": "CGV 김포",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1264796153",
+      "name": "롯데시네마 하남미사",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37431083",
+      "name": "메가박스 진천",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1933975309",
+      "name": "태백 작은영화관",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12869892",
+      "name": "롯데시네마 동래",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12974146",
+      "name": "CGV 성신여대입구",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1749186951",
+      "name": "메가박스 홍성내포",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "13194028",
+      "name": "롯데시네마 동해",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "35356933",
+      "name": "CGV 파주문산",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12953806",
+      "name": "메가박스 덕천",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1078007090",
+      "name": "롯데시네마 프리미엄구미센트럴",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1251647452",
+      "name": "씨네Q 경주보문",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12035659",
+      "name": "애관극장",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "34249730",
+      "name": "CGV 정읍",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1468959922",
+      "name": "롯데시네마 군산몰",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1458157614",
+      "name": "CGV 기린",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "35022279",
+      "name": "롯데시네마 김해부원",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1070884620",
+      "name": "완도 빙그레시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "31833827",
+      "name": "롯데시네마 가산디지털",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37162753",
+      "name": "메가박스 김천",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12871379",
+      "name": "메가박스 창원",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "31212789",
+      "name": "롯데시네마 서청주(아울렛)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1096557997",
+      "name": "메가박스 대전유성",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1114094565",
+      "name": "CGV 인천가정(루원시티)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1860900062",
+      "name": "CGV 포천",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1071206637",
+      "name": "산청군 작은영화관",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37306098",
+      "name": "토마토시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "2057175077",
+      "name": "메가박스 동탄역",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1812121768",
+      "name": "CGV 광교상현",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1729280532",
+      "name": "롯데시네마 시흥장현",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "34599289",
+      "name": "홍천시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "36298841",
+      "name": "강화작은영화관",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1114543247",
+      "name": "달홀영화관",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1454335426",
+      "name": "양구 정중앙 시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1412163633",
+      "name": "설성시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "559101282",
+      "name": "아리아리 정선시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1008852119",
+      "name": "남해보물섬시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1552380716",
+      "name": "롯데시네마 동탄",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12314300",
+      "name": "CGV 청주(서문)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1136010464",
+      "name": "롯데시네마 영천",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "35958879",
+      "name": "메가박스 검단",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1323622281",
+      "name": "CGV 충북혁신",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1806217059",
+      "name": "CGV 고성",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "258029709",
+      "name": "CGV 씨네드쉐프 압구정",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "38420336",
+      "name": "메가박스 천안",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12789551",
+      "name": "CGV 춘천",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1660910204",
+      "name": "메가박스 대구이시아",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1559284356",
+      "name": "메가박스 포항",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "180034520",
+      "name": "CGV 광양",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12125219",
+      "name": "CGV 야탑",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12305787",
+      "name": "롯데시네마 안산",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1496788574",
+      "name": "CGV 건대입구",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1591094558",
+      "name": "메가박스 오창",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12283016",
+      "name": "메가박스 목동",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "17564546",
+      "name": "금성시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "422925040",
+      "name": "CGV 광양 엘에프스퀘어",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1844070391",
+      "name": "CGV 부산명지",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12250774",
+      "name": "롯데시네마 남원주",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "31041017",
+      "name": "CGV 화정",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1870380285",
+      "name": "CGV 울산진장",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "36105263",
+      "name": "CGV 당진",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "776910952",
+      "name": "롯데시네마 수유",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1792567565",
+      "name": "메가박스 광명AK플라자",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "303883594",
+      "name": "메가박스 남춘천",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "38264561",
+      "name": "합천시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "11622488",
+      "name": "롯데시네마 강동",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1461958510",
+      "name": "롯데시네마 중랑",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12332722",
+      "name": "CGV 불광",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "797818548",
+      "name": "메가박스 남포항",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1498927482",
+      "name": "메가박스 대전중앙로",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1893697129",
+      "name": "롯데시네마 판교",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "31072429",
+      "name": "롯데시네마 대구광장",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "38712526",
+      "name": "CGV 김천율곡",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "32762401",
+      "name": "롯데시네마 김해아울렛(장유)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "2146522049",
+      "name": "메가박스 청주터미널",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1157146120",
+      "name": "메가박스 수원인계",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1032361173",
+      "name": "메가박스 미사강변",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "20762326",
+      "name": "롯데시네마 파주롯데아울렛",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "35052351",
+      "name": "CGV 세종",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1243862109",
+      "name": "CGV 송도타임스페이스",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1174286431",
+      "name": "메가박스 양산증산",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "11832200",
+      "name": "메가박스 남양주",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1662722976",
+      "name": "롯데시네마 군산나운",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "20780871",
+      "name": "롯데시네마 김포공항",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37397527",
+      "name": "롯데시네마 상인",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12317306",
+      "name": "롯데시네마 전주(백화점)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "238771076",
+      "name": "메가박스 송파파크하비오",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1179539845",
+      "name": "메가박스 금정AK플라자",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1252183285",
+      "name": "롯데시네마 경주황성",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12144061",
+      "name": "CGV 김해",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "31427596",
+      "name": "메가박스 구미강동",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "19392087",
+      "name": "CGV 동탄",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1504392966",
+      "name": "CGV 광교",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12248169",
+      "name": "롯데시네마 건대입구",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1456692810",
+      "name": "CGV 다산",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12137078",
+      "name": "롯데시네마 창원",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1745935830",
+      "name": "CGV 등촌",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1883061607",
+      "name": "롯데시네마 수지",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "2140001785",
+      "name": "CGV 평택",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1093173047",
+      "name": "CGV 서전주",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1693461399",
+      "name": "메가박스 성남모란",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1645325479",
+      "name": "롯데시네마 제주연동",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "11543840",
+      "name": "롯데시네마 서산",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1268911622",
+      "name": "메가박스 화명",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1748754521",
+      "name": "CGV 수유",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12189348",
+      "name": "CGV 범계",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1684723347",
+      "name": "메가박스 북대구(칠곡)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "55671241",
+      "name": "롯데시네마 청주용암",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1530404539",
+      "name": "CGV 대구죽전",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "35849406",
+      "name": "롯데시네마 독산",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12121097",
+      "name": "롯데시네마 병점",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1268421806",
+      "name": "롯데시네마 용인기흥",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "36170475",
+      "name": "롯데시네마 구리아울렛",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12172691",
+      "name": "메가박스 수원",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37182463",
+      "name": "메가박스 인천논현",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "38547820",
+      "name": "롯데시네마 진주혁신(롯데몰)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "31076685",
+      "name": "롯데시네마 전주평화",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1314460687",
+      "name": "롯데시네마 서수원",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "36192549",
+      "name": "롯데시네마 동부산아울렛",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "36072058",
+      "name": "롯데시네마 광명아울렛",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "20574013",
+      "name": "CGV 청담씨네시티",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1174514823",
+      "name": "롯데시네마 광주광산",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12384263",
+      "name": "롯데시네마 구미공단",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1035998452",
+      "name": "롯데시네마 용인역북",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37064380",
+      "name": "롯데시네마 광교",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "21214954",
+      "name": "롯데시네마 수완(아울렛)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "36210514",
+      "name": "롯데시네마 광명(광명사거리)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1787836446",
+      "name": "롯데시네마 도곡",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37837584",
+      "name": "롯데시네마 안양일번가",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1327772381",
+      "name": "롯데시네마 대전관저",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "589019909",
+      "name": "롯데시네마 은평(롯데몰)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "435568384",
+      "name": "롯데시네마 파주운정",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37837576",
+      "name": "롯데시네마 산본피트인",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1584911952",
+      "name": "롯데시네마 위례",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12869911",
+      "name": "롯데시네마 센텀시티",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "21355021",
+      "name": "롯데시네마 평촌(범계역)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "35506902",
+      "name": "롯데시네마 광복",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "13347778",
+      "name": "CGV 용인",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "21724087",
+      "name": "CGV 강릉",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12187077",
+      "name": "롯데시네마 노원",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "35895696",
+      "name": "CGV 유성노은",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "38506842",
+      "name": "메가박스 하남스타필드",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12208502",
+      "name": "CGV 동래",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "219585474",
+      "name": "롯데시네마 익산모현",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12096910",
+      "name": "롯데시네마 센트럴락",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12036524",
+      "name": "메가박스 전대(광주)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12299945",
+      "name": "롯데시네마 성서",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1491058014",
+      "name": "메가박스 시흥정왕",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "73395323",
+      "name": "메가박스 파주운정",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1461627501",
+      "name": "롯데시네마 엠비씨네(진주)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37550363",
+      "name": "메가박스 목포하당(포르모)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1980024059",
+      "name": "영동 레인보우영화관",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1094746855",
+      "name": "롯데시네마 북수원",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1745200518",
+      "name": "CGV 경기광주",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1092278991",
+      "name": "롯데시네마 광주첨단",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1912756367",
+      "name": "롯데시네마 충주",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37668849",
+      "name": "메가박스 경산하양",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "20095966",
+      "name": "롯데시네마 진해",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1420573484",
+      "name": "롯데시네마 성남중앙(신흥역)",
       "address": null,
       "lat": null,
       "lon": null,
@@ -906,192 +2546,24 @@
       "phone": null
     },
     {
-      "id": "1096557997",
-      "name": "메가박스 대전유성",
+      "id": "1759026341",
+      "name": "메가박스 평택비전",
       "address": null,
       "lat": null,
       "lon": null,
       "phone": null
     },
     {
-      "id": "37397527",
-      "name": "롯데시네마 상인",
+      "id": "100420384",
+      "name": "롯데시네마 원주무실",
       "address": null,
       "lat": null,
       "lon": null,
       "phone": null
     },
     {
-      "id": "12036513",
-      "name": "메가박스 광주하남",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "35506902",
-      "name": "롯데시네마 광복",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "36897998",
-      "name": "롯데시네마 안산고잔",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "35849406",
-      "name": "롯데시네마 독산",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "55671241",
-      "name": "롯데시네마 청주용암",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "31072429",
-      "name": "롯데시네마 대구광장",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "12317306",
-      "name": "롯데시네마 전주(백화점)",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "12384263",
-      "name": "롯데시네마 구미공단",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "1792567565",
-      "name": "메가박스 광명AK플라자",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "1662722976",
-      "name": "롯데시네마 군산나운",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "1684391321",
-      "name": "CGV 울산신천",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "20059795",
-      "name": "CGV 동백",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "1245543465",
-      "name": "메가박스 충주연수",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "37837584",
-      "name": "롯데시네마 안양일번가",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "20415885",
-      "name": "CGV 홍성",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "35022279",
-      "name": "롯데시네마 김해부원",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "11543840",
-      "name": "롯데시네마 서산",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "35815970",
-      "name": "CGV 김포운양",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "1400115582",
-      "name": "CGV 스타필드시티위례",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "11832200",
-      "name": "메가박스 남양주",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "1676359357",
-      "name": "CGV 순천신대",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "1607851796",
-      "name": "씨네Q 구미봉곡",
+      "id": "1582539983",
+      "name": "메가박스 영종하늘도시",
       "address": null,
       "lat": null,
       "lon": null,
@@ -1106,80 +2578,72 @@
       "phone": null
     },
     {
-      "id": "1487945672",
-      "name": "롯데시네마 전주송천",
+      "id": "19455493",
+      "name": "롯데시네마 마산(합성동)",
       "address": null,
       "lat": null,
       "lon": null,
       "phone": null
     },
     {
-      "id": "12299945",
-      "name": "롯데시네마 성서",
+      "id": "1991389738",
+      "name": "메가박스 용인테크노밸리",
       "address": null,
       "lat": null,
       "lon": null,
       "phone": null
     },
     {
-      "id": "1016339780",
-      "name": "양양 작은영화관",
+      "id": "13065140",
+      "name": "롯데시네마 신림",
       "address": null,
       "lat": null,
       "lon": null,
       "phone": null
     },
     {
-      "id": "1647199389",
-      "name": "무안작은영화관",
+      "id": "1014775067",
+      "name": "메가박스 세종나성",
       "address": null,
       "lat": null,
       "lon": null,
       "phone": null
     },
     {
-      "id": "1075359190",
-      "name": "횡성시네마",
+      "id": "1786067673",
+      "name": "메가박스 해운대(장산)",
       "address": null,
       "lat": null,
       "lon": null,
       "phone": null
     },
     {
-      "id": "12305787",
-      "name": "롯데시네마 안산",
+      "id": "13314342",
+      "name": "메가박스 공주",
       "address": null,
       "lat": null,
       "lon": null,
       "phone": null
     },
     {
-      "id": "12121097",
-      "name": "롯데시네마 병점",
+      "id": "36153195",
+      "name": "메가박스 파주금촌",
       "address": null,
       "lat": null,
       "lon": null,
       "phone": null
     },
     {
-      "id": "31833827",
-      "name": "롯데시네마 가산디지털",
+      "id": "1144272592",
+      "name": "옥천 향수시네마",
       "address": null,
       "lat": null,
       "lon": null,
       "phone": null
     },
     {
-      "id": "37064380",
-      "name": "롯데시네마 광교",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "11622504",
-      "name": "아리랑시네센터",
+      "id": "32315721",
+      "name": "CGV 중계",
       "address": null,
       "lat": null,
       "lon": null,
@@ -1194,16 +2658,248 @@
       "phone": null
     },
     {
-      "id": "1070884620",
-      "name": "완도 빙그레시네마",
+      "id": "1976808865",
+      "name": "씨네Q 남양주다산",
       "address": null,
       "lat": null,
       "lon": null,
       "phone": null
     },
     {
-      "id": "12096910",
-      "name": "롯데시네마 센트럴락",
+      "id": "1022259084",
+      "name": "롯데시네마 사천",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1007699306",
+      "name": "CGV 청주터미널",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "37596189",
+      "name": "CGV 상봉",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1939483733",
+      "name": "메가박스 마산",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "30833713",
+      "name": "CGV 천안펜타포트",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "13281893",
+      "name": "김해문화의전당",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12239724",
+      "name": "CGV 동수원",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1981747091",
+      "name": "메가박스 상암월드컵경기장",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12182250",
+      "name": "CGV 제주",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "34490414",
+      "name": "수원시미디어센터",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "11622504",
+      "name": "아리랑시네센터",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1245543465",
+      "name": "메가박스 충주연수",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "2019580491",
+      "name": "목포아트시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1712064595",
+      "name": "고한시네마",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1498864983",
+      "name": "메가박스 청주성안길",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "13141696",
+      "name": "CGV 거제",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "12307020",
+      "name": "롯데시네마 송탄",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1520582308",
+      "name": "CGV 양주옥정",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1038464594",
+      "name": "메가박스 광명소하",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "20059825",
+      "name": "메가박스 세종(조치원)",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1684391321",
+      "name": "CGV 울산신천",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "20415885",
+      "name": "CGV 홍성",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "35815970",
+      "name": "CGV 김포운양",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1607851796",
+      "name": "씨네Q 구미봉곡",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1126694458",
+      "name": "메가박스 여수웅천",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1156124530",
+      "name": "메가박스 청주사창",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1542863332",
+      "name": "CGV 목포평화광장",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1061906516",
+      "name": "CGV 구리갈매",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1647199389",
+      "name": "무안작은영화관",
+      "address": null,
+      "lat": null,
+      "lon": null,
+      "phone": null
+    },
+    {
+      "id": "1016339780",
+      "name": "양양 작은영화관",
       "address": null,
       "lat": null,
       "lon": null,
@@ -1212,14 +2908,6 @@
     {
       "id": "1166525592",
       "name": "명화극장",
-      "address": null,
-      "lat": null,
-      "lon": null,
-      "phone": null
-    },
-    {
-      "id": "2083329971",
-      "name": "제천시네마",
       "address": null,
       "lat": null,
       "lon": null,
