@@ -126,6 +126,51 @@ def _load_previous_enrichment(path: Path) -> dict[str, dict]:
     return result
 
 
+def _load_previous_theater_addresses(path: Path) -> dict[str, dict]:
+    """이전 theaters.json 에서 id → 주소/좌표 맵 (주소 확보된 것만).
+
+    극장 이름 단독 검색(theaters.search_theater_detail)은 극장마다 요청이
+    드는데, 스케줄 API로만 발견되는 극장 목록은 하루하루 거의 그대로라
+    매번 다시 조회하면 낭비다 — 한 번 찾은 주소는 계속 승계하고, 이번에
+    새로 나타난 극장만 조회한다.
+    """
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return {
+        t["id"]: {"address": t["address"], "lat": t.get("lat"), "lon": t.get("lon"), "phone": t.get("phone")}
+        for t in data.get("theaters", [])
+        if t.get("address")
+    }
+
+
+def _backfill_theater_addresses(theater_list: list[theaters.Theater], previous: dict[str, dict]) -> tuple[int, int]:
+    """주소·좌표가 없는 극장(스케줄 API로만 발견된 경우)을 채운다.
+    이전 결과가 있으면 승계하고, 없는 것만 이름 단독 검색으로 새로 조회한다.
+    반환값: (이전 결과 승계 수, 신규 조회 성공 수)
+    """
+    carried = fetched = 0
+    for t in theater_list:
+        if t.address:
+            continue
+        prev = previous.get(t.id)
+        if prev:
+            t.address, t.lat, t.lon = prev["address"], prev["lat"], prev["lon"]
+            t.phone = t.phone or prev.get("phone")
+            carried += 1
+            continue
+        found = theaters.search_theater_detail(t.name)
+        theaters._throttle()
+        if found:
+            t.address, t.lat, t.lon = found.address, found.lat, found.lon
+            t.phone = t.phone or found.phone
+            fetched += 1
+    return carried, fetched
+
+
 def _load_previous_rerelease_ids(path: Path) -> set[str]:
     """이전 movies.json 에서 재개봉으로 표시됐던 영화의 naver_os 집합.
     새 movies.json 을 쓰기 전에 반드시 먼저 호출해야 한다."""
@@ -198,6 +243,13 @@ def main() -> None:
     extra_matches, new_theater_count = _enrich_via_schedule_api(now_playing, theater_by_id)
     print(f"  추가 매칭 {extra_matches}건 / 지역 시딩에 없던 극장 {new_theater_count}곳 신규 등록")
     theater_list = list(theater_by_id.values())
+
+    missing_before = sum(1 for t in theater_list if not t.address)
+    print(f"주소·좌표 미확인 극장 {missing_before}곳 — 개별 상세 조회로 보강...")
+    previous_addresses = _load_previous_theater_addresses(THEATERS_OUTPUT)  # 덮어쓰기 전에 읽어둔다
+    carried, fetched = _backfill_theater_addresses(theater_list, previous_addresses)
+    still_missing = sum(1 for t in theater_list if not t.address)
+    print(f"  이전 결과 승계 {carried}곳 / 신규 확보 {fetched}곳 / 그래도 못 찾음 {still_missing}곳")
 
     new_rereleases = [m for m in rereleases if m.naver_os and m.naver_os not in previous_rerelease_ids]
     if new_rereleases:

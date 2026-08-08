@@ -61,11 +61,12 @@ DEFAULT_REGION_QUERIES = [
 
 _MARK_TAGS = re.compile(r"</?mark>")
 
-# 네이버 place 데이터가 광주광역시를 "전남광주통합특별시"라는 존재하지 않는
-# 행정구역명으로 준다(경기도 광주시와 구분하려는 내부 표기로 추정) — 실제
-# 공식 명칭으로 정규화한다. 화면에 그대로 노출되면 오타처럼 보인다.
+# 네이버 place 데이터가 광주광역시를 "전남광주"(+"통합특별시"가 붙기도 함)라는
+# 존재하지 않는 행정구역명으로 준다(경기도 광주시와 구분하려는 내부 표기로
+# 추정) — 실제 공식 명칭으로 정규화한다. 엔드포인트마다 접미사 유무가 달라
+# ("전남광주통합특별시 ..." 도, "전남광주 서구 ..." 도 나온다) 둘 다 잡는다.
 _ADDRESS_FIXUPS = [
-    (re.compile(r"^전남광주통합특별시"), "광주광역시"),
+    (re.compile(r"^전남광주(?:통합특별시)?"), "광주광역시"),
 ]
 
 
@@ -137,6 +138,49 @@ def search_theaters(query: str) -> list[Theater]:
             )
         )
     return results
+
+
+def search_theater_detail(name: str) -> Theater | None:
+    """극장 이름 단독 검색으로 주소·좌표를 얻는다 (지역 시딩·스케줄 API 둘 다에서
+    빠진 극장 보강용).
+
+    "{이름} 영화관"으로 검색하면 PlaceListBusinessesItem 목록 위젯이 아니라
+    단일 상세 페이지로 바로 넘어가는 경우가 많다(체인 지점명처럼 검색어가
+    고유할 때) — search_theaters()는 목록 위젯만 파싱하므로 이런 경우 0건을
+    준다. 상세 페이지엔 PlaceDetailBase(+ 중첩된 Coordinate)가 내장돼
+    있어 그걸 대신 파싱한다. "영화관" 접미사 없이도 한 번 더 시도한다
+    (드물게 접미사가 오히려 다른 업체로 갈라지는 경우가 있다).
+    """
+    for i, query in enumerate((f"{name} 영화관", name)):
+        if i > 0:
+            time.sleep(random.uniform(1.0, 2.0))  # 같은 극장에 연속 요청이라 짧게라도 텀을 둔다
+        text = _fetch(query)
+        m = re.search(r'"__typename":"PlaceDetailBase"', text)
+        if not m:
+            continue
+        obj_start = text.rfind("{", 0, m.start())
+        try:
+            obj = json.loads(_extract_balanced(text, obj_start))
+        except (ValueError, json.JSONDecodeError):
+            continue
+        if obj.get("category") != "영화관":
+            continue
+        tid = obj.get("id")
+        if not tid:
+            continue
+        coord = obj.get("coordinate") or {}
+        lat, lon = coord.get("y"), coord.get("x")
+        if not lat or not lon:
+            continue
+        return Theater(
+            id=tid,
+            name=_MARK_TAGS.sub("", obj.get("name") or name),
+            address=_normalize_address(obj.get("roadAddress") or obj.get("address")),
+            lat=lat,
+            lon=lon,
+            phone=obj.get("phone"),
+        )
+    return None
 
 
 def get_now_showing(theater_name: str) -> list[str]:
