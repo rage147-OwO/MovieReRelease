@@ -81,12 +81,10 @@ def _enrich_via_schedule_api(
 
     지역 시딩(_match_theaters)은 CGV 위주 ~100개 극장에서만 잡히므로 커버리지가
     낮다(일반 상영작의 절반 이상이 매칭 0건). 재개봉작·일반작 가리지 않고 모든
-    now_playing 영화를 이 정밀 조회로 보강한다 — 대신 재개봉작만 여러 날짜를
-    보고, 일반작은 매번 days=1(오늘만)로 호출해 요청량을 억제한다.
-
-    days는 호출부에서 용도에 맞게 조절한다 — "언제까지 하는지" 궁금증은
-    재개봉작 맥락에서 나온 요청이라 일반작은 매칭(오늘 상영 여부)만 확인하면
-    충분하다. days=1이면 movie당 요청이 8회에서 2회로 줄어든다.
+    now_playing 영화를 이 정밀 조회로 보강하며, 날짜 탭이 하루치만 뜨지 않도록
+    재개봉작·일반작 구분 없이 동일하게 최대 SCHEDULE_DAYS일치를 조회한다
+    (예전엔 일반작만 days=1로 줄여 요청량을 아꼈으나, 그러면 화면에 날짜 탭이
+    "오늘" 하나만 남아 재개봉작과 다르게 보이는 문제가 있었다).
 
     시딩에 없던 극장은 좌표 없이 이름만 등록(목록엔 나오되 지도 마커는 생략).
     반환값: (추가 매칭 건수, 새로 등록된 극장 수)
@@ -196,13 +194,8 @@ def main() -> None:
     with_showtime = sum(1 for t in theater_list if t.now_showing)
     print(f"  극장 {len(theater_list)}곳 (상영정보 확인됨 {with_showtime}곳) / 영화-극장 매칭 {matches}건")
 
-    now_rereleases = [m for m in now_playing if m.is_rerelease]
-    regular_movies = [m for m in now_playing if not m.is_rerelease]
-    print(f"재개봉작 {len(now_rereleases)}편 — 전국 상영관 정밀 조회 (최대 {theaters.SCHEDULE_DAYS}일치)...")
-    extra1, new1 = _enrich_via_schedule_api(now_rereleases, theater_by_id)
-    print(f"일반작 {len(regular_movies)}편 — 전국 상영관 조회 (오늘만)...")
-    extra2, new2 = _enrich_via_schedule_api(regular_movies, theater_by_id, days=1)
-    extra_matches, new_theater_count = extra1 + extra2, new1 + new2
+    print(f"상영작 {len(now_playing)}편 — 전국 상영관 정밀 조회 (최대 {theaters.SCHEDULE_DAYS}일치)...")
+    extra_matches, new_theater_count = _enrich_via_schedule_api(now_playing, theater_by_id)
     print(f"  추가 매칭 {extra_matches}건 / 지역 시딩에 없던 극장 {new_theater_count}곳 신규 등록")
     theater_list = list(theater_by_id.values())
 

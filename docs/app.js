@@ -41,6 +41,19 @@ const REGION_GROUPS = [
   { id: "jeolla", label: "광주·전라·제주", keywords: REGION_KEYWORDS.jeolla },
   { id: "gyeongsang", label: "부산·대구·울산·경상", keywords: REGION_KEYWORDS.gyeongsang },
 ];
+// 이름 자체에 지명이 아예 없어 키워드 매칭이 원천적으로 불가능한 극장들
+// (예: "1939시네마"는 가평에 있지만 이름 어디에도 "가평"이 없다) — 직접 찾아서
+// 하드코딩. 검색으로 확인한 실제 소재지(2026-08 기준):
+//   애관극장 — 인천 중구 개항로 63-2 (한국에서 제일 오래된 극장)
+//   달홀영화관 — 강원 고성군 간성읍 (달홀 = 고성의 옛 지명)
+//   1939시네마 — 경기 가평군 가평읍
+//   토마토시네마 — 강원 화천군 사내면
+const MANUAL_REGION_OVERRIDES = {
+  "애관극장": "gyeonggi",
+  "달홀영화관": "gangwon",
+  "1939시네마": "gyeonggi",
+  "토마토시네마": "gangwon",
+};
 // 극장이 이보다 많으면 지역별로 묶고, 각 극장은 접어서(클릭 시 펼침) 보여준다 —
 // 재개봉작처럼 몇 곳 안 되면 굳이 묶을 필요 없이 다 펼쳐 보여주는 게 낫다.
 const COLLAPSE_THRESHOLD = 5;
@@ -252,7 +265,7 @@ function cardHtml(m, idx) {
 </div>`;
 }
 
-let modalState = null; // { theaterList, times, dates, selectedDate, regionKeywords }
+let modalState = null; // { theaterList, times, dates, selectedDate }
 
 function openModal(movie) {
   if (!movie) return;
@@ -268,9 +281,8 @@ function openModal(movie) {
 
   // 내 지역으로 설정한 게 있으면 그 지역 극장을 목록 위로 올린다 (필터링은 아님 —
   // 다른 지역 상영관도 여전히 보여준다, 다만 순서만 우선).
-  const regionKeywords = REGION_KEYWORDS[state.myRegion] || [];
-  if (regionKeywords.length) {
-    theaterList.sort((a, b) => matchesRegion(b, regionKeywords) - matchesRegion(a, regionKeywords));
+  if (state.myRegion) {
+    theaterList.sort((a, b) => (regionIdOf(b) === state.myRegion) - (regionIdOf(a) === state.myRegion));
   }
 
   $modalFallbackLink.href = movie.naver_link || "#";
@@ -298,7 +310,7 @@ function openModal(movie) {
   theaterList.forEach((t) => Object.keys(times[t.id] || {}).forEach((d) => dateSet.add(d)));
   const dates = [...dateSet].sort();
 
-  modalState = { theaterList, times, dates, selectedDate: dates[0] || null, regionKeywords };
+  modalState = { theaterList, times, dates, selectedDate: dates[0] || null };
 
   if (dates.length > 0) {
     $modalDateTabs.hidden = false;
@@ -320,7 +332,7 @@ function openModal(movie) {
 
 function renderTheaterList() {
   if (!modalState) return;
-  const { theaterList, times, selectedDate, regionKeywords } = modalState;
+  const { theaterList, times, selectedDate } = modalState;
 
   // 날짜 탭이 있는 영화는 선택한 날짜에 실제 상영 정보가 있는 극장만 보여준다
   // (없는 걸 "상영 정보 없음"으로 나열하기보다 아예 안 보이는 게 더 명확하다).
@@ -349,7 +361,7 @@ function renderTheaterList() {
           .join("")}</span>`
       : `<span class="theater-times no-show">상영시간 정보 없음</span>`;
     // 묶어서 보여줄 땐 그룹 헤더가 지역을 이미 알려주니 배지는 생략한다.
-    const nearBadge = !grouped && regionKeywords.length && matchesRegion(t, regionKeywords)
+    const nearBadge = !grouped && state.myRegion && regionIdOf(t) === state.myRegion
       ? `<span class="badge-near">내 지역</span>`
       : "";
     const nameAddr = `<span class="theater-name">${escapeHtml(t.name)}${nearBadge}</span>
@@ -366,7 +378,8 @@ function renderTheaterList() {
     const groups = REGION_GROUPS.map((g) => ({ ...g, theaters: [] }));
     const etc = { id: "etc", label: "기타", theaters: [] };
     for (const t of visibleTheaters) {
-      const g = groups.find((g) => matchesRegion(t, g.keywords));
+      const rid = regionIdOf(t);
+      const g = rid ? groups.find((gr) => gr.id === rid) : undefined;
       (g || etc).theaters.push(t);
     }
     const nonEmpty = [...groups, etc].filter((g) => g.theaters.length > 0);
@@ -408,6 +421,15 @@ function matchesRegion(theater, keywords) {
   // — "안동 중앙시네마"처럼 지명이 이름에 박혀 있는 경우를 잡기 위함.
   const text = `${theater.address || ""} ${theater.name || ""}`;
   return keywords.some((k) => text.includes(k)) ? 1 : 0;
+}
+
+// 이 극장이 속한 지역 id를 하나 고른다 (없으면 null → "기타").
+// MANUAL_REGION_OVERRIDES를 먼저 보고, 없으면 키워드 매칭으로 판단한다.
+function regionIdOf(theater) {
+  const override = MANUAL_REGION_OVERRIDES[theater.name];
+  if (override) return override;
+  const group = REGION_GROUPS.find((g) => matchesRegion(theater, g.keywords));
+  return group ? group.id : null;
 }
 
 function renderMap(theaterList) {
