@@ -2,8 +2,8 @@
 """크롤 실행 진입점.
 
 네이버 상영작/개봉예정 수집 → 재개봉작만 KOBIS로 원개봉일 보강 →
-지역 극장 상영작과 교차매칭 → 재개봉작 + 지역매칭 실패작만 전국
-스케줄 API로 정밀 보강 → 신규 재개봉작 Discord 알림 →
+지역 극장 상영작과 교차매칭 → 전국 스케줄 API로 정밀 보강
+(재개봉작은 최대 7일치, 일반작은 오늘만) → 신규 재개봉작 Discord 알림 →
 docs/data/movies.json, theaters.json 생성.
 KOBIS 키가 없거나 조회에 실패하면 이전 크롤 결과의 보강값을 승계한다.
 
@@ -80,9 +80,9 @@ def _enrich_via_schedule_api(
     """영화 중심 스케줄 API(get_schedule_theaters)로 전국 상영관을 정밀 보강한다.
 
     지역 시딩(_match_theaters)은 CGV 위주 ~100개 극장에서만 잡히므로 커버리지가
-    낮다(일반 상영작의 절반 이상이 매칭 0건). 재개봉작은 항상, 그 외 상영작은
-    지역 시딩으로 하나도 못 잡은 것만 골라 이 정밀 조회로 보강한다 — 재개봉작이
-    아닌데 이미 CGV 매칭이 있는 영화까지 전부 돌리면 요청량이 과도해진다.
+    낮다(일반 상영작의 절반 이상이 매칭 0건). 재개봉작·일반작 가리지 않고 모든
+    now_playing 영화를 이 정밀 조회로 보강한다 — 대신 재개봉작만 여러 날짜를
+    보고, 일반작은 매번 days=1(오늘만)로 호출해 요청량을 억제한다.
 
     days는 호출부에서 용도에 맞게 조절한다 — "언제까지 하는지" 궁금증은
     재개봉작 맥락에서 나온 요청이라 일반작은 매칭(오늘 상영 여부)만 확인하면
@@ -197,11 +197,11 @@ def main() -> None:
     print(f"  극장 {len(theater_list)}곳 (상영정보 확인됨 {with_showtime}곳) / 영화-극장 매칭 {matches}건")
 
     now_rereleases = [m for m in now_playing if m.is_rerelease]
-    unmatched_regular = [m for m in now_playing if not m.is_rerelease and not m.theaters]
+    regular_movies = [m for m in now_playing if not m.is_rerelease]
     print(f"재개봉작 {len(now_rereleases)}편 — 전국 상영관 정밀 조회 (최대 {theaters.SCHEDULE_DAYS}일치)...")
     extra1, new1 = _enrich_via_schedule_api(now_rereleases, theater_by_id)
-    print(f"지역 매칭 실패 일반작 {len(unmatched_regular)}편 — 전국 상영관 조회 (오늘만)...")
-    extra2, new2 = _enrich_via_schedule_api(unmatched_regular, theater_by_id, days=1)
+    print(f"일반작 {len(regular_movies)}편 — 전국 상영관 조회 (오늘만)...")
+    extra2, new2 = _enrich_via_schedule_api(regular_movies, theater_by_id, days=1)
     extra_matches, new_theater_count = extra1 + extra2, new1 + new2
     print(f"  추가 매칭 {extra_matches}건 / 지역 시딩에 없던 극장 {new_theater_count}곳 신규 등록")
     theater_list = list(theater_by_id.values())
