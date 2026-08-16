@@ -173,18 +173,8 @@ async function init() {
     if (!$notifyBackdrop.hidden) closeNotifyModal();
   });
 
-  try {
-    const [moviesRes, theatersRes] = await Promise.all([
-      fetch("data/movies.json", { cache: "no-cache" }),
-      fetch("data/theaters.json", { cache: "no-cache" }),
-    ]);
-    if (!moviesRes.ok) throw new Error(moviesRes.status);
-    state.data = await moviesRes.json();
-    if (theatersRes.ok) {
-      const theatersData = await theatersRes.json();
-      state.theaters = new Map((theatersData.theaters || []).map((t) => [t.id, t]));
-    }
-  } catch (err) {
+  const ok = await loadDataWithRetry();
+  if (!ok) {
     $error.hidden = false;
     return;
   }
@@ -193,6 +183,37 @@ async function init() {
     $updated.textContent = formatUpdated(state.data.generated_at) + " 갱신";
   }
   render();
+}
+
+async function fetchData() {
+  const [moviesRes, theatersRes] = await Promise.all([
+    fetch("data/movies.json", { cache: "no-cache" }),
+    fetch("data/theaters.json", { cache: "no-cache" }),
+  ]);
+  if (!moviesRes.ok) throw new Error(String(moviesRes.status));
+  state.data = await moviesRes.json();
+  if (theatersRes.ok) {
+    const theatersData = await theatersRes.json();
+    state.theaters = new Map((theatersData.theaters || []).map((t) => [t.id, t]));
+  }
+}
+
+// 배포 도중 CDN 전파 지연이나 순간적인 네트워크 오류로 첫 요청이 실패해도
+// "잠시 후 다시 시도해 주세요" 문구만 띄우고 끝이었다 — 실제로는 아무것도
+// 재시도하지 않아 사용자가 직접 새로고침해야만 복구됐다. 조용히 몇 번 더
+// 시도해보고, 그래도 안 되면 그때 에러를 보여준다.
+const RETRY_DELAYS_MS = [2000, 5000, 10000];
+
+async function loadDataWithRetry() {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      await fetchData();
+      return true;
+    } catch (err) {
+      if (attempt >= RETRY_DELAYS_MS.length) return false;
+      await new Promise((resolve) => setTimeout(resolve, RETRY_DELAYS_MS[attempt]));
+    }
+  }
 }
 
 function render() {
