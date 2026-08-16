@@ -6,7 +6,15 @@
 <description>지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 자동으로 찾아 알려드려요.</description>
 <language>ko</language>
 <atom:link href="https://rage147-owo.github.io/MovieReRelease/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Sun, 16 Aug 2026 06:33:14 +0900</lastBuildDate>
+<lastBuildDate>Sun, 16 Aug 2026 23:37:00 +0900</lastBuildDate>
+<item>
+<title>콜럼버스</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=4059809&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%EC%BD%9C%EB%9F%BC%EB%B2%84%EC%8A%A4</link>
+<guid isPermaLink="false">naver_os:4059809</guid>
+<pubDate>Sun, 16 Aug 2026 23:37:00 +0900</pubDate>
+<description>드라마 · 104분 · 재개봉 2026.06.03</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260520_267%2F1779267794151fxnug_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
 <item>
 <title>보헤미안 랩소디</title>
 <link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=4759400&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%EB%B3%B4%ED%97%A4%EB%AF%B8%EC%95%88%20%EB%9E%A9%EC%86%8C%EB%94%94</link>
