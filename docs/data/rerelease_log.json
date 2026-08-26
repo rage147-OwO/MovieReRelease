@@ -1,5 +1,16 @@
 [
   {
+    "naver_os": "17527923",
+    "title": "코다",
+    "detected_at": "2026-08-27T07:29:14+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=17527923&qvt=0&query=%EC%98%81%ED%99%94%20%EC%BD%94%EB%8B%A4",
+    "genre": "드라마",
+    "runtime": "111분",
+    "release_raw": "2026.09.16.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20220408_230%2F1649404582189RuAGA_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "4059809",
     "title": "콜럼버스",
     "detected_at": "2026-08-16T23:37:00+09:00",
