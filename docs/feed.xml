@@ -6,7 +6,23 @@
 <description>지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 자동으로 찾아 알려드려요.</description>
 <language>ko</language>
 <atom:link href="https://rage147-owo.github.io/MovieReRelease/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Fri, 04 Sep 2026 06:41:58 +0900</lastBuildDate>
+<lastBuildDate>Sat, 05 Sep 2026 06:42:02 +0900</lastBuildDate>
+<item>
+<title>아이유 콘서트 : 더 위닝</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=36318043&amp;qvt=0&amp;query=%EC%95%84%EC%9D%B4%EC%9C%A0%20%EC%BD%98%EC%84%9C%ED%8A%B8%20%EB%8D%94%20%EC%9C%84%EB%8B%9D</link>
+<guid isPermaLink="false">naver_os:36318043</guid>
+<pubDate>Sat, 05 Sep 2026 06:42:02 +0900</pubDate>
+<description>공연실황 · 124분 · 재개봉 2026.09.16</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20250108_174%2F1736328720692tngqd_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
+<item>
+<title>아이유 콘서트 : 더 골든 아워</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=32026042&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%EC%95%84%EC%9D%B4%EC%9C%A0%20%EC%BD%98%EC%84%9C%ED%8A%B8%20%3A%20%EB%8D%94%20%EA%B3%A8%EB%93%A0%20%EC%95%84%EC%9B%8C</link>
+<guid isPermaLink="false">naver_os:32026042</guid>
+<pubDate>Sat, 05 Sep 2026 06:42:02 +0900</pubDate>
+<description>공연실황 · 171분 · 재개봉 2026.09.09</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20230823_64%2F1692781706383b8EBQ_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
 <item>
 <title>코다</title>
 <link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=17527923&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%EC%BD%94%EB%8B%A4</link>
