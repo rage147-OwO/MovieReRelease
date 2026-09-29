@@ -6,7 +6,23 @@
 <description>지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 자동으로 찾아 알려드려요.</description>
 <language>ko</language>
 <atom:link href="https://rage147-owo.github.io/MovieReRelease/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Tue, 29 Sep 2026 06:24:31 +0900</lastBuildDate>
+<lastBuildDate>Wed, 30 Sep 2026 06:25:43 +0900</lastBuildDate>
+<item>
+<title>쿵푸 허슬</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1777467&amp;qvt=0&amp;query=%EC%BF%B5%ED%91%B8%20%ED%97%88%EC%8A%AC</link>
+<guid isPermaLink="false">naver_os:1777467</guid>
+<pubDate>Wed, 30 Sep 2026 06:25:43 +0900</pubDate>
+<description>코미디 · 101분 · 재개봉 2026.10</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260916_239%2F1789527502013u1yFk_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
+<item>
+<title>더 프린세스 : 도둑맞은 공주</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=8675157&amp;qvt=0&amp;query=%EB%8D%94%20%ED%94%84%EB%A6%B0%EC%84%B8%EC%8A%A4%20%3A%20%EB%8F%84%EB%91%91%EB%A7%9E%EC%9D%80%20%EA%B3%B5%EC%A3%BC</link>
+<guid isPermaLink="false">naver_os:8675157</guid>
+<pubDate>Wed, 30 Sep 2026 06:25:43 +0900</pubDate>
+<description>애니메이션 · 88분 · 재개봉 2026.10.21</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20200702_17%2F15936639687323Xv3w_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
 <item>
 <title>프란체스코</title>
 <link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1749768&amp;qvt=0&amp;query=%ED%94%84%EB%9E%80%EC%B2%B4%EC%8A%A4%EC%BD%94</link>

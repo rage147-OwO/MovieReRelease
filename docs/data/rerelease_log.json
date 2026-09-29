@@ -1,5 +1,27 @@
 [
   {
+    "naver_os": "1777467",
+    "title": "쿵푸 허슬",
+    "detected_at": "2026-09-30T06:25:43+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1777467&qvt=0&query=%EC%BF%B5%ED%91%B8%20%ED%97%88%EC%8A%AC",
+    "genre": "코미디",
+    "runtime": "101분",
+    "release_raw": "2026.10.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260916_239%2F1789527502013u1yFk_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
+    "naver_os": "8675157",
+    "title": "더 프린세스 : 도둑맞은 공주",
+    "detected_at": "2026-09-30T06:25:43+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=8675157&qvt=0&query=%EB%8D%94%20%ED%94%84%EB%A6%B0%EC%84%B8%EC%8A%A4%20%3A%20%EB%8F%84%EB%91%91%EB%A7%9E%EC%9D%80%20%EA%B3%B5%EC%A3%BC",
+    "genre": "애니메이션",
+    "runtime": "88분",
+    "release_raw": "2026.10.21.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20200702_17%2F15936639687323Xv3w_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "1749768",
     "title": "프란체스코",
     "detected_at": "2026-09-11T06:45:14+09:00",
