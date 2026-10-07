@@ -1,5 +1,16 @@
 [
   {
+    "naver_os": "1822026",
+    "title": "케이온",
+    "detected_at": "2026-10-08T06:23:51+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1822026&qvt=0&query=%EC%98%81%ED%99%94%20%EC%BC%80%EC%9D%B4%EC%98%A8",
+    "genre": "애니메이션",
+    "runtime": "110분",
+    "release_raw": "2026.10.14.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261006_245%2F1791252610494QF5CL_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "1767692",
     "title": "와호장룡",
     "detected_at": "2026-10-02T06:25:32+09:00",

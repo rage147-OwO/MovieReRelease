@@ -6,7 +6,15 @@
 <description>지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 자동으로 찾아 알려드려요.</description>
 <language>ko</language>
 <atom:link href="https://rage147-owo.github.io/MovieReRelease/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Wed, 07 Oct 2026 06:23:15 +0900</lastBuildDate>
+<lastBuildDate>Thu, 08 Oct 2026 06:23:51 +0900</lastBuildDate>
+<item>
+<title>케이온</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1822026&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%EC%BC%80%EC%9D%B4%EC%98%A8</link>
+<guid isPermaLink="false">naver_os:1822026</guid>
+<pubDate>Thu, 08 Oct 2026 06:23:51 +0900</pubDate>
+<description>애니메이션 · 110분 · 재개봉 2026.10.14</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261006_245%2F1791252610494QF5CL_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
 <item>
 <title>와호장룡</title>
 <link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1767692&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%EC%99%80%ED%98%B8%EC%9E%A5%EB%A3%A1%201</link>
