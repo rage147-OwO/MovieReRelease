@@ -6,7 +6,15 @@
 <description>지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 자동으로 찾아 알려드려요.</description>
 <language>ko</language>
 <atom:link href="https://rage147-owo.github.io/MovieReRelease/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Thu, 08 Oct 2026 06:23:51 +0900</lastBuildDate>
+<lastBuildDate>Fri, 09 Oct 2026 06:23:58 +0900</lastBuildDate>
+<item>
+<title>마틸다</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1756919&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%EB%A7%88%ED%8B%B8%EB%8B%A4</link>
+<guid isPermaLink="false">naver_os:1756919</guid>
+<pubDate>Fri, 09 Oct 2026 06:23:58 +0900</pubDate>
+<description>코미디 · 97분 · 재개봉 2026.10.21</description>
+<enclosure url="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" type="image/jpeg"/>
+</item>
 <item>
 <title>케이온</title>
 <link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1822026&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%EC%BC%80%EC%9D%B4%EC%98%A8</link>

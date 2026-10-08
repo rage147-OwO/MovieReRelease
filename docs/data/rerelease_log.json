@@ -1,5 +1,16 @@
 [
   {
+    "naver_os": "1756919",
+    "title": "마틸다",
+    "detected_at": "2026-10-09T06:23:58+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1756919&qvt=0&query=%EC%98%81%ED%99%94%20%EB%A7%88%ED%8B%B8%EB%8B%A4",
+    "genre": "코미디",
+    "runtime": "97분",
+    "release_raw": "2026.10.21.",
+    "original_open_date": null,
+    "poster": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+  },
+  {
     "naver_os": "1822026",
     "title": "케이온",
     "detected_at": "2026-10-08T06:23:51+09:00",
