@@ -1,5 +1,16 @@
 [
   {
+    "naver_os": "7811916",
+    "title": "아사코",
+    "detected_at": "2026-10-10T06:23:56+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=7811916&qvt=0&query=%EC%98%81%ED%99%94%20%EC%95%84%EC%82%AC%EC%BD%94",
+    "genre": "드라마",
+    "runtime": "120분",
+    "release_raw": "2026.10.21.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20190220_147%2F1550628802592YRPtN_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "1756919",
     "title": "마틸다",
     "detected_at": "2026-10-09T06:23:58+09:00",
