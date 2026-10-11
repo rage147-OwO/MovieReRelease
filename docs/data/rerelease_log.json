@@ -1,5 +1,16 @@
 [
   {
+    "naver_os": "1755953",
+    "title": "트레인스포팅",
+    "detected_at": "2026-10-12T06:23:39+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1755953&qvt=0&query=%ED%8A%B8%EB%A0%88%EC%9D%B8%EC%8A%A4%ED%8F%AC%ED%8C%85%201",
+    "genre": "드라마",
+    "runtime": "91분",
+    "release_raw": "2026.10.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260916_141%2F1789536070662ezviY_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "7811916",
     "title": "아사코",
     "detected_at": "2026-10-10T06:23:56+09:00",
