@@ -1,5 +1,27 @@
 [
   {
+    "naver_os": "2324869",
+    "title": "라라랜드",
+    "detected_at": "2026-10-15T06:23:33+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=2324869&qvt=0&query=%EC%98%81%ED%99%94%20%EB%9D%BC%EB%9D%BC%EB%9E%9C%EB%93%9C",
+    "genre": "드라마",
+    "runtime": "128분",
+    "release_raw": "2026.11.11.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20201229_146%2F1609226288425JgdsP_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
+    "naver_os": "2238919",
+    "title": "진격의 거인: 홍련의 화살",
+    "detected_at": "2026-10-15T06:23:33+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=2238919&qvt=0&query=%EC%A7%84%EA%B2%A9%EC%9D%98%20%EA%B1%B0%EC%9D%B8%3A%20%ED%99%8D%EB%A0%A8%EC%9D%98%20%ED%99%94%EC%82%B4",
+    "genre": "애니메이션",
+    "runtime": "119분",
+    "release_raw": "2026.10.28.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20200108_164%2F1578449015689JndO3_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "1755953",
     "title": "트레인스포팅",
     "detected_at": "2026-10-12T06:23:39+09:00",
