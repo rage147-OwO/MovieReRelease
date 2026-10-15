@@ -1,5 +1,16 @@
 [
   {
+    "naver_os": "1785849",
+    "title": "스트레인저 - 무황인담",
+    "detected_at": "2026-10-16T06:25:54+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1785849&qvt=0&query=%EC%8A%A4%ED%8A%B8%EB%A0%88%EC%9D%B8%EC%A0%80%20%EB%AC%B4%ED%99%A9%EC%9D%B8%EB%8B%B4",
+    "genre": "애니메이션",
+    "runtime": "103분",
+    "release_raw": "2026.11.11.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20111222_241%2F13245503563760m3z7_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "2324869",
     "title": "라라랜드",
     "detected_at": "2026-10-15T06:23:33+09:00",
