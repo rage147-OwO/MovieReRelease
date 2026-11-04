@@ -1,5 +1,27 @@
 [
   {
+    "naver_os": "1823150",
+    "title": "인사이드 르윈",
+    "detected_at": "2026-11-05T06:20:44+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1823150&qvt=0&query=%EC%9D%B8%EC%82%AC%EC%9D%B4%EB%93%9C%20%EB%A5%B4%EC%9C%88",
+    "genre": "드라마",
+    "runtime": "105분",
+    "release_raw": "2026.12.02.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20230317_183%2F1679029976847a2gbG_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
+    "naver_os": "1777415",
+    "title": "스윙걸즈",
+    "detected_at": "2026-11-05T06:20:44+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1777415&qvt=0&query=%EC%8A%A4%EC%9C%99%EA%B1%B8%EC%A6%88",
+    "genre": "코미디",
+    "runtime": "103분",
+    "release_raw": "2026.11.18.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261103_48%2F1793693950993ACwWL_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "3165723",
     "title": "원피스 필름 골드",
     "detected_at": "2026-11-01T06:20:54+09:00",

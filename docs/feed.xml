@@ -6,7 +6,23 @@
 <description>지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 자동으로 찾아 알려드려요.</description>
 <language>ko</language>
 <atom:link href="https://rage147-owo.github.io/MovieReRelease/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Mon, 02 Nov 2026 06:20:53 +0900</lastBuildDate>
+<lastBuildDate>Thu, 05 Nov 2026 06:20:44 +0900</lastBuildDate>
+<item>
+<title>인사이드 르윈</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1823150&amp;qvt=0&amp;query=%EC%9D%B8%EC%82%AC%EC%9D%B4%EB%93%9C%20%EB%A5%B4%EC%9C%88</link>
+<guid isPermaLink="false">naver_os:1823150</guid>
+<pubDate>Thu, 05 Nov 2026 06:20:44 +0900</pubDate>
+<description>드라마 · 105분 · 재개봉 2026.12.02</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20230317_183%2F1679029976847a2gbG_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
+<item>
+<title>스윙걸즈</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1777415&amp;qvt=0&amp;query=%EC%8A%A4%EC%9C%99%EA%B1%B8%EC%A6%88</link>
+<guid isPermaLink="false">naver_os:1777415</guid>
+<pubDate>Thu, 05 Nov 2026 06:20:44 +0900</pubDate>
+<description>코미디 · 103분 · 재개봉 2026.11.18</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261103_48%2F1793693950993ACwWL_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
 <item>
 <title>원피스 필름 골드</title>
 <link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=3165723&amp;qvt=0&amp;query=%EC%9B%90%ED%94%BC%EC%8A%A4%20%ED%95%84%EB%A6%84%20%EA%B3%A8%EB%93%9C</link>
