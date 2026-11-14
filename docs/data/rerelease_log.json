@@ -1,5 +1,82 @@
 [
   {
+    "naver_os": "18807277",
+    "title": "드라이브 마이 카",
+    "detected_at": "2026-11-15T06:20:37+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=18807277&qvt=0&query=%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C%20%EB%A7%88%EC%9D%B4%20%EC%B9%B4",
+    "genre": "드라마",
+    "runtime": "179분",
+    "release_raw": "2026.12.23.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261113_290%2F1794554812133iT5lt_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
+    "naver_os": "1802190",
+    "title": "블라인드",
+    "detected_at": "2026-11-15T06:20:37+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1802190&qvt=0&query=%EC%98%81%ED%99%94%20%EB%B8%94%EB%9D%BC%EC%9D%B8%EB%93%9C",
+    "genre": "드라마",
+    "runtime": "103분",
+    "release_raw": "2026.12.09.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261111_230%2F1794382990924UjsyA_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
+    "naver_os": "1776008",
+    "title": "크리스마스에 기적을 만날 확률",
+    "detected_at": "2026-11-15T06:20:37+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1776008&qvt=0&query=%ED%81%AC%EB%A6%AC%EC%8A%A4%EB%A7%88%EC%8A%A4%EC%97%90%20%EA%B8%B0%EC%A0%81%EC%9D%84%20%EB%A7%8C%EB%82%A0%20%ED%99%95%EB%A5%A0",
+    "genre": "애니메이션",
+    "runtime": "91분",
+    "release_raw": "2026.12.09.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261112_114%2F1794470951210VQwSE_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
+    "naver_os": "1748769",
+    "title": "연지구 디 오리지널 4K",
+    "detected_at": "2026-11-15T06:20:37+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1748769&qvt=0&query=%EC%97%B0%EC%A7%80%EA%B5%AC%20%EB%94%94%20%EC%98%A4%EB%A6%AC%EC%A7%80%EB%84%90%204K",
+    "genre": "판타지",
+    "runtime": "97분",
+    "release_raw": "2026.12.02.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260126_147%2F1769400854446JYAGU_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
+    "naver_os": "1776344",
+    "title": "이터널 선샤인",
+    "detected_at": "2026-11-15T06:20:37+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1776344&qvt=0&query=%EC%9D%B4%ED%84%B0%EB%84%90%20%EC%84%A0%EC%83%A4%EC%9D%B8",
+    "genre": "멜로/로맨스",
+    "runtime": "107분",
+    "release_raw": "2026.11.25.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261111_288%2F1794384688256YV7tT_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
+    "naver_os": "2772451",
+    "title": "진격의 거인: 자유의 날개",
+    "detected_at": "2026-11-15T06:20:37+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=2772451&qvt=0&query=%EC%A7%84%EA%B2%A9%EC%9D%98%20%EA%B1%B0%EC%9D%B8%3A%20%EC%9E%90%EC%9C%A0%EC%9D%98%20%EB%82%A0%EA%B0%9C",
+    "genre": "애니메이션",
+    "runtime": "121분",
+    "release_raw": "2026.11.25.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20200108_54%2F1578449213598RuU4p_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
+    "naver_os": "11365888",
+    "title": "듄",
+    "detected_at": "2026-11-15T06:20:37+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=11365888&qvt=0&query=%EB%93%84%201",
+    "genre": "SF",
+    "runtime": "155분",
+    "release_raw": "2026.11.11.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20210915_104%2F1631681279096sdjNA_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "1771621",
     "title": "천년여우",
     "detected_at": "2026-11-08T06:20:01+09:00",
