@@ -6,7 +6,15 @@
 <description>지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 자동으로 찾아 알려드려요.</description>
 <language>ko</language>
 <atom:link href="https://rage147-owo.github.io/MovieReRelease/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Sun, 15 Nov 2026 06:20:37 +0900</lastBuildDate>
+<lastBuildDate>Mon, 16 Nov 2026 06:21:37 +0900</lastBuildDate>
+<item>
+<title>해피 아워</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=2902664&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%ED%95%B4%ED%94%BC%20%EC%95%84%EC%9B%8C</link>
+<guid isPermaLink="false">naver_os:2902664</guid>
+<pubDate>Mon, 16 Nov 2026 06:21:37 +0900</pubDate>
+<description>드라마 · 328분 · 재개봉 2026.12.23</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261113_124%2F1794555320601fG3Vw_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
 <item>
 <title>드라이브 마이 카</title>
 <link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=18807277&amp;qvt=0&amp;query=%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C%20%EB%A7%88%EC%9D%B4%20%EC%B9%B4</link>
@@ -398,14 +406,6 @@
 <pubDate>Wed, 15 Jul 2026 09:00:00 +0900</pubDate>
 <description>범죄 · 111분 · 재개봉 2026.07.15</description>
 <enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20220616_130%2F16553712403865Gw57_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
-</item>
-<item>
-<title>뱀의 길</title>
-<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1769334&amp;qvt=0&amp;query=%EB%B1%80%EC%9D%98%EA%B8%B8</link>
-<guid isPermaLink="false">naver_os:1769334</guid>
-<pubDate>Wed, 22 Jul 2026 09:00:00 +0900</pubDate>
-<description>범죄 · 85분 · 재개봉 2026.07.22</description>
-<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260702_149%2F1782981461973pNWi0_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
 </item>
 </channel>
 </rss>

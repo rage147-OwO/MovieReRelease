@@ -1,5 +1,16 @@
 [
   {
+    "naver_os": "2902664",
+    "title": "해피 아워",
+    "detected_at": "2026-11-16T06:21:37+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=2902664&qvt=0&query=%EC%98%81%ED%99%94%20%ED%95%B4%ED%94%BC%20%EC%95%84%EC%9B%8C",
+    "genre": "드라마",
+    "runtime": "328분",
+    "release_raw": "2026.12.23.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261113_124%2F1794555320601fG3Vw_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "18807277",
     "title": "드라이브 마이 카",
     "detected_at": "2026-11-15T06:20:37+09:00",
