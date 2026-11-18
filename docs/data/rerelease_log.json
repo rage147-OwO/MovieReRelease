@@ -1,5 +1,16 @@
 [
   {
+    "naver_os": "1748557",
+    "title": "베를린 천사의 시",
+    "detected_at": "2026-11-19T06:20:52+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1748557&qvt=0&query=%EB%B2%A0%EB%A5%BC%EB%A6%B0%EC%B2%9C%EC%82%AC%EC%9D%98%EC%8B%9C",
+    "genre": "드라마",
+    "runtime": "127분",
+    "release_raw": "2026.12.09.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20111223_110%2F1324571122810lIwU3_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "2902664",
     "title": "해피 아워",
     "detected_at": "2026-11-16T06:21:37+09:00",

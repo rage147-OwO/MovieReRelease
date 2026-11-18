@@ -6,7 +6,15 @@
 <description>지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 자동으로 찾아 알려드려요.</description>
 <language>ko</language>
 <atom:link href="https://rage147-owo.github.io/MovieReRelease/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Wed, 18 Nov 2026 06:21:26 +0900</lastBuildDate>
+<lastBuildDate>Thu, 19 Nov 2026 06:20:52 +0900</lastBuildDate>
+<item>
+<title>베를린 천사의 시</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1748557&amp;qvt=0&amp;query=%EB%B2%A0%EB%A5%BC%EB%A6%B0%EC%B2%9C%EC%82%AC%EC%9D%98%EC%8B%9C</link>
+<guid isPermaLink="false">naver_os:1748557</guid>
+<pubDate>Thu, 19 Nov 2026 06:20:52 +0900</pubDate>
+<description>드라마 · 127분 · 재개봉 2026.12.09</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20111223_110%2F1324571122810lIwU3_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
 <item>
 <title>해피 아워</title>
 <link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=2902664&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%ED%95%B4%ED%94%BC%20%EC%95%84%EC%9B%8C</link>
@@ -398,14 +406,6 @@
 <pubDate>Wed, 10 Jun 2026 09:00:00 +0900</pubDate>
 <description>드라마 · 105분 · 재개봉 2026.06.10</description>
 <enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260518_84%2F1779072380937COgEr_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
-</item>
-<item>
-<title>큐어</title>
-<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1764528&amp;qvt=0&amp;query=%ED%81%90%EC%96%B4</link>
-<guid isPermaLink="false">naver_os:1764528</guid>
-<pubDate>Wed, 15 Jul 2026 09:00:00 +0900</pubDate>
-<description>범죄 · 111분 · 재개봉 2026.07.15</description>
-<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20220616_130%2F16553712403865Gw57_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
 </item>
 </channel>
 </rss>
