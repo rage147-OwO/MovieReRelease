@@ -1,5 +1,16 @@
 [
   {
+    "naver_os": "31684196",
+    "title": "블루 자이언트",
+    "detected_at": "2026-11-20T06:21:48+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=31684196&qvt=0&query=%EC%98%81%ED%99%94%20%EB%B8%94%EB%A3%A8%20%EC%9E%90%EC%9D%B4%EC%96%B8%ED%8A%B8",
+    "genre": "애니메이션",
+    "runtime": "119분",
+    "release_raw": "2026.12.09.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261118_275%2F1794989793982rwGcm_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "1748557",
     "title": "베를린 천사의 시",
     "detected_at": "2026-11-19T06:20:52+09:00",
