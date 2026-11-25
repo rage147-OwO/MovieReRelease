@@ -6,7 +6,23 @@
 <description>지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 자동으로 찾아 알려드려요.</description>
 <language>ko</language>
 <atom:link href="https://rage147-owo.github.io/MovieReRelease/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Wed, 25 Nov 2026 06:21:22 +0900</lastBuildDate>
+<lastBuildDate>Thu, 26 Nov 2026 06:23:07 +0900</lastBuildDate>
+<item>
+<title>무현, 두 도시 이야기 : 파이널 컷</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=42931369&amp;qvt=0&amp;query=%EB%AC%B4%ED%98%84%20%EB%91%90%20%EB%8F%84%EC%8B%9C%20%EC%9D%B4%EC%95%BC%EA%B8%B0%20%ED%8C%8C%EC%9D%B4%EB%84%90%20%EC%BB%B7</link>
+<guid isPermaLink="false">naver_os:42931369</guid>
+<pubDate>Thu, 26 Nov 2026 06:23:07 +0900</pubDate>
+<description>다큐멘터리 · 124분 · 재개봉 2026.12.09</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261120_129%2F1795158995615nAp00_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
+<item>
+<title>노인을 위한 나라는 없다</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1800430&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%EB%85%B8%EC%9D%B8%EC%9D%84%20%EC%9C%84%ED%95%9C%20%EB%82%98%EB%9D%BC%EB%8A%94%20%EC%97%86%EB%8B%A4</link>
+<guid isPermaLink="false">naver_os:1800430</guid>
+<pubDate>Thu, 26 Nov 2026 06:23:07 +0900</pubDate>
+<description>스릴러 · 122분 · 재개봉 2026.12.09</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261125_59%2F1795587773399GTwLm_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
 <item>
 <title>러브 액츄얼리</title>
 <link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1774756&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%EB%9F%AC%EB%B8%8C%20%EC%95%A1%EC%B8%84%EC%96%BC%EB%A6%AC</link>
@@ -390,22 +406,6 @@
 <pubDate>Wed, 17 Jun 2026 09:00:00 +0900</pubDate>
 <description>멜로/로맨스 · 104분 · 재개봉 2026.06.17</description>
 <enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260609_243%2F17809917958464UXAD_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
-</item>
-<item>
-<title>피아노</title>
-<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1751303&amp;qvt=0&amp;query=%EC%98%81%ED%99%94%20%ED%94%BC%EC%95%84%EB%85%B8</link>
-<guid isPermaLink="false">naver_os:1751303</guid>
-<pubDate>Wed, 01 Jul 2026 09:00:00 +0900</pubDate>
-<description>드라마 · 121분 · 재개봉 2026.07.01</description>
-<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260616_143%2F1781588524024ldEtg_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
-</item>
-<item>
-<title>훌라 걸스</title>
-<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1797198&amp;qvt=0&amp;query=%ED%9B%8C%EB%9D%BC%20%EA%B1%B8%EC%8A%A4</link>
-<guid isPermaLink="false">naver_os:1797198</guid>
-<pubDate>Wed, 01 Jul 2026 09:00:00 +0900</pubDate>
-<description>드라마 · 121분 · 재개봉 2026.07.01</description>
-<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260619_160%2F17818543248696G3lO_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
 </item>
 </channel>
 </rss>

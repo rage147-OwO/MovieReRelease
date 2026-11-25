@@ -1,5 +1,27 @@
 [
   {
+    "naver_os": "42931369",
+    "title": "무현, 두 도시 이야기 : 파이널 컷",
+    "detected_at": "2026-11-26T06:23:07+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=42931369&qvt=0&query=%EB%AC%B4%ED%98%84%20%EB%91%90%20%EB%8F%84%EC%8B%9C%20%EC%9D%B4%EC%95%BC%EA%B8%B0%20%ED%8C%8C%EC%9D%B4%EB%84%90%20%EC%BB%B7",
+    "genre": "다큐멘터리",
+    "runtime": "124분",
+    "release_raw": "2026.12.09.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261120_129%2F1795158995615nAp00_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
+    "naver_os": "1800430",
+    "title": "노인을 위한 나라는 없다",
+    "detected_at": "2026-11-26T06:23:07+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1800430&qvt=0&query=%EC%98%81%ED%99%94%20%EB%85%B8%EC%9D%B8%EC%9D%84%20%EC%9C%84%ED%95%9C%20%EB%82%98%EB%9D%BC%EB%8A%94%20%EC%97%86%EB%8B%A4",
+    "genre": "스릴러",
+    "runtime": "122분",
+    "release_raw": "2026.12.09.",
+    "original_open_date": null,
+    "poster": "https://search.pstatic.net/common?type=o&size=304x456&quality=100&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20261125_59%2F1795587773399GTwLm_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2"
+  },
+  {
     "naver_os": "1774756",
     "title": "러브 액츄얼리",
     "detected_at": "2026-11-25T06:21:22+09:00",
