@@ -18,7 +18,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: ${{ inputs.publish_only && 'pages-publication' || 'pages' }}
   cancel-in-progress: false
 
 jobs:

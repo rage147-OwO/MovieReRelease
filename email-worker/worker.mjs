@@ -4,6 +4,7 @@ const CONFIRMATION_TTL = 24 * 60 * 60 * 1000;
 const REQUEST_INTERVAL = 15 * 60 * 1000;
 const EMAIL = /^[a-z0-9.!#$%&'*+\/=?^_~-]+@(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i;
 const TOKEN = /^[a-f0-9]{64}$/;
+const GMAIL_RELAY = /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/;
 
 function toHex(bytes) {
   return Array.from(bytes, byte => byte.toString(16).padStart(2, "0")).join("");
@@ -20,40 +21,40 @@ function emailLink(site, action, token) {
 }
 
 function mailConfigured(env) {
-  return Boolean(env.BREVO_API_KEY && env.MAIL_FROM);
-}
-
-async function mailRequestId(key) {
-  const bytes = new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(key)));
-  bytes[6] = (bytes[6] & 0x0f) | 0x40;
-  bytes[8] = (bytes[8] & 0x3f) | 0x80;
-  const hex = toHex(bytes.subarray(0, 16));
-  return [hex.slice(0, 8), hex.slice(8, 12), hex.slice(12, 16), hex.slice(16, 20), hex.slice(20)].join("-");
+  return GMAIL_RELAY.test(env.GMAIL_RELAY_URL || "") && TOKEN.test(env.GMAIL_RELAY_SECRET || "");
 }
 
 async function sendEmail(env, email, subject, text, idempotencyKey) {
   if (!mailConfigured(env)) throw new Error("Mail sender is not configured");
-  const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+  const requestId = toHex(new Uint8Array(await crypto.subtle.digest(
+    "SHA-256", new TextEncoder().encode(idempotencyKey),
+  )));
+  const signal = AbortSignal.timeout(20000);
+  let response = await fetch(env.GMAIL_RELAY_URL, {
     method: "POST",
-    headers: {
-      "api-key": env.BREVO_API_KEY,
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      sender: { email: env.MAIL_FROM, name: "재개봉 알리미" },
-      to: [{ email }],
+      key: env.GMAIL_RELAY_SECRET,
+      requestId,
+      email,
       subject,
-      textContent: text,
-      headers: { idempotencyKey: await mailRequestId(idempotencyKey) },
+      text,
     }),
-    signal: AbortSignal.timeout(10000),
+    redirect: "manual",
+    signal,
   });
-  if (response.ok) return;
-  if (response.status === 400 || response.status === 409) {
-    const detail = await response.json().catch(() => null);
-    if (detail?.code === "duplicate_parameter" && /idempotency/i.test(detail.message || "")) return;
+  // Apps Script ContentService returns its result on a Google-hosted GET URL.
+  if (response.status === 302 || response.status === 303) {
+    const resultUrl = new URL(response.headers.get("Location") || "", env.GMAIL_RELAY_URL);
+    if (resultUrl.origin !== "https://script.googleusercontent.com" || resultUrl.pathname !== "/macros/echo" ||
+        resultUrl.username || resultUrl.password) {
+      throw new Error("Unexpected Gmail relay redirect");
+    }
+    response = await fetch(resultUrl, { redirect: "error", signal });
   }
-  throw new Error("Mail provider returned " + response.status);
+  if (!response.ok || (await response.json()).ok !== true) {
+    throw new Error("Gmail relay did not accept the email");
+  }
 }
 
 async function requestChange(env, action, email, now) {

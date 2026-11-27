@@ -74,17 +74,20 @@ Pages 활성화는 워크플로가 자동으로 처리한다(`configure-pages` +
 그 주 월~일에 재개봉하는 영화, 공개된 상영 일정, 다음 주 예정작을 보낸다.
 
 GitHub Pages에는 화면과 API 주소만 배포한다. 수신 주소는 Cloudflare D1에 저장하고,
-Cloudflare Worker가 Brevo로 확인 메일과 주간 메일을 보낸다.
+Cloudflare Worker가 Google Apps Script의 MailApp을 통해 기존 Gmail 계정에서 확인 메일과 주간 메일을 보낸다.
 
 1. `email-worker` 디렉터리에서 `npx wrangler d1 create movie-rerelease-email`을 실행한다.
    반환된 데이터베이스 ID를 `wrangler.toml`의 `database_id`에 넣는다.
-2. Brevo 발신자 설정에서 발신 주소를 메일 인증한다. 개인 메일도 등록할 수 있으며
-   Brevo가 수신자에게 표시되는 발신 도메인을 자체 도메인으로 바꿀 수 있다.
-   사이트 주소가 기본 GitHub Pages 주소와 다르면 `SITE_URL`도 바꾼다.
-3. `npx wrangler d1 migrations apply movie-rerelease-email --remote`를 실행한 뒤
+2. 사이트 주소가 기본 GitHub Pages 주소와 다르면 `SITE_URL`을 바꾼다.
+   `npx wrangler d1 migrations apply movie-rerelease-email --remote`를 실행한 뒤
    `npx wrangler deploy`로 Worker를 배포한다.
-4. `npx wrangler secret put MAIL_FROM`과 `npx wrangler secret put BREVO_API_KEY`로
-   인증된 발신 주소와 발송 키를 저장한다.
+3. 임의의 32바이트를 64자리 16진수 문자열로 만들고
+   `npx wrangler secret put GMAIL_RELAY_SECRET`으로 저장한다.
+   같은 문자열의 SHA-256 결과를 `gmail-relay/Code.gs`의 `RELAY_KEY_SHA256`에 넣는다.
+   Apps Script 프로젝트에 코드와 매니페스트를 복사한 뒤 발신 Gmail 계정으로
+   실행하는 웹 앱으로 배포한다. 접속 수준은 `Anyone`을 선택한다.
+   발송 요청은 Cloudflare Worker에 저장된 키로 인증한다.
+4. 웹 앱의 `/exec` 주소를 `npx wrangler secret put GMAIL_RELAY_URL`로 저장한다.
 5. GitHub 저장소 Actions 변수 `WEEKLY_EMAIL_API_URL`에 Worker HTTPS 주소를 넣고
    `crawl` 워크플로를 `publish_only` 옵션으로 실행한다.
    메일 서버와 발신 설정이 연결돼야 등록 폼이 열린다.
