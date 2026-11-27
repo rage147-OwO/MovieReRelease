@@ -1,5 +1,16 @@
 [
   {
+    "naver_os": "1755860",
+    "title": "랜드 앤 프리덤",
+    "detected_at": "2026-11-27T10:06:48+09:00",
+    "link": "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=68&os=1755860&qvt=0&query=%EB%9E%9C%EB%93%9C%EC%95%A4%ED%94%84%EB%A6%AC%EB%8D%A4",
+    "genre": "드라마",
+    "runtime": "109분",
+    "release_raw": "2026.12.30.",
+    "original_open_date": null,
+    "poster": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+  },
+  {
     "naver_os": "28829334",
     "title": "오늘 밤, 세계에서 이 사랑이 사라진다 해도",
     "detected_at": "2026-11-27T06:21:39+09:00",
