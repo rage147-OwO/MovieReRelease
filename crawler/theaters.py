@@ -1,20 +1,5 @@
 # -*- coding: utf-8 -*-
-"""네이버 검색의 Place/영화 위젯에서 극장 위치와 상영작을 파싱.
-
-세 가지 소스를 쓴다:
-  - "{지역} 영화관" 검색 → PlaceListBusinessesItem 목록 (이름·주소·좌표)
-    → 시딩 지역은 DEFAULT_REGION_QUERIES 참고, 서울 위주 + 광역시 주요 상권 일부
-  - "{극장명} 영화시간표" 검색 → movieTimes(...) 배열 (당일 상영작 이름)
-    → CGV는 잘 잡히지만 롯데시네마·메가박스 상당수 지점은 이 위젯 자체가 없다.
-  - "영화 {제목} 상영일정" 검색 → movieCode 추출 → MovieAPIforScheduleListKB API
-    → 영화 하나가 전국 어느 극장에서 상영 중인지 정확히 알려준다(체인 무관).
-    지역 시딩 없이도 동작해 재개봉작처럼 소수 상영관에서만 트는 영화에 특히 유용.
-    단, 극장 좌표는 안 준다 — 지역 시딩 극장(위 첫 번째 소스)과 이름이 겹치면
-    좌표를 재사용하고, 안 겹치면 좌표 없이 이름만 등록한다.
-
-전부 페이지에 <script>로 내장된 JSON을 정규식+괄호매칭으로 뽑아낸다.
-공식 문서화된 API가 아니라 페이지 구조가 바뀌면 깨질 수 있다 — 항목이 0개면 조용히 건너뛴다.
-"""
+"""네이버에서 극장 위치, 극장별 당일 상영작, 영화별 전국 회차를 수집한다."""
 from __future__ import annotations
 
 import json
@@ -22,15 +7,16 @@ import random
 import re
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 
 import requests
-from bs4 import BeautifulSoup
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from .naver import HEADERS
 
 SEARCH_URL = "https://search.naver.com/search.naver"
-SCHEDULE_API_URL = "https://ts-proxy.naver.com/dcontent/nqapirender.nhn"
+SCHEDULE_API_URL = "https://api-gw.entertain.naver.com/csearch/contents/movie/{movie_id}/screening"
 KST = timezone(timedelta(hours=9))
 SCHEDULE_DAYS = 7  # 오늘 포함 며칠치 상영시간을 가져올지 — 네이버 UI도 보통 이만큼 보여준다
 
@@ -87,18 +73,25 @@ class Theater:
     lon: str | None
     phone: str | None = None
     now_showing: list[str] = field(default_factory=list)
+    region: str | None = None
 
 
 def build_theater_directory(region_queries: list[str] | None = None) -> list[Theater]:
     """지역 검색으로 극장을 모으고, 각 극장의 당일 상영작을 채운다."""
     theaters: dict[str, Theater] = {}
     for query in region_queries or DEFAULT_REGION_QUERIES:
-        for t in search_theaters(query):
-            theaters.setdefault(t.id, t)
+        try:
+            for t in search_theaters(query):
+                theaters.setdefault(t.id, t)
+        except requests.RequestException as exc:
+            print(f"  {query}: 극장 검색 실패 ({exc})")
         _throttle()
 
     for t in theaters.values():
-        t.now_showing = get_now_showing(t.name)
+        try:
+            t.now_showing = get_now_showing(t.name, t.id)
+        except requests.RequestException as exc:
+            print(f"  {t.name}: 극장별 상영작 조회 실패 ({exc})")
         _throttle()
 
     return list(theaters.values())
@@ -183,111 +176,156 @@ def search_theater_detail(name: str) -> Theater | None:
     return None
 
 
-def get_now_showing(theater_name: str) -> list[str]:
-    text = _fetch(f"{theater_name} 영화시간표")
-    key_match = re.search(r'"movieTimes\(\{[^}]*\}\)":\[', text)
-    if not key_match:
-        return []
-    try:
-        arr = json.loads(_extract_balanced(text, key_match.end() - 1))
-    except (ValueError, json.JSONDecodeError):
-        return []
+def get_now_showing(theater_name: str, theater_id: str) -> list[str]:
+    return _parse_now_showing(_fetch(f"{theater_name} 영화시간표"), theater_id)
 
-    names: list[str] = []
-    seen: set[str] = set()
-    for item in arr:
-        if item.get("__typename") != "MovieTime":
+
+def _parse_now_showing(text: str, theater_id: str) -> list[str]:
+    # PlaceDetail의 base 참조로 같은 극장의 movieTimes인지 확인한다.
+    names = {}
+    today = datetime.now(KST).date().isoformat()
+    for hit in re.finditer(r'"__typename"\s*:\s*"PlaceDetail"', text):
+        start = text.rfind("{", 0, hit.start())
+        if start < 0:
             continue
-        name = item.get("name")
-        if name and name not in seen:
-            seen.add(name)
-            names.append(name)
-    return names
-
-
-def get_schedule_theaters(title: str, days: int = SCHEDULE_DAYS) -> dict[str, dict]:
-    """영화 제목으로 전국 상영관별 여러 날짜의 상영시간을 얻는다.
-
-    "영화 {title} 상영일정" 검색 페이지에 내장된 movieCode(u2)를 먼저 뽑고,
-    그 코드로 네이버 자체 스케줄 API(MovieAPIforScheduleListKB)를 날짜별로
-    호출한다. 지역/체인에 상관없이 그 영화가 실제로 걸린 극장만 정확히 나온다.
-
-    날짜(u3) 파라미터는 검색 페이지 방문으로 얻은 세션 쿠키 + Referer가
-    같이 있어야 응답이 채워진다 — 없이 보내면(또는 district만 따로 보내면)
-    조용히 빈 결과를 준다. 극장들이 "언제까지 상영"인지는 미리 공개하지
-    않으므로(주간 성적에 따라 매주 재배정) SCHEDULE_DAYS 너머는 아예
-    조회 대상이 아니다 — 네이버 UI도 동일하게 근시일 며칠만 보여준다.
-
-    반환: {place_id: {"name": str, "schedule": {"YYYY-MM-DD": ["10:00", ...]}}}
-    """
-    session = requests.Session()
-    session.headers.update(HEADERS)
-
-    try:
-        res = session.get(SEARCH_URL, params={"query": f"영화 {title} 상영일정"}, timeout=15)
-        res.raise_for_status()
-    except requests.RequestException:
-        return {}
-
-    code_match = re.search(r'"u9":\s*"[^"]*",\s*"u2":\s*"(\d+)"', res.text)
-    if not code_match:
-        return {}
-    movie_code = code_match.group(1)
-    referer = res.url
-
-    theaters_out: dict[str, dict] = {}
-    today = datetime.now(KST).date()
-    for offset in range(days):
-        date_str = (today + timedelta(days=offset)).isoformat()
         try:
-            res = session.get(
-                SCHEDULE_API_URL,
-                params={
-                    "where": "nexearch",
-                    "pkid": "68",
-                    "key": "MovieAPIforScheduleListKB",
-                    "u2": movie_code,
-                    "u9": f"영화 {title}",
-                    "u3": date_str,
-                },
-                headers={"Referer": referer},
-                timeout=15,
-            )
-            res.raise_for_status()
-            data = res.json()
-        except (requests.RequestException, ValueError):
-            time.sleep(random.uniform(1.0, 2.0))
+            detail, _ = json.JSONDecoder().raw_decode(text, start)
+        except ValueError:
             continue
+        if (detail.get("base") or {}).get("__ref") != f"PlaceDetailBase:{theater_id}":
+            continue
+        for field_name, items in detail.items():
+            if field_name != "movieTimes" and not field_name.startswith("movieTimes("):
+                continue
+            for item in items or []:
+                if item.get("__typename") == "MovieTime" and item.get("date") == today and item.get("name"):
+                    names[item["name"]] = None
+    return list(names)
 
-        for item in data.get("items", []):
-            soup = BeautifulSoup(item.get("html", ""), "html.parser")
-            for wrapper in soup.select("li._scrolling_wrapper"):
-                a = wrapper.select_one("a.this_link_place")
-                if not a:
-                    continue
-                place_match = re.search(r"place/(\d+)", a.get("href") or "")
-                if not place_match:
-                    continue
-                pid = place_match.group(1)
-                times = [t.get_text(strip=True) for t in wrapper.select("span.this_point_big")]
-                if not times:
-                    continue
-                entry = theaters_out.setdefault(pid, {"name": a.get_text(strip=True), "schedule": {}})
-                entry["schedule"][date_str] = times
-        time.sleep(random.uniform(1.0, 2.0))
 
-    return theaters_out
+class ScheduleError(Exception):
+    """영화별 시간표를 확인할 수 없는 응답."""
+
+
+@dataclass
+class ScreeningTheater:
+    name: str
+    region: str | None
+    schedule: dict[str, list[str]] = field(default_factory=dict)
+
+
+def schedule_session() -> requests.Session:
+    session = requests.Session()
+    session.headers.update({**HEADERS, "Accept": "application/json"})
+    session.mount("https://", HTTPAdapter(max_retries=Retry(
+        total=2,
+        backoff_factor=1,
+        status_forcelist=(429, 500, 502, 503, 504),
+        respect_retry_after_header=False,
+    )))
+    return session
+
+
+def _fetch_screening(session: requests.Session, movie_id: str, day: str | None = None) -> dict | None:
+    try:
+        response = session.get(
+            SCHEDULE_API_URL.format(movie_id=movie_id),
+            params={"date": day} if day else None,
+            timeout=15,
+        )
+        response.raise_for_status()
+        data = response.json()
+    except (requests.RequestException, ValueError) as exc:
+        raise ScheduleError(str(exc)) from exc
+    if not isinstance(data, dict) or data.get("success") is not True:
+        raise ScheduleError("네이버 API 응답 오류")
+    result = data.get("result")
+    if result is None:
+        return None
+    if (
+        not isinstance(result, dict)
+        or not isinstance(result.get("metadata"), dict)
+        or str(result["metadata"].get("dssId")) != movie_id
+        or not isinstance(result.get("dateAxis"), list)
+        or not isinstance(result.get("theaters"), list)
+        or not isinstance(result.get("selectedDate"), str)
+    ):
+        raise ScheduleError("시간표 응답 형식 또는 영화 ID 불일치")
+    if day and result["selectedDate"] != day:
+        raise ScheduleError(f"요청 날짜와 응답 날짜 불일치 ({result['selectedDate']})")
+    return result
+
+
+# 네이버는 심야 회차를 24:xx 이상의 시각으로도 제공한다.
+_SHOWTIME = re.compile(r"(?:[0-2][0-9]|3[0-5]):[0-5][0-9]")
+
+
+def _add_screening_day(
+    result: dict, day: str, schedule: dict[str, ScreeningTheater]
+) -> None:
+    for theater in result["theaters"]:
+        place_id = str(theater.get("placeId") or "")
+        name = theater.get("theaterName")
+        if not place_id.isdecimal() or not isinstance(name, str) or not name.strip():
+            continue
+        times = {
+            slot["startTime"]
+            for slot in theater.get("runnings") or []
+            if isinstance(slot.get("startTime"), str) and _SHOWTIME.fullmatch(slot["startTime"])
+        }
+        if times:
+            entry = schedule.setdefault(place_id, ScreeningTheater(name.strip(), theater.get("regionDepth1")))
+            entry.schedule[day] = sorted(times.union(entry.schedule.get(day, [])))
+
+
+def get_schedule_theaters(
+    movie_id: str, session: requests.Session, *, today: date, days: int = SCHEDULE_DAYS
+) -> dict[str, ScreeningTheater]:
+    """동일 영화의 공개된 날짜만 조회하고 네이버가 회신한 날짜의 회차를 저장한다."""
+    initial = _fetch_screening(session, movie_id)
+    if initial is None:
+        return {}
+
+    window = {(today + timedelta(days=offset)).isoformat() for offset in range(days)}
+    published = {
+        day.get("date")
+        for day in initial["dateAxis"]
+        if isinstance(day, dict) and isinstance(day.get("date"), str) and day.get("disabled") is False
+    }
+    schedule: dict[str, ScreeningTheater] = {}
+    failures = []
+    for day in sorted(window & published):
+        if day == initial["selectedDate"]:
+            result = initial
+        else:
+            time.sleep(random.uniform(1.0, 2.0))
+            try:
+                result = _fetch_screening(session, movie_id, day)
+                if result is None:
+                    raise ScheduleError("공개 날짜의 시간표 응답 누락")
+            except ScheduleError as exc:
+                failures.append(f"{day}: {exc}")
+                continue
+        _add_screening_day(result, day, schedule)
+    if failures:
+        message = "; ".join(failures)
+        if not schedule:
+            raise ScheduleError(message)
+        print(f"  영화 {movie_id}: 일부 날짜 조회 실패 ({message})")
+    return schedule
 
 
 def _fetch(query: str, retries: int = 2) -> str:
     for attempt in range(retries + 1):
-        res = requests.get(SEARCH_URL, params={"query": query}, headers=HEADERS, timeout=15)
-        if res.status_code == 200:
-            return res.text
-        if attempt < retries:
+        try:
+            response = requests.get(SEARCH_URL, params={"query": query}, headers=HEADERS, timeout=15)
+            response.raise_for_status()
+            return response.text
+        except requests.RequestException as exc:
+            status = exc.response.status_code if exc.response is not None else None
+            if attempt == retries or status is not None and status not in (429, 500, 502, 503, 504):
+                raise
             time.sleep(random.uniform(3.0, 6.0))
-    res.raise_for_status()
-    return res.text  # pragma: no cover
 
 
 def _extract_balanced(text: str, start: int) -> str:

@@ -18,8 +18,10 @@ import re
 import sys
 import time
 from dataclasses import asdict
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+
+import requests
 
 from . import feed, kobis, naver, notify, theaters
 
@@ -68,42 +70,55 @@ def _match_theaters(now_playing: list[naver.Movie], theater_list: list[theaters.
     for theater in theater_list:
         for shown_title in theater.now_showing:
             movie = by_title.get(kobis._norm_title(shown_title))
-            if movie:
+            if movie and theater.id not in movie.theaters:
                 movie.theaters.append(theater.id)
                 matches += 1
     return matches
 
 
 def _enrich_via_schedule_api(
-    movies: list[naver.Movie], theater_by_id: dict[str, theaters.Theater], days: int = theaters.SCHEDULE_DAYS
+    movies: list[naver.Movie], theater_by_id: dict[str, theaters.Theater], today: date
 ) -> tuple[int, int]:
-    """영화 중심 스케줄 API(get_schedule_theaters)로 전국 상영관을 정밀 보강한다.
+    """네이버 영화 ID별로 전국 회차를 조회해 지역 극장 매칭을 보강한다."""
+    extra_matches = new_theaters = unlisted = failures = 0
+    with theaters.schedule_session() as session:
+        for movie in movies:
+            if not movie.naver_os or not re.fullmatch(r"[0-9]+", movie.naver_os):
+                print(f"  {movie.title}: 네이버 영화 ID 누락")
+                failures += 1
+                continue
+            try:
+                schedule = theaters.get_schedule_theaters(movie.naver_os, session, today=today)
+            except theaters.ScheduleError as exc:
+                print(f"  {movie.title}: 상영시간 조회 실패 ({exc})")
+                failures += 1
+                continue
+            finally:
+                theaters._throttle()
 
-    지역 시딩(_match_theaters)은 CGV 위주 ~100개 극장에서만 잡히므로 커버리지가
-    낮다(일반 상영작의 절반 이상이 매칭 0건). 재개봉작·일반작 가리지 않고 모든
-    now_playing 영화를 이 정밀 조회로 보강하며, 날짜 탭이 하루치만 뜨지 않도록
-    재개봉작·일반작 구분 없이 동일하게 최대 SCHEDULE_DAYS일치를 조회한다
-    (예전엔 일반작만 days=1로 줄여 요청량을 아꼈으나, 그러면 화면에 날짜 탭이
-    "오늘" 하나만 남아 재개봉작과 다르게 보이는 문제가 있었다).
-
-    시딩에 없던 극장은 좌표 없이 이름만 등록(목록엔 나오되 지도 마커는 생략).
-    반환값: (추가 매칭 건수, 새로 등록된 극장 수)
-    """
-    extra_matches = 0
-    new_theaters = 0
-    for movie in movies:
-        schedule = theaters.get_schedule_theaters(movie.title, days=days)
-        for pid, info in schedule.items():
-            if pid not in theater_by_id:
-                theater_by_id[pid] = theaters.Theater(id=pid, name=info["name"], address=None, lat=None, lon=None)
-                new_theaters += 1
-            if pid not in movie.theaters:
-                movie.theaters.append(pid)
-                extra_matches += 1
-            if info["schedule"]:
-                movie.theater_times[pid] = info["schedule"]
-        theaters._throttle()
+            if not schedule:
+                print(f"  {movie.title}: 조회 기간에 공개된 회차 없음")
+                unlisted += 1
+            for pid, info in schedule.items():
+                if pid not in theater_by_id:
+                    theater_by_id[pid] = theaters.Theater(
+                        id=pid, name=info.name, address=None, lat=None, lon=None, region=info.region
+                    )
+                    new_theaters += 1
+                theater = theater_by_id[pid]
+                theater.region = theater.region or info.region
+                if pid not in movie.theaters:
+                    movie.theaters.append(pid)
+                    extra_matches += 1
+                movie.theater_times[pid] = info.schedule
+    checked = sum(bool(movie.theater_times) for movie in movies)
+    print(f"  회차 확인 {checked}편 / 공개 회차 없음 {unlisted}편 / 조회 실패 {failures}편")
     return extra_matches, new_theaters
+
+
+def _require_showtimes(movies: list[naver.Movie]) -> None:
+    if not any(movie.theater_times for movie in movies):
+        raise RuntimeError("전체 현재 상영작에서 회차 0건: 기존 배포용 데이터를 유지합니다.")
 
 
 def _load_previous_enrichment(path: Path) -> dict[str, dict]:
@@ -162,9 +177,14 @@ def _backfill_theater_addresses(theater_list: list[theaters.Theater], previous: 
             t.phone = t.phone or prev.get("phone")
             carried += 1
             continue
-        found = theaters.search_theater_detail(t.name)
-        theaters._throttle()
-        if found:
+        try:
+            found = theaters.search_theater_detail(t.name)
+        except requests.RequestException as exc:
+            print(f"  {t.name}: 주소 조회 실패 ({exc})")
+            continue
+        finally:
+            theaters._throttle()
+        if found and found.id == t.id:
             t.address, t.lat, t.lon = found.address, found.lat, found.lon
             t.phone = t.phone or found.phone
             fetched += 1
@@ -220,6 +240,7 @@ def main() -> None:
     except Exception:
         pass
     _load_dotenv(ROOT / ".env")
+    today = datetime.now(KST).date()
     previous_rerelease_ids = _load_previous_rerelease_ids(MOVIES_OUTPUT)  # 덮어쓰기 전에 미리 읽어둔다
 
     print("네이버에서 영화 목록 수집 중...")
@@ -240,7 +261,8 @@ def main() -> None:
     print(f"  극장 {len(theater_list)}곳 (상영정보 확인됨 {with_showtime}곳) / 영화-극장 매칭 {matches}건")
 
     print(f"상영작 {len(now_playing)}편 — 전국 상영관 정밀 조회 (최대 {theaters.SCHEDULE_DAYS}일치)...")
-    extra_matches, new_theater_count = _enrich_via_schedule_api(now_playing, theater_by_id)
+    extra_matches, new_theater_count = _enrich_via_schedule_api(now_playing, theater_by_id, today)
+    _require_showtimes(now_playing)
     print(f"  추가 매칭 {extra_matches}건 / 지역 시딩에 없던 극장 {new_theater_count}곳 신규 등록")
     theater_list = list(theater_by_id.values())
 
@@ -282,6 +304,7 @@ def main() -> None:
                 "lat": t.lat,
                 "lon": t.lon,
                 "phone": t.phone,
+                "region": t.region,
             }
             for t in theater_list
         ],

@@ -1,29 +1,21 @@
 # -*- coding: utf-8 -*-
-"""라이브 사이트 데이터를 네이버 원본과 독립적으로 대조 검증한다.
+"""배포 또는 로컬 상영시간표를 네이버 원본과 대조한다.
 
-crawler/theaters.py 의 함수를 재사용하지 않고 원시 응답을 별도로 다시
-파싱한다 — 크롤러 자체에 파싱 버그가 있으면 그 함수를 다시 불러도
-같은 버그가 재현될 뿐이라, 진짜 검증이 되려면 독립적인 경로가 필요하다.
-
-확인 항목:
-  1. 참조 무결성 — movies.json의 모든 theaters id가 theaters.json에 실존하는가
-  2. 재개봉작 표본 — 라이브 사이트의 극장/오늘 상영시간이 네이버 원본과 일치하는가
-  3. 날짜 탭 불변식 — theater_times에 등장하는 모든 날짜가 실제로 극장 ≥1곳을 갖는가
-
-사용법:
-    python -m crawler.verify                 # 배포된 라이브 사이트 검증
-    python -m crawler.verify --local          # 로컬 docs/data 검증
+    python -m crawler.verify
+    python -m crawler.verify --local
 """
 from __future__ import annotations
 
 import json
-import re
 import sys
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parent.parent
 LIVE_BASE = "https://rage147-owo.github.io/MovieReRelease/"
+KST = timezone(timedelta(hours=9))
 UA = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -36,14 +28,6 @@ def _fetch_json(url: str) -> dict:
     req = Request(url, headers=UA)
     with urlopen(req, timeout=15) as res:
         return json.loads(res.read().decode("utf-8"))
-
-
-def _fetch_text(url: str, params: dict) -> str:
-    from urllib.parse import urlencode
-
-    req = Request(f"{url}?{urlencode(params)}", headers=UA)
-    with urlopen(req, timeout=15) as res:
-        return res.read().decode("utf-8")
 
 
 def load_site_data(local: bool) -> tuple[dict, dict]:
@@ -86,80 +70,74 @@ def check_date_tab_invariant(movies: dict) -> list[str]:
     return errors
 
 
-def _extract_movie_code(text: str) -> str | None:
-    m = re.search(r'"u9":\s*"[^"]*",\s*"u2":\s*"(\d+)"', text)
-    return m.group(1) if m else None
-
-
-def fetch_ground_truth(title: str) -> set[str]:
-    """네이버 스케줄 API를 이 스크립트 안에서 독립적으로 다시 호출해
-    오늘 상영 중인 극장명 집합을 얻는다 (theaters.py 코드 재사용 없음)."""
-    import http.cookiejar
-    import urllib.request
-
-    cj = http.cookiejar.CookieJar()
-    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
-
-    from urllib.parse import urlencode
-
-    search_req = Request(
-        f"https://search.naver.com/search.naver?{urlencode({'query': f'영화 {title} 상영일정'})}", headers=UA
+def check_schedule_coverage(movies: dict, today: date) -> list[str]:
+    today_iso = today.isoformat()
+    count = sum(
+        any(day >= today_iso and times for dates in movie.get("theater_times", {}).values()
+            for day, times in dates.items())
+        for movie in movies.get("now_playing", [])
     )
-    with opener.open(search_req, timeout=15) as res:
-        text = res.read().decode("utf-8")
-        referer = res.geturl()
+    print(f"  현재·미래 회차가 확인된 영화 {count}편")
+    return [] if count else ["[상영시간] 현재·미래 회차가 전체 상영작에서 0건"]
 
-    movie_code = _extract_movie_code(text)
-    if not movie_code:
+
+def fetch_ground_truth(movie_id: str, day: str) -> set[tuple[str, str]]:
+    """크롤러를 거치지 않고 네이버의 극장 ID와 회차를 읽는다."""
+    url = f"https://api-gw.entertain.naver.com/csearch/contents/movie/{movie_id}/screening"
+    data = _fetch_json(f"{url}?{urlencode({'date': day})}")
+    if data.get("success") is not True:
+        raise ValueError("네이버 시간표 API 응답 오류")
+    result = data.get("result")
+    if result is None:
         return set()
-
-    params = {
-        "where": "nexearch",
-        "pkid": "68",
-        "key": "MovieAPIforScheduleListKB",
-        "u2": movie_code,
-        "u9": f"영화 {title}",
+    if str(result["metadata"]["dssId"]) != movie_id:
+        raise ValueError("응답의 영화 ID 불일치")
+    if result["selectedDate"] != day:
+        if any(info["date"] == day and info["disabled"] is False for info in result["dateAxis"]):
+            raise ValueError("공개 상영일의 응답 날짜 불일치")
+        return set()
+    return {
+        (str(theater["placeId"]), slot["startTime"])
+        for theater in result["theaters"] if theater.get("placeId")
+        for slot in theater.get("runnings", []) if slot.get("startTime")
     }
-    sched_req = Request(
-        f"https://ts-proxy.naver.com/dcontent/nqapirender.nhn?{urlencode(params)}",
-        headers={**UA, "Referer": referer},
-    )
-    with opener.open(sched_req, timeout=15) as res:
-        data = json.loads(res.read().decode("utf-8"))
-
-    names: set[str] = set()
-    for item in data.get("items", []):
-        for m in re.finditer(r'class="this_link_place">\s*([^<]+)<', item.get("html", "")):
-            names.add(m.group(1).strip())
-    return names
 
 
-def check_sample_against_naver(movies: dict, theaters: dict, sample_size: int = 3) -> list[str]:
-    """재개봉작 표본을 네이버 원본과 직접 대조한다."""
+def check_sample_against_naver(movies: dict, today: date, sample_size: int = 2) -> list[str]:
+    """일반작과 재개봉작의 오늘·내일 회차를 극장 ID와 시각으로 비교한다."""
     errors = []
-    theater_by_id = {t["id"]: t for t in theaters["theaters"]}
-    rereleases = [m for m in movies.get("now_playing", []) if m.get("is_rerelease")]
-
-    for m in rereleases[:sample_size]:
-        site_names = {theater_by_id[tid]["name"] for tid in m.get("theaters", []) if tid in theater_by_id}
-        try:
-            truth_names = fetch_ground_truth(m["title"])
-        except Exception as e:
-            errors.append(f"[대조실패] {m['title']!r} 네이버 조회 오류: {e}")
-            continue
-
-        missing_on_site = truth_names - site_names
-        extra_on_site = site_names - truth_names
-        status = "OK" if not missing_on_site else "MISMATCH"
-        print(f"  [{status}] {m['title']}: 사이트={sorted(site_names)} / 네이버={sorted(truth_names)}")
-        if missing_on_site:
-            errors.append(f"[표본대조] {m['title']!r}: 네이버엔 있는데 사이트엔 없음 → {missing_on_site}")
-        if extra_on_site:
-            print(f"           (참고: 사이트에만 있음, 오늘 상영 없이 등록된 것일 수 있음 → {extra_on_site})")
+    checked = 0
+    now_playing = [movie for movie in movies.get("now_playing", []) if movie.get("naver_os")]
+    for rerelease in (True, False):
+        samples = [movie for movie in now_playing if bool(movie.get("is_rerelease")) == rerelease][:sample_size]
+        for movie in samples:
+            for day in (today, today + timedelta(days=1)):
+                day_str = day.isoformat()
+                site = {
+                    (theater_id, slot)
+                    for theater_id, dates in movie.get("theater_times", {}).items()
+                    for slot in dates.get(day_str, [])
+                }
+                try:
+                    source = fetch_ground_truth(movie["naver_os"], day_str)
+                except (OSError, ValueError, KeyError) as exc:
+                    errors.append(f"[대조 실패] {movie['title']} {day_str}: {exc}")
+                    continue
+                checked += bool(source)
+                missing, extra = source - site, site - source
+                print(f"  {movie['title']} {day_str}: 사이트 {len(site)}건 / 네이버 {len(source)}건")
+                if missing or extra:
+                    errors.append(
+                        f"[회차 차이] {movie['title']} {day_str}: "
+                        f"네이버에만 {len(missing)}건, 사이트에만 {len(extra)}건"
+                    )
+    if not checked:
+        errors.append("[표본 대조] 네이버에서 확인된 회차가 0건")
     return errors
 
 
 def main() -> None:
+    sys.stdout.reconfigure(encoding="utf-8")
     local = "--local" in sys.argv
     print(f"검증 대상: {'로컬 docs/data' if local else LIVE_BASE}")
 
@@ -175,8 +153,12 @@ def main() -> None:
     print("2) 날짜 탭 불변식 확인...")
     all_errors += check_date_tab_invariant(movies)
 
-    print("3) 재개봉작 표본을 네이버 원본과 대조...")
-    all_errors += check_sample_against_naver(movies, theaters)
+    today = datetime.now(KST).date()
+    print("3) 전체 상영시간 확인...")
+    all_errors += check_schedule_coverage(movies, today)
+
+    print("4) 일반작과 재개봉작 표본을 네이버 원본과 대조...")
+    all_errors += check_sample_against_naver(movies, today)
 
     print()
     if all_errors:

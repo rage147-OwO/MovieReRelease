@@ -64,13 +64,13 @@
       <h2 id="modal-title"></h2>
       <p id="modal-sub" class="modal-sub"></p>
     </div>
-    <div id="modal-map" class="modal-map"></div>
-    <div id="modal-date-tabs" class="date-tabs" hidden></div>
+    <div id="modal-date-tabs" class="date-tabs" role="group" aria-label="상영 날짜" hidden></div>
+    <details id="modal-map-panel" class="modal-map-panel" hidden>
+      <summary>상영관 지도 보기</summary>
+      <div id="modal-map" class="modal-map"></div>
+    </details>
     <ul id="modal-theater-list" class="theater-list"></ul>
-    <p id="modal-empty" class="modal-empty" hidden>
-      아직 확인된 상영관이 없어요 — 현재 서울 주요 극장가만 반영돼 있습니다.
-      <a id="modal-fallback-link" target="_blank" rel="noopener">네이버에서 상영관 찾기 ↗</a>
-    </p>
+    <p id="modal-empty" class="modal-empty" hidden>확인된 상영 일정이 없어요.</p>
   </div>
 </div>
 

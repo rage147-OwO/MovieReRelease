@@ -78,11 +78,11 @@ const $updated = document.getElementById("updated");
 const $modalBackdrop = document.getElementById("theater-modal");
 const $modalTitle = document.getElementById("modal-title");
 const $modalSub = document.getElementById("modal-sub");
+const $modalMapPanel = document.getElementById("modal-map-panel");
 const $modalMap = document.getElementById("modal-map");
 const $modalDateTabs = document.getElementById("modal-date-tabs");
 const $modalList = document.getElementById("modal-theater-list");
 const $modalEmpty = document.getElementById("modal-empty");
-const $modalFallbackLink = document.getElementById("modal-fallback-link");
 
 const WEEKDAY_KO = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -141,8 +141,17 @@ async function init() {
     const btn = e.target.closest(".date-tab");
     if (!btn || !modalState) return;
     modalState.selectedDate = btn.dataset.date;
-    $modalDateTabs.querySelectorAll(".date-tab").forEach((b) => b.classList.toggle("active", b === btn));
+    $modalDateTabs.querySelectorAll(".date-tab").forEach((b) => {
+      b.classList.toggle("active", b === btn);
+      b.setAttribute("aria-pressed", String(b === btn));
+    });
     renderTheaterList();
+  });
+
+  $modalMapPanel.addEventListener("toggle", () => {
+    if ($modalMapPanel.open && !$modalMapPanel.hidden && modalState) {
+      renderMap(modalState.visibleTheaters);
+    }
   });
 
   document.getElementById("notify-info-btn").addEventListener("click", () => {
@@ -190,12 +199,12 @@ async function fetchData() {
     fetch("data/movies.json", { cache: "no-cache" }),
     fetch("data/theaters.json", { cache: "no-cache" }),
   ]);
-  if (!moviesRes.ok) throw new Error(String(moviesRes.status));
-  state.data = await moviesRes.json();
-  if (theatersRes.ok) {
-    const theatersData = await theatersRes.json();
-    state.theaters = new Map((theatersData.theaters || []).map((t) => [t.id, t]));
+  if (!moviesRes.ok || !theatersRes.ok) {
+    throw new Error(`영화 데이터 ${moviesRes.status}, 극장 데이터 ${theatersRes.status}`);
   }
+  const [moviesData, theatersData] = await Promise.all([moviesRes.json(), theatersRes.json()]);
+  state.theaters = new Map(theatersData.theaters.map((t) => [t.id, t]));
+  state.data = moviesData;
 }
 
 // 배포 도중 CDN 전파 지연이나 순간적인 네트워크 오류로 첫 요청이 실패해도
@@ -279,7 +288,7 @@ function cardHtml(m, idx) {
 
   return `
 <div class="card" data-idx="${idx}" tabindex="0" role="button" aria-haspopup="dialog"
-     aria-label="${escapeAttr(m.title)} — 상영관 보기">
+     aria-label="${escapeAttr(m.title)} — 상영일정 보기">
   <div class="poster">
     ${poster}
     ${m.is_rerelease ? `<span class="badge-re">재개봉</span>` : ""}
@@ -294,15 +303,27 @@ function cardHtml(m, idx) {
 </div>`;
 }
 
-let modalState = null; // { theaterList, times, dates, selectedDate }
+let modalState = null;
+
+function koreaToday() {
+  const parts = new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit",
+  }).formatToParts(new Date());
+  const dateParts = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  return [dateParts.year, dateParts.month, dateParts.day].join("-");
+}
 
 function openModal(movie) {
   if (!movie) return;
 
   $modalTitle.textContent = movie.title;
-  $modalSub.innerHTML = movie.naver_link
-    ? `<a href="${escapeAttr(movie.naver_link)}" target="_blank" rel="noopener">네이버에서 보기 ↗</a>`
-    : "";
+  const search = new URLSearchParams({ query: `영화 ${movie.title} 상영일정` });
+  if (movie.naver_os) {
+    search.set("pkid", "68");
+    search.set("os", movie.naver_os);
+  }
+  $modalSub.innerHTML = `<a href="https://search.naver.com/search.naver?${escapeAttr(search.toString())}"
+    target="_blank" rel="noopener">네이버에서 상영일정 보기 ↗</a>`;
 
   const theaterList = (movie.theaters || [])
     .map((id) => state.theaters.get(id))
@@ -314,17 +335,15 @@ function openModal(movie) {
     theaterList.sort((a, b) => (regionIdOf(b) === state.myRegion) - (regionIdOf(a) === state.myRegion));
   }
 
-  $modalFallbackLink.href = movie.naver_link || "#";
-
-  // 지도 컨테이너가 실제로 보이는 상태여야 Leaflet이 크기를 올바르게 계산한다 —
-  // hidden 해제를 먼저 하고 나서 지도를 그린다.
+  $modalMapPanel.open = false;
   $modalBackdrop.hidden = false;
+  $modalTitle.closest(".modal").scrollTop = 0;
   document.body.style.overflow = "hidden";
   document.getElementById("modal-close").focus();
 
   if (theaterList.length === 0) {
     modalState = null;
-    $modalMap.hidden = true;
+    $modalMapPanel.hidden = true;
     $modalDateTabs.hidden = true;
     $modalList.hidden = true;
     $modalEmpty.hidden = false;
@@ -335,26 +354,26 @@ function openModal(movie) {
   $modalEmpty.hidden = true;
 
   const times = movie.theater_times || {};
+  const today = koreaToday();
   const dateSet = new Set();
-  theaterList.forEach((t) => Object.keys(times[t.id] || {}).forEach((d) => dateSet.add(d)));
-  const dates = [...dateSet].sort();
-
-  modalState = { theaterList, times, dates, selectedDate: dates[0] || null };
-
-  if (dates.length > 0) {
-    $modalDateTabs.hidden = false;
-    $modalDateTabs.innerHTML = dates
-      .map((d, i) => {
-        const dt = new Date(d + "T00:00:00+09:00");
-        const label = i === 0 ? "오늘" : WEEKDAY_KO[dt.getDay()];
-        return `<button class="date-tab${i === 0 ? " active" : ""}" data-date="${d}">
-          <span class="date-tab-num">${dt.getDate()}</span><span class="date-tab-day">${label}</span>
-        </button>`;
-      })
-      .join("");
-  } else {
-    $modalDateTabs.hidden = true;
+  for (const theater of theaterList) {
+    for (const [day, slots] of Object.entries(times[theater.id] || {})) {
+      if (day >= today && Array.isArray(slots) && slots.length > 0) dateSet.add(day);
+    }
   }
+  const dates = [...dateSet].sort();
+  modalState = { theaterList, times, selectedDate: dates[0] || null, visibleTheaters: [] };
+
+  $modalDateTabs.hidden = dates.length === 0;
+  $modalDateTabs.innerHTML = dates.map((day, index) => {
+    const dt = new Date(day + "T00:00:00Z");
+    const label = day === today ? "오늘" : WEEKDAY_KO[dt.getUTCDay()];
+    const dateLabel = `${dt.getUTCMonth() + 1}/${dt.getUTCDate()}`;
+    return `<button type="button" class="date-tab${index === 0 ? " active" : ""}"
+      aria-pressed="${index === 0}" data-date="${day}">
+      <span class="date-tab-num">${dateLabel}</span><span class="date-tab-day">${label}</span>
+    </button>`;
+  }).join("");
 
   renderTheaterList();
 }
@@ -369,6 +388,7 @@ function renderTheaterList() {
   const visibleTheaters = selectedDate
     ? theaterList.filter((t) => (times[t.id]?.[selectedDate]?.length ?? 0) > 0)
     : theaterList;
+  modalState.visibleTheaters = visibleTheaters;
 
   // 선택한 날짜에 해당하는 극장이 하나도 없으면(이론상 dates는 극장별
   // 스케줄의 합집합이라 발생하지 않아야 하지만, 데이터 이상치에 대비해
@@ -376,13 +396,13 @@ function renderTheaterList() {
   // 전부 없는 완전히 빈 화면이 되는 걸 막는다.
   if (!visibleTheaters.length) {
     $modalList.innerHTML = `<li class="theater-list-empty">이 날짜엔 상영 정보가 있는 극장이 없어요</li>`;
-    $modalMap.hidden = true;
+    $modalMapPanel.hidden = true;
     return;
   }
 
   const grouped = visibleTheaters.length >= COLLAPSE_THRESHOLD;
 
-  const rowHtml = (t) => {
+  const rowHtml = (t, open = false) => {
     const dayTimes = selectedDate ? times[t.id]?.[selectedDate] : null;
     const timesHtml = dayTimes && dayTimes.length
       ? `<span class="theater-times">${dayTimes
@@ -399,7 +419,7 @@ function renderTheaterList() {
     // 극장이 많을 땐 <details>로 접어둔다 — 클릭(탭)하면 시간이 펼쳐진다.
     // 네이티브 요소라 별도 JS 토글 코드 없이 접근성도 챙겨진다.
     return grouped
-      ? `<li class="theater-row-collapsible"><details><summary>${nameAddr}</summary>${timesHtml}</details></li>`
+      ? `<li class="theater-row-collapsible"><details${open ? " open" : ""}><summary>${nameAddr}</summary>${timesHtml}</details></li>`
       : `<li>${nameAddr}${timesHtml}</li>`;
   };
 
@@ -420,19 +440,20 @@ function renderTheaterList() {
     }
     $modalList.innerHTML = nonEmpty
       .map(
-        (g) => `
+        (g, groupIndex) => `
       <li class="region-group-header">${escapeHtml(g.label)} <span class="region-group-count">${g.theaters.length}</span></li>
-      ${g.theaters.map(rowHtml).join("")}`
+      ${g.theaters.map((t, rowIndex) => rowHtml(t, groupIndex === 0 && rowIndex === 0)).join("")}`
       )
       .join("");
   } else {
-    $modalList.innerHTML = visibleTheaters.map(rowHtml).join("");
+    $modalList.innerHTML = visibleTheaters.map((t) => rowHtml(t)).join("");
   }
 
   // 매칭된 극장 전부 좌표가 없으면(지역 시딩 밖 극장) 빈 지도 박스 대신 리스트만 보여준다.
   const hasCoords = visibleTheaters.some((t) => t.lat && t.lon);
-  $modalMap.hidden = !hasCoords;
-  if (hasCoords) renderMap(visibleTheaters);
+  $modalMapPanel.hidden = !hasCoords || typeof L === "undefined";
+  if ($modalMapPanel.hidden) $modalMapPanel.open = false;
+  if ($modalMapPanel.open) renderMap(visibleTheaters);
 }
 
 function closeModal() {
@@ -455,6 +476,10 @@ function matchesRegion(theater, keywords) {
 // 이 극장이 속한 지역 id를 하나 고른다 (없으면 null → "기타").
 // MANUAL_REGION_OVERRIDES를 먼저 보고, 없으면 키워드 매칭으로 판단한다.
 function regionIdOf(theater) {
+  if (theater.region) {
+    const sourceGroup = REGION_GROUPS.find((g) => g.keywords.some((k) => theater.region.includes(k)));
+    if (sourceGroup) return sourceGroup.id;
+  }
   const override = MANUAL_REGION_OVERRIDES[theater.name];
   if (override) return override;
   const group = REGION_GROUPS.find((g) => matchesRegion(theater, g.keywords));

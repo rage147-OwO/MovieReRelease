@@ -352,6 +352,14 @@ body {
 .modal-sub a { color: var(--accent); font-size: 0.85rem; text-decoration: none; }
 .modal-sub a:hover { text-decoration: underline; }
 
+.modal-map-panel { margin-bottom: 12px; }
+.modal-map-panel summary {
+  color: var(--text-sub);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 6px 0;
+}
+.modal-map-panel summary:hover { color: var(--accent); }
 .modal-map {
   height: 240px;
   border-radius: 10px;
@@ -367,6 +375,7 @@ body {
   padding-bottom: 4px;
   margin-bottom: 8px;
 }
+.date-tabs[hidden] { display: none; }
 .date-tab {
   flex-shrink: 0;
   display: flex;
