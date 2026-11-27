@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 21 * * *" # 매일 06:00 KST
   workflow_dispatch:
+    inputs:
+      publish_only:
+        description: "Publish the current site without crawling movies"
+        type: boolean
+        default: false
   push:
     branches: [main]
 
@@ -30,15 +35,18 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
+        if: ${{ !inputs.publish_only }}
         run: pip install -r requirements.txt
 
       - name: Crawl movies
+        if: ${{ !inputs.publish_only }}
         env:
           KOBIS_API_KEY: ${{ secrets.KOBIS_API_KEY }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python -m crawler.main
 
       - name: Commit updated data
+        if: ${{ !inputs.publish_only }}
         # 생성한 데이터와 피드를 최신 main에 얹은 뒤 HTML의 캐시 번호만 다시 붙인다.
         run: |
           git config user.name "github-actions[bot]"
@@ -61,7 +69,7 @@ jobs:
       # 아래 3단계는 저장소가 public(또는 유료 플랜)이어야 성공한다.
       # 그 전까지는 실패해도 크롤 자체는 성공으로 유지 (continue-on-error)
       - name: Configure Pages
-        continue-on-error: true
+        continue-on-error: ${{ !inputs.publish_only }}
         uses: actions/configure-pages@v4
         with:
           enablement: true
@@ -74,6 +82,7 @@ jobs:
           import json
           import os
           from pathlib import Path
+          from time import time_ns
           from urllib.parse import urlsplit
 
           endpoint = os.environ["WEEKLY_EMAIL_API_URL"].strip().rstrip("/")
@@ -84,14 +93,18 @@ jobs:
           Path("docs/weekly-email-config.js").write_text(
               "globalThis.WEEKLY_EMAIL_API = " + json.dumps(endpoint) + ";\n", encoding="utf-8"
           )
+          index = Path("docs/index.html")
+          html = index.read_text(encoding="utf-8")
+          html = html.replace('src="weekly-email-config.js"', f'src="weekly-email-config.js?v={time_ns()}"')
+          index.write_text(html, encoding="utf-8")
           PY
 
-      - continue-on-error: true
+      - continue-on-error: ${{ !inputs.publish_only }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs
 
       - name: Deploy to GitHub Pages
-        continue-on-error: true
+        continue-on-error: ${{ !inputs.publish_only }}
         id: deployment
         uses: actions/deploy-pages@v4
