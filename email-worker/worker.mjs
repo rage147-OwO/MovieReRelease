@@ -6,6 +6,8 @@ const EMAIL = /^[a-z0-9.!#$%&'*+\/=?^_~-]+@(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9]
 const TOKEN = /^[a-f0-9]{64}$/;
 const GMAIL_RELAY = /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/;
 
+class MailRelayError extends Error {}
+
 function toHex(bytes) {
   return Array.from(bytes, byte => byte.toString(16).padStart(2, "0")).join("");
 }
@@ -42,19 +44,21 @@ async function sendEmail(env, email, subject, text, idempotencyKey) {
     }),
     redirect: "manual",
     signal,
-  });
+  }).catch(() => { throw new MailRelayError("Gmail relay request failed"); });
   // Apps Script ContentService returns its result on a Google-hosted GET URL.
   if (response.status === 302 || response.status === 303) {
     const resultUrl = new URL(response.headers.get("Location") || "", env.GMAIL_RELAY_URL);
     if (resultUrl.origin !== "https://script.googleusercontent.com" || resultUrl.pathname !== "/macros/echo" ||
         resultUrl.username || resultUrl.password) {
-      throw new Error("Unexpected Gmail relay redirect");
+      throw new MailRelayError("Unexpected Gmail relay redirect");
     }
-    response = await fetch(resultUrl, { redirect: "error", signal });
+    response = await fetch(resultUrl, { redirect: "manual", signal })
+      .catch(() => { throw new MailRelayError("Gmail relay acknowledgement request failed"); });
   }
-  if (!response.ok || (await response.json()).ok !== true) {
-    throw new Error("Gmail relay did not accept the email");
-  }
+  if (!response.ok) throw new MailRelayError("Gmail relay acknowledgement HTTP " + response.status);
+  const acknowledgement = await response.json()
+    .catch(() => { throw new MailRelayError("Gmail relay acknowledgement was not JSON"); });
+  if (acknowledgement?.ok !== true) throw new MailRelayError("Gmail relay did not accept the email");
 }
 
 async function requestChange(env, action, email, now) {
@@ -64,14 +68,19 @@ async function requestChange(env, action, email, now) {
     const pending = await env.DB.prepare(
       "INSERT INTO pending_subscriptions(email, token, requested_at) " +
       "SELECT ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM subscribers WHERE email = ?) " +
-      "ON CONFLICT(email) DO UPDATE SET token = excluded.token, requested_at = excluded.requested_at " +
-      "WHERE pending_subscriptions.requested_at <= ? RETURNING token",
-    ).bind(email, token, now, email, now - REQUEST_INTERVAL).first();
+      "ON CONFLICT(email) DO UPDATE SET " +
+      "token = CASE WHEN pending_subscriptions.requested_at <= ? THEN excluded.token ELSE pending_subscriptions.token END, " +
+      "requested_at = CASE WHEN pending_subscriptions.requested_at <= ? THEN excluded.requested_at " +
+      "ELSE pending_subscriptions.requested_at END, mail_sent = 0 " +
+      "WHERE pending_subscriptions.requested_at <= ? OR pending_subscriptions.mail_sent = 0 RETURNING token",
+    ).bind(email, token, now, email, now - REQUEST_INTERVAL, now - REQUEST_INTERVAL, now - REQUEST_INTERVAL).first();
     if (!pending) return;
-    const link = emailLink(env.SITE_URL, action, token);
+    const link = emailLink(env.SITE_URL, action, pending.token);
     await sendEmail(env, email, "재개봉 알리미 이메일 등록 확인",
       "아래 링크를 열고 등록을 확인해 주세요. 링크는 24시간 동안 유효해요.\n\n" + link,
-      "registration/" + token);
+      "registration/" + pending.token);
+    await env.DB.prepare("UPDATE pending_subscriptions SET mail_sent = 1 WHERE token = ?")
+      .bind(pending.token).run();
     return;
   }
 
@@ -143,6 +152,7 @@ async function handleRequest(request, env) {
     return respond(204);
   } catch (error) {
     if (error instanceof SyntaxError) return respond(400);
+    if (error instanceof MailRelayError) console.error(error.message);
     return respond(503);
   }
 }
