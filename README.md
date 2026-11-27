@@ -67,6 +67,25 @@ Pages 활성화는 워크플로가 자동으로 처리한다(`configure-pages` +
 어제 없던 것만** 새 재개봉작으로 판단해 알림을 보낸다. 이미 알려진 재개봉작은 매일 재알림하지 않는다.
 상영 예정(개봉 전)도 재개봉 라벨이 붙는 순간 알림 대상이라, 실제 상영보다 먼저 알 수 있다.
 
+### 주간 이메일 알림
+
+영화 화면 하단의 **새 재개봉작 알림 설정 → 주간 이메일**에서 주소를 등록하거나 삭제한다.
+메일 확인 링크를 누르면 같은 화면에서 완료할 수 있다. 매주 월요일 오전 9시(한국 시간)에
+그 주 월~일에 재개봉하는 영화, 공개된 상영 일정, 다음 주 예정작을 보낸다.
+
+GitHub Pages에는 화면과 API 주소만 배포한다. 수신 주소는 Cloudflare D1에 저장하고,
+Cloudflare Worker가 Resend로 확인 메일과 주간 메일을 보낸다.
+
+1. `email-worker` 디렉터리에서 `npx wrangler d1 create movie-rerelease-email`을 실행한다.
+   반환된 데이터베이스 ID를 `wrangler.toml`의 `database_id`에 넣는다.
+2. Resend에서 발신 도메인을 확인하고 `wrangler.toml`의 `MAIL_FROM`에 발신 주소를 넣는다.
+   `npx wrangler secret put RESEND_API_KEY`로 발송 키를 저장한다.
+   사이트 주소가 기본 GitHub Pages 주소와 다르면 `SITE_URL`도 바꾼다.
+3. `npx wrangler d1 migrations apply movie-rerelease-email --remote`를 실행한 뒤
+   `npx wrangler deploy`로 Worker를 배포한다.
+4. GitHub 저장소 Actions 변수 `WEEKLY_EMAIL_API_URL`에 Worker HTTPS 주소를 넣고
+   사이트 워크플로를 다시 실행한다. 이 값이 없으면 이메일 폼은 잠겨 있다.
+
 ## 로드맵
 
 - [x] **Phase 1** — 재개봉 감지 + 목록 사이트 + 매일 자동 갱신

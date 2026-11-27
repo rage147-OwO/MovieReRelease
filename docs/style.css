@@ -567,6 +567,47 @@ body {
   color: var(--text-sub);
   font-size: 0.8rem;
 }
+.weekly-email {
+  margin-bottom: 20px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+.weekly-email fieldset {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.weekly-email label,
+.weekly-email .notify-desc { font-size: 0.875rem; }
+.weekly-email input,
+.weekly-email button {
+  min-height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  padding: 6px 12px;
+  font: inherit;
+}
+.weekly-email input:focus-visible,
+.weekly-email button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.weekly-email-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.weekly-email button { cursor: pointer; }
+.weekly-email button[value="subscribe"],
+#weekly-email-confirm-button {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  font-weight: 700;
+}
+.weekly-email button:disabled, .weekly-email fieldset:disabled { opacity: 0.55; }
+.weekly-email .weekly-email-status { margin: 10px 0 0; }
+.weekly-email [hidden] { display: none; }
 .feed-url-box {
   display: flex;
   align-items: center;
