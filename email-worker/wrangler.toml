@@ -5,7 +5,6 @@ preview_urls = false
 
 [vars]
 SITE_URL = "https://rage147-owo.github.io/MovieReRelease/"
-MAIL_FROM = ""
 
 [triggers]
 crons = ["0 0 * * MON"] # 월요일 오전 9시 KST

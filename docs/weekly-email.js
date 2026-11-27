@@ -85,8 +85,22 @@
     }
   });
 
-  fields.disabled = false;
-  status.textContent = "등록과 삭제는 이메일로 확인해요.";
+  async function checkSender() {
+    try {
+      const response = await fetch(api.replace(/\/$/, "") + "/status", {
+        credentials: "omit",
+        cache: "no-store",
+        signal: AbortSignal.timeout(5000),
+      });
+      if (!response.ok) return;
+      fields.disabled = false;
+      status.textContent = "등록과 삭제는 이메일로 확인해요.";
+    } catch {
+      // Keep the form disabled until the mail service can be reached.
+    }
+  }
+
   window.addEventListener("hashchange", showConfirmation);
   showConfirmation();
+  checkSender();
 })();

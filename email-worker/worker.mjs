@@ -5,9 +5,12 @@ const REQUEST_INTERVAL = 15 * 60 * 1000;
 const EMAIL = /^[a-z0-9.!#$%&'*+\/=?^_~-]+@(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i;
 const TOKEN = /^[a-f0-9]{64}$/;
 
-function newToken() {
-  const bytes = crypto.getRandomValues(new Uint8Array(32));
+function toHex(bytes) {
   return Array.from(bytes, byte => byte.toString(16).padStart(2, "0")).join("");
+}
+
+function newToken() {
+  return toHex(crypto.getRandomValues(new Uint8Array(32)));
 }
 
 function emailLink(site, action, token) {
@@ -16,23 +19,45 @@ function emailLink(site, action, token) {
   return url.href;
 }
 
+function mailConfigured(env) {
+  return Boolean(env.BREVO_API_KEY && env.MAIL_FROM);
+}
+
+async function mailRequestId(key) {
+  const bytes = new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(key)));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = toHex(bytes.subarray(0, 16));
+  return [hex.slice(0, 8), hex.slice(8, 12), hex.slice(12, 16), hex.slice(16, 20), hex.slice(20)].join("-");
+}
+
 async function sendEmail(env, email, subject, text, idempotencyKey) {
-  if (!env.RESEND_API_KEY || !env.MAIL_FROM) throw new Error("Mail sender is not configured");
-  const response = await fetch("https://api.resend.com/emails", {
+  if (!mailConfigured(env)) throw new Error("Mail sender is not configured");
+  const response = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: {
-      "Authorization": "Bearer " + env.RESEND_API_KEY,
+      "api-key": env.BREVO_API_KEY,
       "Content-Type": "application/json",
-      "Idempotency-Key": idempotencyKey,
     },
-    body: JSON.stringify({ from: env.MAIL_FROM, to: [email], subject, text }),
+    body: JSON.stringify({
+      sender: { email: env.MAIL_FROM, name: "재개봉 알리미" },
+      to: [{ email }],
+      subject,
+      textContent: text,
+      headers: { idempotencyKey: await mailRequestId(idempotencyKey) },
+    }),
     signal: AbortSignal.timeout(10000),
   });
-  if (!response.ok) throw new Error("Mail provider returned " + response.status);
+  if (response.ok) return;
+  if (response.status === 400 || response.status === 409) {
+    const detail = await response.json().catch(() => null);
+    if (detail?.code === "duplicate_parameter" && /idempotency/i.test(detail.message || "")) return;
+  }
+  throw new Error("Mail provider returned " + response.status);
 }
 
 async function requestChange(env, action, email, now) {
-  if (!env.RESEND_API_KEY || !env.MAIL_FROM) throw new Error("Mail sender is not configured");
+  if (!mailConfigured(env)) throw new Error("Mail sender is not configured");
   if (action === "subscribe") {
     const token = newToken();
     const pending = await env.DB.prepare(
@@ -84,13 +109,16 @@ async function handleRequest(request, env) {
   if (request.headers.get("Origin") !== origin) return new Response(null, { status: 403 });
   const headers = {
     "Access-Control-Allow-Origin": origin,
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     "Cache-Control": "no-store",
     "Vary": "Origin",
   };
   const respond = status => new Response(null, { status, headers });
   const { pathname } = new URL(request.url);
+  if (pathname === "/status") {
+    return respond(request.method !== "GET" ? 405 : mailConfigured(env) ? 204 : 503);
+  }
   if (pathname !== "/request" && pathname !== "/confirm") return respond(404);
   if (request.method === "OPTIONS") return respond(204);
   if (request.method !== "POST") return respond(405);
