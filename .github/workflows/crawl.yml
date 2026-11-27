@@ -39,12 +39,7 @@ jobs:
         run: python -m crawler.main
 
       - name: Commit updated data
-        # docs/data/*.json, docs/feed.xml, docs/index.html(캐시버스팅 쿼리)은
-        # 매번 전량 재생성되는 산출물이라 병합 대상이 아니다.
-        # (workflow re-run은 최신 main이 아닌 원래 트리거 커밋을 체크아웃하므로
-        #  rebase/merge 시도는 실제 내용 충돌을 일으킬 수 있다 — 항상 최신 main 위에 덮어쓴다.)
-        # 전부 백업/복원해야 한다 — 일부만 복원하면 reset --hard로 되돌아간
-        # 나머지가 영영 갱신되지 않는 채로 남는다. 새 산출물이 생기면 여기도 추가할 것.
+        # 생성한 데이터와 피드를 최신 main에 얹은 뒤 HTML의 캐시 번호만 다시 붙인다.
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -52,13 +47,13 @@ jobs:
           mkdir -p /tmp/data-backup
           cp -r docs/data /tmp/data-backup/data
           cp docs/feed.xml /tmp/data-backup/feed.xml
-          cp docs/index.html /tmp/data-backup/index.html
           git fetch origin main
           git reset --hard origin/main
           rm -rf docs/data
           cp -r /tmp/data-backup/data docs/data
           cp /tmp/data-backup/feed.xml docs/feed.xml
-          cp /tmp/data-backup/index.html docs/index.html
+          export ASSET_VERSION=$(date -u +%Y%m%d%H%M%S)
+          python -c 'import os; from crawler.main import INDEX_HTML, _bump_cache_bust; _bump_cache_bust(INDEX_HTML, os.environ["ASSET_VERSION"])'
           git add docs/data docs/feed.xml docs/index.html
           git diff --cached --quiet || git commit -m "data: update movies ($(date +%F))"
           git push origin HEAD:main
@@ -70,6 +65,26 @@ jobs:
         uses: actions/configure-pages@v4
         with:
           enablement: true
+
+      - name: Configure weekly email endpoint
+        env:
+          WEEKLY_EMAIL_API_URL: ${{ vars.WEEKLY_EMAIL_API_URL }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from urllib.parse import urlsplit
+
+          endpoint = os.environ["WEEKLY_EMAIL_API_URL"].strip().rstrip("/")
+          if endpoint:
+              url = urlsplit(endpoint)
+              if url.scheme != "https" or not url.hostname or url.username or url.password or url.query or url.fragment:
+                  raise ValueError("WEEKLY_EMAIL_API_URL must be a public HTTPS URL")
+          Path("docs/weekly-email-config.js").write_text(
+              "globalThis.WEEKLY_EMAIL_API = " + json.dumps(endpoint) + ";\n", encoding="utf-8"
+          )
+          PY
 
       - continue-on-error: true
         uses: actions/upload-pages-artifact@v3
