@@ -6,7 +6,15 @@
 <description>지금 극장에서 다시 만날 수 있는 재개봉 영화를 매일 자동으로 찾아 알려드려요.</description>
 <language>ko</language>
 <atom:link href="https://rage147-owo.github.io/MovieReRelease/feed.xml" rel="self" type="application/rss+xml"/>
-<lastBuildDate>Sat, 28 Nov 2026 06:33:42 +0900</lastBuildDate>
+<lastBuildDate>Sun, 29 Nov 2026 06:31:07 +0900</lastBuildDate>
+<item>
+<title>쉘부르의 우산</title>
+<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1748312&amp;qvt=0&amp;query=%EC%89%98%EB%B6%80%EB%A5%B4%EC%9D%98%20%EC%9A%B0%EC%82%B0</link>
+<guid isPermaLink="false">naver_os:1748312</guid>
+<pubDate>Sun, 29 Nov 2026 06:31:07 +0900</pubDate>
+<description>멜로/로맨스 · 92분 · 재개봉 2026.12.30</description>
+<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20190726_57%2F1564118789137SblIi_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
+</item>
 <item>
 <title>랜드 앤 프리덤</title>
 <link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1755860&amp;qvt=0&amp;query=%EB%9E%9C%EB%93%9C%EC%95%A4%ED%94%84%EB%A6%AC%EB%8D%A4</link>
@@ -398,14 +406,6 @@
 <pubDate>Wed, 12 Aug 2026 09:00:00 +0900</pubDate>
 <description>드라마 · 114분 · 재개봉 2026.08.12</description>
 <enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260731_120%2F1785482235785sEiNj_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
-</item>
-<item>
-<title>애정만세</title>
-<link>https://search.naver.com/search.naver?where=nexearch&amp;sm=tab_etc&amp;pkid=68&amp;os=1757504&amp;qvt=0&amp;query=%EC%95%A0%EC%A0%95%EB%A7%8C%EC%84%B8</link>
-<guid isPermaLink="false">naver_os:1757504</guid>
-<pubDate>Wed, 12 Aug 2026 09:00:00 +0900</pubDate>
-<description>드라마 · 118분 · 재개봉 2026.08.12</description>
-<enclosure url="https://search.pstatic.net/common?type=o&amp;size=304x456&amp;quality=100&amp;direct=true&amp;src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260727_294%2F1785134328415cwbzg_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2" type="image/jpeg"/>
 </item>
 </channel>
 </rss>
